@@ -1,44 +1,88 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import {
-  setPhotosList as setPhotosListAction,
-  setSearchValue as setSearchValueAction,
-} from "../actions";
-import axios from "axios";
-// import { apiKey } from "../apiKey";
+import React, { useContext } from "react";
+import styled from "styled-components";
+import RootContext from "../context";
+const StyledForm = styled.form`
+  /* background-color: cadetblue; */
+  height: 100%;
+  position: relative;
+  /* height: 10%; */
+  /* top: calc(100% + 4px); */
+`;
+const StyledSearchInput = styled.input`
+  width: 100%;
+  height: 55px;
+  position: relative;
+  max-width: 800px;
+  border: none;
+  border-radius: 5px;
 
-const Search = ({ setSearchValue, searchValue, setPhotosList }) => {
-  const getPhotosFromApi = () => {
-    axios
-      .get(
-        ` https://api.unsplash.com/search/photos?page=1&query=${searchValue}&client_id=${apiKey}`
-      )
+  /* position: relative; */
+`;
+const StyledPopper = styled.div`
+width: 100%;
+/* max-height:43%; */
+ 
+position:absolute;
+/* bottom:0; */
+margin-top:5px;
+z-index:300;
+color:black;
+border-radius: 5px;
+background-color: white;
+display:flex;
+align-items:center;
+/* opacity:${({ isPopperVisible }) => (isPopperVisible ? "1" : "0")}; */
+display:${({ isPopperVisible }) => (isPopperVisible ? "block" : "none")};
+}
 
-      .then((res) => {
-        setPhotosList(res.data.results);
-        console.log(res.data);
-      });
-  };
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearchValue(e.target.searchValue.value);
-  };
+`;
+const StyledSearchWrapper = styled.div`
+  max-width: 800px;
+`;
+const Search = () => {
+  const context = useContext(RootContext);
+  const {
+    searchInputValue,
+    isPopperVisible,
+    keyWordsArray,
+    getPhotosFromApiBySubmitingForm,
+    getPhotosFromApiByClickingOnSuggestionList,
+    showPopper,
+  } = context;
+
   return (
-    <form
-      onSubmit={(e) => {
-        getPhotosFromApi();
-        handleSearch(e);
-      }}
-    >
-      <input name="search" name="searchValue" />
-    </form>
+    <StyledSearchWrapper>
+      <StyledForm onSubmit={getPhotosFromApiBySubmitingForm}>
+        <StyledSearchInput
+          type="text"
+          placeholder="Search free high-resolution photos"
+          onChange={showPopper}
+          value={searchInputValue}
+          name="searchPhotos"
+          autoComplete="off"
+        />
+        <StyledPopper isPopperVisible={isPopperVisible}>
+          <ul>
+            {keyWordsArray.map((word, index) => (
+              <>
+                {index <= 4 ? (
+                  <li
+                    key={index}
+                    onClick={() =>
+                      getPhotosFromApiByClickingOnSuggestionList(word)
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    <p>{word}</p>
+                  </li>
+                ) : null}
+              </>
+            ))}
+          </ul>
+        </StyledPopper>
+      </StyledForm>
+    </StyledSearchWrapper>
   );
 };
-const mapDispatchToPropos = (dispatch) => ({
-  setPhotosList: (res) => dispatch(setPhotosListAction(res)),
-  setSearchValue: (value) => dispatch(setSearchValueAction(value)),
-});
-const mapStateToProps = (state) => ({
-  searchValue: state.searchValue,
-});
-export default connect(mapStateToProps, mapDispatchToPropos)(Search);
+
+export default Search;
