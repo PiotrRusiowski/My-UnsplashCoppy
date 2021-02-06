@@ -48,6 +48,7 @@ const Search = () => {
     getPhotosFromApiBySubmitingForm,
     getPhotosFromApiByClickingOnSuggestionList,
     showPopper,
+    setshowSearchValue,
   } = context;
 
   return (
@@ -68,9 +69,10 @@ const Search = () => {
                 {index <= 4 ? (
                   <li
                     key={index}
-                    onClick={() =>
-                      getPhotosFromApiByClickingOnSuggestionList(word)
-                    }
+                    onClick={() => {
+                      getPhotosFromApiByClickingOnSuggestionList(word);
+                      setshowSearchValue(word);
+                    }}
                     style={{ cursor: "pointer" }}
                   >
                     <p>{word}</p>

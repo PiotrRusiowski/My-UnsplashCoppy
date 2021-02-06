@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import RootContext from "../../context";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledSuggestionsList = styled.ul`
   display: flex;
@@ -16,6 +17,8 @@ const StyledSugestBtn = styled.button`
   color: #767676;
   border: 1px solid #d1d1d1;
   border-radius: 5px;
+  outline: none;
+
   &:hover {
     border-color: #767676;
     color: black;
@@ -23,13 +26,29 @@ const StyledSugestBtn = styled.button`
 `;
 const SuggestionsList = () => {
   const context = useContext(RootContext);
-  const { suggestionsArray } = context;
+  const {
+    suggestionsArray,
+    getPhotosFromApiByClickingOnSuggestionList,
+    setshowSearchValue,
+  } = context;
   return (
     <StyledSuggestionsList>
-      {suggestionsArray.map((suggest) => (
-        <li>
-          <StyledSugestBtn>{suggest}</StyledSugestBtn>
-        </li>
+      {suggestionsArray.map((suggest, index) => (
+        <>
+          {index <= 8 ? (
+            <li>
+              <Link
+                to={`/photosGallery/${suggest}`}
+                onClick={() => {
+                  getPhotosFromApiByClickingOnSuggestionList(suggest);
+                  setshowSearchValue(suggest);
+                }}
+              >
+                <StyledSugestBtn>{suggest}</StyledSugestBtn>
+              </Link>
+            </li>
+          ) : null}
+        </>
       ))}
     </StyledSuggestionsList>
   );

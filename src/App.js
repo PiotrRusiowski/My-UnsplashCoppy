@@ -82,7 +82,6 @@ const App = () => {
 
         setSuggestionsArray([...suggestions]);
 
-        setshowSearchValue(searchInputValue);
         setIsPopperVisible(false);
         setGoToGalleryPage(true);
       });
@@ -125,6 +124,7 @@ const App = () => {
           getPhotosFromApiBySubmitingForm,
           getPhotosFromApiByClickingOnSuggestionList,
           showPopper,
+          setshowSearchValue,
         }}
       >
         <GlobalStyle />
