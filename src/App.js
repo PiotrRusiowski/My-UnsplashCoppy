@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import PhotosList from "./components/PhotosList";
+import Search2 from "./components/Search2";
 
-function App() {
+const App = () => {
+  const [photosList, setPhotosList] = useState([]);
+
+  // console.log(keywordsData);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Search2 setPhotosList={setPhotosList} photosList={photosList} />
+      <PhotosList photosList={photosList} />
     </div>
   );
-}
+};
 
 export default App;
