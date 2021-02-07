@@ -4,13 +4,11 @@ import RootContext from "../context";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 const StyledForm = styled.form`
-  /* background-color: cadetblue; */
   height: 100%;
   position: relative;
-  /* height: 10%; */
-  /* top: calc(100% + 4px); */
 `;
 const StyledSearchWrapper = styled.div`
+  margin-top: 15px;
   max-width: 800px;
   border-radius: 5px;
   background-color: white;
@@ -65,21 +63,27 @@ const StyledSearchBtn = styled.div`
 
 const StyledPopper = styled.div`
   width: 100%;
-
   position: absolute;
-  padding: 10px 10px 0px 10px;
+  padding: 10px 0px;
   margin-top: 5px;
   z-index: 300;
   color: black;
   border-radius: 5px;
   background-color: white;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   display: ${({ isPopperVisible }) => (isPopperVisible ? "block" : "none")};
+  ${({ gallery }) =>
+    gallery &&
+    css`
+      border: solid rgb(238, 238, 238) 1px;
+    `}
 `;
 const StyledPopperListElement = styled.li`
-  padding-bottom: 15px;
+  padding: 8px;
+  text-align: left;
   &:hover {
+    background-color: rgb(203, 203, 203);
   }
 `;
 
@@ -117,7 +121,7 @@ const Search = ({ gallery }) => {
             </StyledSearchBtn>
           ) : null}
         </StyledSearch>
-        <StyledPopper isPopperVisible={isPopperVisible}>
+        <StyledPopper isPopperVisible={isPopperVisible} gallery={gallery}>
           <ul>
             {keyWordsArray.map((word, index) => (
               <>
@@ -130,11 +134,9 @@ const Search = ({ gallery }) => {
                     }}
                     style={{ cursor: "pointer" }}
                   >
-                    <p>{word}</p>
+                    {word}
                   </StyledPopperListElement>
-                ) : (
-                  "sorry"
-                )}
+                ) : null}
               </>
             ))}
           </ul>

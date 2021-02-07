@@ -12,8 +12,6 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     width: "85vw",
     height: "90vh",
-    // marginTop: "5px",
-    // marginBottom: "5px",
   },
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.6)",

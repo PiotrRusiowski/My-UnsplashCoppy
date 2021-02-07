@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { useState, useEffect } from "react";
 import RootContext from "./context";
 import GlobalStyle from "./styles/GlobalStyles";
@@ -9,24 +8,23 @@ import Router from "./routing/Router";
 import { Redirect } from "react-router-dom";
 
 const App = () => {
-  const [photosList, setPhotosList] = useState([]);
-  const [isPopperVisible, setIsPopperVisible] = useState(false);
-  const [searchInputValue, setSearchInputValue] = useState("");
+  const keywordsData = unsplashData.map((item) => {
+    return item.keyword;
+  });
+  const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
-  const [showSearchValue, setshowSearchValue] = useState("");
-  const [goToGalleryPage, setGoToGalleryPage] = useState(false);
   const [suggestionsArray, setSuggestionsArray] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [photosList, setPhotosList] = useState([]);
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const [showSearchValue, setshowSearchValue] = useState("");
   const [singlePhoto, setSinglePhoto] = useState({
     urls: "",
     alt_description: "",
     user: { name: "", location: "", profile_image: { small: "" } },
   });
-  const keywordsData = unsplashData.map((item) => {
-    return item.keyword;
-  });
-
-  const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
+  const [isPopperVisible, setIsPopperVisible] = useState(false);
+  const [goToGalleryPage, setGoToGalleryPage] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const getPhotosFromApiBySubmitingForm = (e) => {
     e.preventDefault();
@@ -45,19 +43,11 @@ const App = () => {
             })
           ),
         ];
-
-        console.log(suggestions);
-
         setSuggestionsArray([...suggestions]);
-
-        console.log(photosList);
-
         setshowSearchValue(searchInputValue);
         setIsPopperVisible(false);
         setGoToGalleryPage(true);
       });
-
-    console.log(photosList);
   };
 
   const getPhotosFromApiByClickingOnSuggestionList = (word) => {
@@ -78,13 +68,26 @@ const App = () => {
             })
           ),
         ];
-
         setSuggestionsArray([...suggestions]);
-
         setIsPopperVisible(false);
         setGoToGalleryPage(true);
       });
   };
+
+  const filterKeyWords = () => {
+    if (searchInputValue.length >= 3) {
+      const filteredKeyWordsData = keywordsDataWithoutDuplicates.filter(
+        (word) => {
+          const tempWord = word.toString().slice(0, searchInputValue.length);
+          return searchInputValue.toLowerCase() === tempWord;
+        }
+      );
+      setKeyWordArray(filteredKeyWordsData);
+    }
+  };
+  useEffect(() => {
+    filterKeyWords();
+  }, [searchInputValue]);
 
   const showPopper = (e) => {
     setSearchInputValue(e.target.value);
@@ -94,29 +97,12 @@ const App = () => {
       setIsPopperVisible(true);
     }
   };
-  const filterKeyWords = () => {
-    if (searchInputValue.length >= 3) {
-      const filteredKeyWordsData = keywordsDataWithoutDuplicates.filter(
-        (word) => {
-          const tempWord = word.toString().slice(0, searchInputValue.length);
-          return searchInputValue.toLowerCase() === tempWord;
-        }
-      );
-      // console.log(filteredKeyWordsData);
-      setKeyWordArray(filteredKeyWordsData);
-    }
-  };
-  useEffect(() => {
-    filterKeyWords();
-  }, [searchInputValue]);
 
   const findPhoto = (id) => {
     const findedPhoto = photosList.find((foto) => foto.id === id);
     setSinglePhoto(findedPhoto);
     console.log(singlePhoto);
   };
-
-  ////modal
   const openModal = () => {
     setIsOpen(true);
   };

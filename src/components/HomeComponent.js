@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import backGroundPhoto from "../theme/bgcPhoto/backGround.jpg";
 import Search from "./Search";
-import { Container } from "../globalStyledComponents";
+import { Container } from "../styles/globalStyledComponents";
 
 const StyledHome = styled.div`
   height: 85vh;
@@ -26,25 +26,22 @@ const StyledHome = styled.div`
 `;
 
 const HomeWrapper = styled.div`
-  /* background-color: cadetblue; */
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   text-align: left;
-
-  /* margin-top: auto; */
-  /* margin-bottom: auto; */
 `;
 const StyledContent = styled.div`
   height: 45%;
-  /* background-color: grey; */
   display: flex;
   flex-direction: column;
+  letter-spacing: 1.5px;
 `;
 const StyledTitle = styled.h1`
-  margin-top: auto;
+  margin-top: 100px;
+  margin-bottom: 15px;
+  font-size: 46px;
 `;
 
 const HomeComponent = () => {
@@ -55,10 +52,10 @@ const HomeComponent = () => {
           <HomeWrapper>
             <StyledContent>
               <StyledTitle>Unsplash</StyledTitle>
-              <h4>
+              <p>
                 The internet’s source of freely-usable images.
                 <br /> Powered by creators everywhere.
-              </h4>
+              </p>
             </StyledContent>
             <Search />
           </HomeWrapper>

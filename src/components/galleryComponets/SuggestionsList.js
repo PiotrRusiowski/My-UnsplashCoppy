@@ -36,7 +36,7 @@ const SuggestionsList = () => {
       {suggestionsArray.map((suggest, index) => (
         <>
           {index <= 8 ? (
-            <li>
+            <li key={`${index}${suggest}`}>
               <Link
                 to={`/photosGallery/${suggest}`}
                 onClick={() => {

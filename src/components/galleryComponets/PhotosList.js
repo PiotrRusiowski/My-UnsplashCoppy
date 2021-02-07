@@ -1,26 +1,32 @@
 import React, { useContext } from "react";
 import RootContext from "../../context";
 import styled from "styled-components";
-import { Container } from "../../globalStyledComponents";
+import { Container } from "../../styles/globalStyledComponents";
 import { Link } from "react-router-dom";
 import GalleryModal from "./ModalPhoto";
 
 const StyledPhotosList = styled.ul`
-  margin-top: 40px;
+  margin-top: 50px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 `;
 const StyledTagList = styled.ul`
+  padding: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 const StyledPhoto = styled.img`
   cursor: pointer;
   &:hover {
-    opacity: 0.5;
+  opacity:0.9;
   }
+  }
+`;
+const StyledTagListElemnt = styled(Link)`
+  color: #767676;
+  text-decoration: none;
 `;
 const PhotosList = () => {
   const context = useContext(RootContext);
@@ -31,7 +37,7 @@ const PhotosList = () => {
       <Container xl>
         <StyledPhotosList>
           {photosList.map(({ alt_description, urls, tags, id }) => (
-            <li>
+            <li key={id}>
               <StyledPhoto
                 src={urls.small}
                 alt={alt_description}
@@ -42,8 +48,10 @@ const PhotosList = () => {
               />
               <StyledTagList>
                 {tags.map((tag) => (
-                  <li>
-                    <Link>{tag.title}</Link>
+                  <li key={tag.title}>
+                    <StyledTagListElemnt>
+                      <p>{tag.title}</p>
+                    </StyledTagListElemnt>
                   </li>
                 ))}
               </StyledTagList>
@@ -56,8 +64,4 @@ const PhotosList = () => {
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   photosList: state.photosList,
-// });
-// export default connect(mapStateToProps)(PhotosList);
 export default PhotosList;

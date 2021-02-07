@@ -1,10 +1,17 @@
 import React from "react";
-import GalleryComponet from "../components/galleryComponets/GalleryComponet";
-
+import { Container } from "../styles/globalStyledComponents";
+import Search from "../components/Search";
+import GalleryHeader from "../components/galleryComponets/GalleryHeader";
+import PhotosList from "../components/galleryComponets/PhotosList";
 const Gallery = () => {
+  const gallery = true;
   return (
     <>
-      <GalleryComponet />
+      <Container>
+        <Search gallery={gallery} />
+      </Container>
+      <GalleryHeader />
+      <PhotosList />
     </>
   );
 };
