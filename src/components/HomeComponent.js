@@ -37,6 +37,7 @@ const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   letter-spacing: 1.5px;
+  margin-bottom: 15px;
 `;
 const StyledTitle = styled.h1`
   margin-top: 100px;
