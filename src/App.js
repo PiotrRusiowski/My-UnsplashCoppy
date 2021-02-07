@@ -15,18 +15,19 @@ const App = () => {
   const [keyWordsArray, setKeyWordArray] = useState([]);
   const [showSearchValue, setshowSearchValue] = useState("");
   const [goToGalleryPage, setGoToGalleryPage] = useState(false);
-
   const [suggestionsArray, setSuggestionsArray] = useState([]);
-
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [singlePhoto, setSinglePhoto] = useState({
+    urls: "",
+    alt_description: "",
+    user: { name: "", location: "", profile_image: { small: "" } },
+  });
   const keywordsData = unsplashData.map((item) => {
     return item.keyword;
   });
 
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
 
-  // const filteredArray = keywordsData.map((item) => {
-  //   const letter = item.substring(0, 1);
-  // });
   const getPhotosFromApiBySubmitingForm = (e) => {
     e.preventDefault();
     axios
@@ -78,8 +79,6 @@ const App = () => {
           ),
         ];
 
-        console.log(suggestions);
-
         setSuggestionsArray([...suggestions]);
 
         setIsPopperVisible(false);
@@ -111,6 +110,21 @@ const App = () => {
     filterKeyWords();
   }, [searchInputValue]);
 
+  const findPhoto = (id) => {
+    const findedPhoto = photosList.find((foto) => foto.id === id);
+    setSinglePhoto(findedPhoto);
+    console.log(singlePhoto);
+  };
+
+  ////modal
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="App">
       <RootContext.Provider
@@ -121,6 +135,12 @@ const App = () => {
           searchInputValue,
           showSearchValue,
           suggestionsArray,
+          modalIsOpen,
+          singlePhoto,
+
+          findPhoto,
+          openModal,
+          closeModal,
           getPhotosFromApiBySubmitingForm,
           getPhotosFromApiByClickingOnSuggestionList,
           showPopper,

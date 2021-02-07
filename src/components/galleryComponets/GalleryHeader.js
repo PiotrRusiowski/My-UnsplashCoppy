@@ -5,7 +5,9 @@ import PhotosList from "./PhotosList";
 import RootContext from "../../context";
 import SuggestionsList from "./SuggestionsList";
 
-const StyledSearchValue = styled.h1``;
+const StyledSearchValue = styled.h1`
+  margin-right: auto;
+`;
 const GalleryHeader = () => {
   const context = useContext(RootContext);
   const { showSearchValue } = context;
