@@ -145,6 +145,7 @@ const App = () => {
           getPhotosFromApiByClickingOnSuggestionList,
           showPopper,
           setshowSearchValue,
+          setSearchInputValue,
         }}
       >
         <GlobalStyle />

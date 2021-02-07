@@ -8,10 +8,11 @@ import PhotosList from "./PhotosList";
 const StyledGallery = styled.div``;
 
 const GalleryComponet = () => {
+  const gallery = true;
   return (
     <div>
       <Container>
-        <Search />
+        <Search gallery={gallery} />
       </Container>
       <GalleryHeader />
       <PhotosList />

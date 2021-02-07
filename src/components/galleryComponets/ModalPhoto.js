@@ -51,6 +51,7 @@ const StyledAuthorInfo = styled.div`
 const StyledAuthorName = styled.h4``;
 const StyledUserName = styled.p`
   font-size: 11px;
+  color: #767676;
 `;
 const StyledLocation = styled.p`
   position: absolute;
@@ -78,7 +79,7 @@ const ModalPhoto = () => {
           />
           <StyledAuthorInfo>
             <p>{name}</p>
-            <StyledUserName>@{username}</StyledUserName>
+            <StyledUserName>@ {username}</StyledUserName>
           </StyledAuthorInfo>
         </StledAuthorInfoWrapper>
         <StyledLocation>{location}</StyledLocation>

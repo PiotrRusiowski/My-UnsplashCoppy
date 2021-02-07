@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body{
-    /* font-family */
+    font-size:15px;
 }
 
 button {
@@ -18,6 +18,9 @@ button {
 
 ul{
     list-style: none
+}
+p{
+  
 }
 
 `;
