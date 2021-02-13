@@ -6,6 +6,7 @@ import { apiKey } from "./apiKey/index";
 import axios from "axios";
 import Router from "./routing/Router";
 import { Redirect } from "react-router-dom";
+import { searchTypes } from "./utils/searchTypes";
 
 const App = () => {
   const keywordsData = unsplashData.map((item) => {
@@ -25,6 +26,14 @@ const App = () => {
   const [isPopperVisible, setIsPopperVisible] = useState(false);
   const [goToGalleryPage, setGoToGalleryPage] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [collectionsList, setCollectionList] = useState([]);
+  const [usersList, setUsersList] = useState([]);
+
+  const [activeSearchType, setActiveSearchType] = useState(searchTypes.photos);
+
+  const handleSetActiveSearchType = (searchType) => {
+    setActiveSearchType(searchType);
+  };
 
   const getPhotosFromApiBySubmitingForm = (e) => {
     e.preventDefault();
@@ -35,6 +44,7 @@ const App = () => {
 
       .then((res) => {
         setPhotosList(res.data.results);
+        console.log(res.data.results);
 
         const suggestions = [
           ...new Set(
@@ -71,6 +81,30 @@ const App = () => {
         setSuggestionsArray([...suggestions]);
         setIsPopperVisible(false);
         setGoToGalleryPage(true);
+      });
+  };
+
+  const getCollectionsFromApi = () => {
+    axios
+      .get(
+        `    https://api.unsplash.com/search/collections?page=1&query=${searchInputValue}&client_id=${apiKey}
+        `
+      )
+      .then((res) => {
+        setCollectionList([...res.data.results]);
+        console.log(res.data.results);
+      });
+  };
+
+  const getUsersFromApi = () => {
+    // <https://api.unsplash.com/search/collections?page=1&query=office>
+    axios
+      .get(
+        `https://api.unsplash.com/search/users?page=1&query=${searchInputValue}&client_id=${apiKey}`
+      )
+      .then((res) => {
+        setUsersList([...res.data.results]);
+        console.log(res.data.results);
       });
   };
 
@@ -123,7 +157,12 @@ const App = () => {
           suggestionsArray,
           modalIsOpen,
           singlePhoto,
+          collectionsList,
+          usersList,
+          handleSetActiveSearchType,
+          activeSearchType,
 
+          getUsersFromApi,
           findPhoto,
           openModal,
           closeModal,
@@ -132,12 +171,13 @@ const App = () => {
           showPopper,
           setshowSearchValue,
           setSearchInputValue,
+          getCollectionsFromApi,
         }}
       >
         <GlobalStyle />
         <Router />
         {goToGalleryPage ? (
-          <Redirect to={`/photosGallery/${showSearchValue}`} />
+          <Redirect to={`search/photos/${showSearchValue}`} />
         ) : null}
       </RootContext.Provider>
     </div>

@@ -1,7 +1,16 @@
 import React, { useState, useContext } from "react";
 import Modal from "react-modal";
-import RootContext from "../../context";
-import styled from "styled-components";
+import RootContext from "../../../context";
+import {
+  StyledModalContent,
+  StyledImg,
+  StledAuthorInfoWrapper,
+  StyledAuthorProfileImg,
+  StyledAuthorInfo,
+  StyledLocation,
+  StyledUserName,
+} from "./ModalPhotoStyledComponents";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -17,45 +26,6 @@ const customStyles = {
     backgroundColor: "rgba(0, 0, 0, 0.6)",
   },
 };
-const StyledImg = styled.img`
-  max-height: 100%;
-`;
-const StyledModalContent = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  font-size: 15px;
-`;
-const StledAuthorInfoWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1.4;
-`;
-const StyledAuthorProfileImg = styled.img`
-  border-radius: 50%;
-  margin-right: 10px;
-`;
-const StyledAuthorInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const StyledAuthorName = styled.h4``;
-const StyledUserName = styled.p`
-  font-size: 11px;
-  color: #767676;
-`;
-const StyledLocation = styled.p`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-`;
 
 const ModalPhoto = () => {
   const context = useContext(RootContext);

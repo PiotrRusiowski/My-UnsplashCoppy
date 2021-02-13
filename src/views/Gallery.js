@@ -1,17 +1,25 @@
-import React from "react";
-import { Container } from "../styles/globalStyledComponents";
-import Search from "../components/Search";
-import GalleryHeader from "../components/galleryComponets/GalleryHeader";
-import PhotosList from "../components/galleryComponets/PhotosList";
+import React, { useContext } from "react";
+import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
+import CollectionsList from "../components/galleryComponets/Lists/CollectionsList/CollectionsList";
+import PhotosList from "../components/galleryComponets/Lists/PhotosList/PhotosList";
+import UsersList from "../components/galleryComponets/Lists/UsersList/UsersList";
+import RootContext from "../context";
+import { searchTypes } from "../utils/searchTypes";
+
+//Search View Manager
 const Gallery = () => {
-  const gallery = true;
+  const context = useContext(RootContext);
+  const { activeSearchType } = context;
+
   return (
     <>
-      <Container>
-        <Search gallery={gallery} />
-      </Container>
-      <GalleryHeader />
-      <PhotosList />
+      {activeSearchType === searchTypes.photos ? (
+        <PhotosList />
+      ) : activeSearchType === searchTypes.collections ? (
+        <CollectionsList />
+      ) : (
+        <UsersList />
+      )}
     </>
   );
 };
