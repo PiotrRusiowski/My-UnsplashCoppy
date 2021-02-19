@@ -13,13 +13,13 @@ const Gallery = () => {
 
   return (
     <>
-      {activeSearchType === searchTypes.photos ? (
+      {/* {activeSearchType === searchTypes.photos ? (
         <PhotosList />
       ) : activeSearchType === searchTypes.collections ? (
         <CollectionsList />
       ) : (
         <UsersList />
-      )}
+      )} */}
     </>
   );
 };

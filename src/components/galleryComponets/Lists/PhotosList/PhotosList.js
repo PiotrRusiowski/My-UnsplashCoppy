@@ -4,6 +4,7 @@ import {
   Container,
   StyledList,
 } from "../../../../styles/globalStyledComponents";
+import GalleryHeader from "../../GalleryHeader/GalleryHeader";
 import GalleryModal from "../../ModalPhoto/ModalPhoto";
 import {
   StyledTagList,

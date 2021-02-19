@@ -11,6 +11,10 @@ export const StyledCardShowCase = styled.div`
   flex-basis: 80%;
   border-radius: 5px;
   overflow: hidden;
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
 `;
 export const StyledCardShowCaseBig = styled.div`
   width: 70%;

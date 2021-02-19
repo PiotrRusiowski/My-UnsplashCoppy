@@ -1,11 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const StyledForm = styled.form`
-  height: 100%;
-  position: relative;
-`;
 export const StyledSearchWrapper = styled.div`
-  margin-top: 15px;
   max-width: 800px;
   border-radius: 5px;
   background-color: white;
@@ -26,9 +21,13 @@ export const StyledSearchWrapper = styled.div`
       }
     `}
 `;
+export const StyledForm = styled.form`
+  height: 100%;
+  position: relative;
+`;
 export const StyledSearch = styled.div`
   position: relative;
-  max-width: 800px;
+  width: 100%;
 
   height: 100%;
   display: flex;

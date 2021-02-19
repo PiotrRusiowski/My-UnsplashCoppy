@@ -11,7 +11,8 @@ import {
 
 const CollectionCard = ({ collection }) => {
   const { title, preview_photos } = collection;
-  const photosAarray = preview_photos.map((photo) => photo.urls.raw);
+  const photosAarray = preview_photos.map((photo) => photo.urls.regular);
+
   return (
     <StyledCard>
       <StyledCardShowCase>
@@ -19,7 +20,7 @@ const CollectionCard = ({ collection }) => {
           <StyledLargeImg src={photosAarray[0]} />
         </StyledCardShowCaseBig>
         <StyledCardShowCaseSmall>
-          <StyledImgSmall src={photosAarray[1]} />
+          <StyledImgSmall />
           <StyledImgSmall src={photosAarray[2]} />
         </StyledCardShowCaseSmall>
       </StyledCardShowCase>

@@ -35,11 +35,36 @@ const App = () => {
     setActiveSearchType(searchType);
   };
 
-  const getPhotosFromApiBySubmitingForm = (e) => {
-    e.preventDefault();
+  const handleSearchInputValueChange = (word) => {
+    console.log(word);
+    setSearchInputValue(word);
+  };
+  const getRandomPhoto = () => {
+    axios
+      .get(`https://api.unsplash.com/photos?&radndom&client_id=${apiKey}`)
+      .then((res) => console.log("sda", res));
+  };
+  useEffect(() => {
+    getRandomPhoto();
+  }, []);
+
+  const getPhotos = (e) => {
+    console.log(searchInputValue);
+
+    let tempWord;
+
+    if (e.target.matches("form")) {
+      tempWord = e.target.searchPhotos.value;
+      e.preventDefault();
+    } else {
+      tempWord = e.target.innerText;
+      console.log(e.target.innerText);
+      setSearchInputValue(e.target.innerText);
+    }
+    console.log(tempWord);
     axios
       .get(
-        ` https://api.unsplash.com/search/photos?&query=${searchInputValue}&client_id=${apiKey}`
+        ` https://api.unsplash.com/search/photos?&query=${tempWord}&client_id=${apiKey}`
       )
 
       .then((res) => {
@@ -56,33 +81,71 @@ const App = () => {
         setSuggestionsArray([...suggestions]);
         setshowSearchValue(searchInputValue);
         setIsPopperVisible(false);
-        setGoToGalleryPage(true);
+
+        if (!e.target.matches("button")) {
+          setGoToGalleryPage(true);
+        }
+      })
+      .then(() => {
+        setGoToGalleryPage(false);
       });
   };
 
-  const getPhotosFromApiByClickingOnSuggestionList = (word) => {
-    setSearchInputValue(word);
-    axios
-      .get(
-        ` https://api.unsplash.com/search/photos?&query=${word}&client_id=${apiKey}`
-      )
+  // const getPhotosFromApiBySubmitingForm = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .get(
+  //       ` https://api.unsplash.com/search/photos?&query=${searchInputValue}&client_id=${apiKey}`
+  //     )
 
-      .then((res) => {
-        setPhotosList(res.data.results);
-        console.log(photosList);
+  //     .then((res) => {
+  //       setPhotosList(res.data.results);
+  //       console.log(res.data.results);
 
-        const suggestions = [
-          ...new Set(
-            res.data.results.flatMap((result) => {
-              return result.tags.map((tag) => tag.title);
-            })
-          ),
-        ];
-        setSuggestionsArray([...suggestions]);
-        setIsPopperVisible(false);
-        setGoToGalleryPage(true);
-      });
-  };
+  //       const suggestions = [
+  //         ...new Set(
+  //           res.data.results.flatMap((result) => {
+  //             return result.tags.map((tag) => tag.title);
+  //           })
+  //         ),
+  //       ];
+  //       setSuggestionsArray([...suggestions]);
+  //       setshowSearchValue(searchInputValue);
+  //       setIsPopperVisible(false);
+  //       setGoToGalleryPage(true);
+  //     })
+  //     .then(() => {
+  //       setGoToGalleryPage(false);
+  //     });
+  // };
+
+  // const getPhotosFromApiByClickingOnSuggestionList = (word) => {
+  //   setSearchInputValue(word);
+  //   axios
+  //     .get(
+  //       ` https://api.unsplash.com/search/photos?&query=${word}&client_id=${apiKey}`
+  //     )
+
+  //     .then((res) => {
+  //       setPhotosList(res.data.results);
+  //       console.log(photosList);
+
+  //       const suggestions = [
+  //         ...new Set(
+  //           res.data.results.flatMap((result) => {
+  //             return result.tags.map((tag) => tag.title);
+  //           })
+  //         ),
+  //       ];
+  //       setSuggestionsArray([...suggestions]);
+  //       setIsPopperVisible(false);
+  //       // setGoToGalleryPage(true);
+  //     })
+  //     .then(() => {
+  //       setGoToGalleryPage(false);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const getCollectionsFromApi = () => {
     axios
@@ -100,6 +163,7 @@ const App = () => {
     // <https://api.unsplash.com/search/collections?page=1&query=office>
     axios
       .get(
+        // `https://api.unsplash.com/search/users?page=1&query=${searchInputValue}&client_id=${apiKey}`
         `https://api.unsplash.com/search/users?page=1&query=${searchInputValue}&client_id=${apiKey}`
       )
       .then((res) => {
@@ -159,15 +223,17 @@ const App = () => {
           singlePhoto,
           collectionsList,
           usersList,
-          handleSetActiveSearchType,
           activeSearchType,
 
+          handleSetActiveSearchType,
+          handleSearchInputValueChange,
+          getPhotos,
           getUsersFromApi,
           findPhoto,
           openModal,
           closeModal,
-          getPhotosFromApiBySubmitingForm,
-          getPhotosFromApiByClickingOnSuggestionList,
+          // getPhotosFromApiBySubmitingForm,
+          // getPhotosFromApiByClickingOnSuggestionList,
           showPopper,
           setshowSearchValue,
           setSearchInputValue,
@@ -177,7 +243,7 @@ const App = () => {
         <GlobalStyle />
         <Router />
         {goToGalleryPage ? (
-          <Redirect to={`search/photos/${showSearchValue}`} />
+          <Redirect to={`search/photos/${searchInputValue}`} />
         ) : null}
       </RootContext.Provider>
     </div>

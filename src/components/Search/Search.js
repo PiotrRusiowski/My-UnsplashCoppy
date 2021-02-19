@@ -19,17 +19,17 @@ const Search = ({ gallery }) => {
     isPopperVisible,
     keyWordsArray,
     getPhotosFromApiBySubmitingForm,
-    getPhotosFromApiByClickingOnSuggestionList,
     showPopper,
-    setshowSearchValue,
     setSearchInputValue,
+    handleSearchInputValueChange,
+    getPhotos,
   } = context;
 
   return (
     <StyledSearchWrapper gallery={gallery}>
-      <StyledForm onSubmit={getPhotosFromApiBySubmitingForm}>
+      <StyledForm onSubmit={getPhotos}>
         <StyledSearch>
-          <StyledSearchBtn onClick={getPhotosFromApiBySubmitingForm}>
+          <StyledSearchBtn type="submit">
             <SearchIcon fontSize="inherit" />
           </StyledSearchBtn>
           <StyledSearchInput
@@ -53,9 +53,11 @@ const Search = ({ gallery }) => {
                 {index <= 4 ? (
                   <StyledPopperListElement
                     key={index}
-                    onClick={() => {
-                      getPhotosFromApiByClickingOnSuggestionList(word);
-                      setshowSearchValue(word);
+                    onClick={(e) => {
+                      // getPhotosFromApiByClickingOnSuggestionList(word);
+                      // handleSearchInputValueChange(word);
+                      getPhotos(e);
+                      // setshowSearchValue(word);
                     }}
                     style={{ cursor: "pointer" }}
                   >

@@ -13,23 +13,20 @@ const SuggestionsList = () => {
     getPhotosFromApiByClickingOnSuggestionList,
     setshowSearchValue,
     activeSearchType,
+    getPhotos,
   } = context;
+
   return (
     <StyledSuggestionsList>
       {suggestionsArray.map((suggest, index) => (
         <>
           {index <= 8 ? (
-            <li key={`${index}${suggest}`}>
-              <Link
-                to={`/search/${activeSearchType}/${suggest}`}
-                onClick={() => {
-                  getPhotosFromApiByClickingOnSuggestionList(suggest);
-                  setshowSearchValue(suggest);
-                }}
-              >
+            <Link to={`/search/${activeSearchType}/${suggest}`}>
+              {/* Zrobic osobne zapytania na klika */}
+              <li key={`${index}${suggest}`} onClick={getPhotos}>
                 <StyledSugestBtn>{suggest}</StyledSugestBtn>
-              </Link>
-            </li>
+              </li>
+            </Link>
           ) : null}
         </>
       ))}
