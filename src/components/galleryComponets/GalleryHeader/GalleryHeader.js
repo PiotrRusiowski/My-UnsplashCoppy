@@ -16,7 +16,7 @@ import Navigation from "../Navigation.js/Navigation";
 import { Link } from "react-router-dom";
 const GalleryHeader = () => {
   const context = useContext(RootContext);
-  const { searchInputValue } = context;
+  const { showSearchValue } = context;
   const gallery = true;
   return (
     <Container xl>
@@ -31,7 +31,7 @@ const GalleryHeader = () => {
           </StyledSearchWrapper>
         </StyledMainHeader>
         <Navigation />
-        <StyledSearchValue>{searchInputValue}</StyledSearchValue>
+        <StyledSearchValue>{showSearchValue}</StyledSearchValue>
       </StyledGalleryHeader>
       <SuggestionsList />
     </Container>

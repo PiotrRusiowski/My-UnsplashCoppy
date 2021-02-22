@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import RootContext from "../../context";
+
 import Search from "../Search/Search";
 import { Container } from "../../styles/globalStyledComponents";
 import {
@@ -9,10 +11,12 @@ import {
 } from "./HomeComoponetStyledsComponents";
 
 const HomeComponent = () => {
+  const context = useContext(RootContext);
+  const { homeImg } = context;
   return (
     <>
       <StyledHome>
-        <Container>
+        <Container img={homeImg}>
           <HomeWrapper>
             <StyledContent>
               <StyledTitle>Unsplash</StyledTitle>
@@ -21,7 +25,7 @@ const HomeComponent = () => {
                 <br /> Powered by creators everywhere.
               </p>
             </StyledContent>
-            <Search />
+            <Search pageType="home" />
           </HomeWrapper>
         </Container>
       </StyledHome>

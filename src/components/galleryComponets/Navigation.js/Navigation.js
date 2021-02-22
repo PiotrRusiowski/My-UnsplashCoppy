@@ -5,6 +5,7 @@ import {
 } from "./NavigationStyledComponents";
 import RootContext from "../../../context";
 import { searchTypes } from "../../../utils/searchTypes";
+import { routes } from "../../../routes";
 
 const Navigation = () => {
   const context = useContext(RootContext);
@@ -18,7 +19,7 @@ const Navigation = () => {
     <StyledNavigation>
       <StyledNavigationLink
         // to={`search/${searchTypes.photos}/${searchInputValue}`}
-        onClick={() => handleSetActiveSearchType(searchTypes.photos)}
+        onClick={() => handleSetActiveSearchType(searchTypes.photos)} ///???
         to={`/search/photos/${searchInputValue}`}
       >
         {searchTypes.photos}
@@ -42,6 +43,12 @@ const Navigation = () => {
         }}
       >
         {searchTypes.users}
+      </StyledNavigationLink>
+      <StyledNavigationLink
+        // to={`search/${searchTypes.users}/${searchInputValue}`}
+        to={routes.likesPhotosGallery}
+      >
+        Likes
       </StyledNavigationLink>
     </StyledNavigation>
   );

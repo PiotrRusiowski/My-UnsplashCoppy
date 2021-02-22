@@ -3,5 +3,6 @@ export const routes = {
   photosGallery: "/search/photos/:photoTitle",
   usersGallery: "/search/users/:usersTitle",
   collectionsGallery: "/search/collections/:collectionsTitle",
+  likesPhotosGallery: "/search/likes",
   // search: "/search/:searchType/:searchName",
 };

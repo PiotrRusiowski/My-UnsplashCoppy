@@ -18,7 +18,7 @@ export const StyledCardShowCase = styled.div`
 `;
 export const StyledCardShowCaseBig = styled.div`
   width: 70%;
-  background-color: cadetblue;
+  background-color: rgb(245, 245, 245);
   margin-right: 2px;
   height: 100%;
 `;
@@ -34,7 +34,10 @@ export const StyledImgSmall = styled.img`
   height: 50%;
   margin-bottom: 2px;
   object-fit: cover;
+  background-color: rgb(245, 245, 245);
+  border: none;
 `;
+
 export const StyledLargeImg = styled.img`
   width: 100%;
   height: 100%;
@@ -43,3 +46,14 @@ export const StyledLargeImg = styled.img`
 `;
 
 export const StyledCardDescription = styled.div``;
+export const StyledAuthor = styled.div``;
+export const StyledTags = styled.ul`
+  display: flex;
+`;
+export const StyledImgSmallDiv = styled.div`
+  width: 100%;
+  height: 50%;
+
+  background-color: rgb(245, 245, 245);
+  border: none;
+`;

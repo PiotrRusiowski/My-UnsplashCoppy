@@ -11,8 +11,9 @@ import {
   StyledForm,
   StyledSearch,
 } from "./SearchStyledsComponents";
+import { Link } from "react-router-dom";
 
-const Search = ({ gallery }) => {
+const Search = ({ gallery, pageType }) => {
   const context = useContext(RootContext);
   const {
     searchInputValue,
@@ -22,12 +23,20 @@ const Search = ({ gallery }) => {
     showPopper,
     setSearchInputValue,
     handleSearchInputValueChange,
+    getUsersFromApi,
+    getCollectionsFromApi,
     getPhotos,
+    activeSearchType,
   } = context;
 
   return (
     <StyledSearchWrapper gallery={gallery}>
-      <StyledForm onSubmit={getPhotos}>
+      <StyledForm
+        onSubmit={(e) => {
+          getPhotos(e, pageType);
+          // getCollectionsFromApi(e);
+        }}
+      >
         <StyledSearch>
           <StyledSearchBtn type="submit">
             <SearchIcon fontSize="inherit" />
@@ -46,23 +55,30 @@ const Search = ({ gallery }) => {
             </StyledSearchBtn>
           ) : null}
         </StyledSearch>
+
         <StyledPopper isPopperVisible={isPopperVisible} gallery={gallery}>
           <ul>
             {keyWordsArray.map((word, index) => (
               <>
                 {index <= 4 ? (
-                  <StyledPopperListElement
-                    key={index}
-                    onClick={(e) => {
-                      // getPhotosFromApiByClickingOnSuggestionList(word);
-                      // handleSearchInputValueChange(word);
-                      getPhotos(e);
-                      // setshowSearchValue(word);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {word}
-                  </StyledPopperListElement>
+                  <Link to={`/search/${activeSearchType}/${word}`}>
+                    <StyledPopperListElement
+                      key={index}
+                      type="submit"
+                      onClick={(e) => {
+                        // getPhotosFromApiByClickingOnSuggestionList(word);
+                        // handleSearchInputValueChange(word);
+                        getPhotos(e, pageType);
+                        // getUsersFromApi();
+                        // getCollectionsFromApi();
+
+                        // setshowSearchValue(word);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {word}
+                    </StyledPopperListElement>
+                  </Link>
                 ) : null}
               </>
             ))}
