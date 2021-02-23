@@ -5,7 +5,6 @@ import unsplashData from "./data.json";
 import { apiKey } from "./apiKey/index";
 import axios from "axios";
 import Router from "./routing/Router";
-import { Link, Redirect } from "react-router-dom";
 import { searchTypes } from "./utils/searchTypes";
 import {
   getPhotosFromLocalStorage,
@@ -25,6 +24,12 @@ const App = () => {
     getShowSearchValueFromLocalStorage()
   );
   const [singlePhoto, setSinglePhoto] = useState({
+    id: "",
+    urls: "",
+    alt_description: "",
+    user: { name: "", location: "", profile_image: { small: "" } },
+  });
+  const [modalPhoto, setModalPhoto] = useState({
     id: "",
     urls: "",
     alt_description: "",
@@ -53,26 +58,20 @@ const App = () => {
     axios.get(
       ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey} `
     );
-
-    // .then((res) => {
-    //   setHomeImg(res.data[0]);
-    // });
-    // .then((res) => {
-    //   console.log(res);
-    // });
   };
 
-  const getCollectionsPhotos = () => {
+  const getCollectionsPhotos = (id) => {
     axios
       .get(
-        ` https://api.unsplash.com/collections/94024577/photos?client_id=${apiKey}`
+        ` https://api.unsplash.com/collections/${id}/photos?client_id=${apiKey}`
       )
       .then((res) => {
-        setSelectedCollectionList(res);
+        setSelectedCollectionList(res.data);
+      })
+      .then(() => {
+        console.log(selectedCollectionList);
+        console.log(photosList);
       });
-    // .then((res) => {
-    //   console.log(res);
-    // });
   };
 
   const getPhotos = (e, pageType) => {
@@ -197,11 +196,21 @@ const App = () => {
     }
   };
 
-  const findPhoto = (id) => {
-    const findedPhoto = photosList.find((foto) => foto.id === id);
+  const findPhoto = (id, arrayToFilter) => {
+    const findedPhoto = arrayToFilter.find((foto) => foto.id === id);
     setSinglePhoto(findedPhoto);
-    console.log(singlePhoto);
+    setModalPhoto(findedPhoto);
   };
+
+  const resetSinglePhoto = () => {
+    setSinglePhoto({
+      id: "",
+      urls: "",
+      alt_description: "",
+      user: { name: "", location: "", profile_image: { small: "" } },
+    });
+  };
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -236,8 +245,10 @@ const App = () => {
           activeSearchType,
           homeImg,
           likePhotosList,
+          selectedCollectionList,
+          modalPhoto,
           // getPhotosCollectionsAndUserFromApi,
-
+          resetSinglePhoto,
           handleSetActiveSearchType,
           handleSearchInputValueChange,
           getPhotos,

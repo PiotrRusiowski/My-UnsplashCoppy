@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 export const StyledCard = styled.div`
   width: 32%;
   height: 330px;
   display: flex;
   flex-direction: column;
 `;
-export const StyledCardShowCase = styled.div`
+export const StyledCardShowCaseLink = styled(Link)`
   display: flex;
   flex-basis: 80%;
   border-radius: 5px;

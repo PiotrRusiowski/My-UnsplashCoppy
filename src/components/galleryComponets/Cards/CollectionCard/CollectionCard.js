@@ -1,7 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { routes } from "../../../../routes";
+
 import {
   StyledCard,
-  StyledCardShowCase,
+  StyledCardShowCaseLink,
   StyledCardDescription,
   StyledCardShowCaseBig,
   StyledCardShowCaseSmall,
@@ -12,22 +15,29 @@ import {
   StyledImgSmallDiv,
 } from "./CollectionCardStyledComponents";
 
-const CollectionCard = ({ collection }) => {
-  const { title, preview_photos, user, total_photos, tags } = collection;
+const CollectionCard = ({
+  collection,
+  getCollectionsPhotos,
+  searchInputValue,
+}) => {
+  const { title, preview_photos, user, total_photos, tags, id } = collection;
   const photosAarray = preview_photos.map((photo) => photo.urls.regular);
   const tagsArray = tags.map((tag) => tag.title);
   return (
-    <StyledCard>
-      <StyledCardShowCase>
+    <StyledCard onClick={() => getCollectionsPhotos(id)}>
+      <StyledCardShowCaseLink
+        to={`/search/collections/${collection.id}/${searchInputValue}`}
+      >
         <StyledCardShowCaseBig>
           <StyledLargeImg src={photosAarray[0]} />
         </StyledCardShowCaseBig>
+
         <StyledCardShowCaseSmall>
-          {" "}
           <StyledImgSmall src={photosAarray[3]} />
           <StyledImgSmall src={photosAarray[2]} />
         </StyledCardShowCaseSmall>
-      </StyledCardShowCase>
+      </StyledCardShowCaseLink>
+
       <StyledCardDescription>
         <h5>{title}</h5>
         <StyledAuthor>

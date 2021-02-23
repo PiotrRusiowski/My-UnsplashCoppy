@@ -19,7 +19,7 @@ const Navigation = () => {
     <StyledNavigation>
       <StyledNavigationLink
         // to={`search/${searchTypes.photos}/${searchInputValue}`}
-        onClick={() => handleSetActiveSearchType(searchTypes.photos)} ///???
+        onClick={() => handleSetActiveSearchType(searchTypes.photos)}
         to={`/search/photos/${searchInputValue}`}
       >
         {searchTypes.photos}

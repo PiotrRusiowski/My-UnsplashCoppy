@@ -14,6 +14,7 @@ body{
 
 button {
   cursor: pointer;  
+  outline:0px;
 }
 
 ul{

@@ -2,10 +2,14 @@ import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import RootContext from "../../../context";
 import {
-  StyledModalContent,
-  StyledImg,
   StledAuthorInfoWrapper,
   StyledAuthorProfileImg,
+} from "../../../styles/globalStyledComponents";
+import {
+  StyledModalContent,
+  StyledImg,
+  // StledAuthorInfoWrapper,
+  // StyledAuthorProfileImg,
   StyledAuthorInfo,
   StyledLocation,
   StyledUserName,
@@ -29,9 +33,10 @@ const customStyles = {
 
 const ModalPhoto = () => {
   const context = useContext(RootContext);
-  const { modalIsOpen, closeModal, singlePhoto } = context;
-  const { urls, alt_description, user } = singlePhoto;
+  const { modalIsOpen, closeModal, modalPhoto } = context;
+  const { urls, alt_description, user } = modalPhoto;
   const { name, username, location, profile_image } = user;
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -40,7 +45,7 @@ const ModalPhoto = () => {
     >
       <StyledModalContent>
         <StyledImg src={urls.regular} alt={alt_description} />
-        <StledAuthorInfoWrapper>
+        <StledAuthorInfoWrapper modal>
           <StyledAuthorProfileImg
             src={profile_image.small}
             alt="author profile image"

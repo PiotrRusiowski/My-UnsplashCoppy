@@ -1,8 +1,17 @@
 import React, { useContext, useState } from "react";
 import RootContext from "../../../../context";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import LoyaltyIcon from "@material-ui/icons/Loyalty";
+
+import ArrowDropDownCircleIcon from "@material-ui/icons/ArrowDropDownCircle";
+
 import {
   Container,
   StyledList,
+  StledAuthorInfoWrapper,
+  StyledAuthorProfileImg,
 } from "../../../../styles/globalStyledComponents";
 import GalleryHeader from "../../GalleryHeader/GalleryHeader";
 import GalleryModal from "../../ModalPhoto/ModalPhoto";
@@ -13,30 +22,33 @@ import {
   StyledPhotoWrapper,
   StyledBtn,
   StyledPhotoHover,
-  StyledBtnGroup1,
+  StyledBtnGroup,
+  StyledUserName,
 } from "./PhotosListStyledComponent";
 
-const PhotosList = () => {
+const PhotosList = ({ photosList }) => {
   // const [isHover, setIsHover] = useState(false);
   const context = useContext(RootContext);
   const {
-    photosList,
     findPhoto,
     openModal,
     singlePhoto,
     modalIsOpen,
     addToLikePhotosList,
+    resetSinglePhoto,
+    selectedCollectionList,
   } = context;
   // const setIsHoverTrue =()=>{
   // }
+
+  const showButtons = () => {};
 
   return (
     <>
       <Container xl>
         <StyledList>
-          {photosList.map(({ alt_description, urls, tags, id }) => {
+          {photosList.map(({ id, alt_description, urls }) => {
             let isHover = false;
-
             if (id === singlePhoto.id) {
               isHover = true;
               console.log(singlePhoto.id);
@@ -44,47 +56,49 @@ const PhotosList = () => {
             } else {
               isHover = false;
             }
-
-            const hover = () => {
-              console.log(id);
-              console.log(singlePhoto.id);
-              if (id === singlePhoto.id) {
-                isHover = true;
-                console.log(singlePhoto.id);
-                console.log(id, isHover);
-              } else {
-                isHover = false;
-              }
-            };
-
             return (
-              <li key={id}>
+              <li>
                 <StyledPhotoWrapper
+                  key={id}
                   onMouseEnter={() => {
-                    findPhoto(id);
-                    // hover();
+                    findPhoto(id, photosList);
                   }}
-
-                  // onMouseLeave={() => (isHover = false)}
+                  onMouseLeave={resetSinglePhoto}
                 >
                   <StyledPhotoHover isHover={isHover}>
-                    <StyledBtnGroup1 modalIsOpen={modalIsOpen}>
-                      <StyledBtn>dodaj</StyledBtn>
+                    <StyledBtnGroup>
+                      <StyledBtn>
+                        <AddBoxIcon fontSize="large" />
+                      </StyledBtn>
                       <StyledBtn
                         onClick={() => {
-                          findPhoto(id);
                           addToLikePhotosList();
                         }}
                       >
-                        like
+                        <LoyaltyIcon fontSize="large" />
                       </StyledBtn>
-                    </StyledBtnGroup1>
+                    </StyledBtnGroup>
+                    <StyledBtnGroup width>
+                      <StyledBtn>
+                        <StledAuthorInfoWrapper>
+                          <StyledAuthorProfileImg
+                            src={singlePhoto.user.profile_image.small}
+                            alt="author profile image"
+                          />
+                          <StyledUserName>
+                            {singlePhoto.user.name}
+                          </StyledUserName>
+                        </StledAuthorInfoWrapper>
+                      </StyledBtn>
+                      <StyledBtn>
+                        <ArrowDropDownCircleIcon fontSize="large" />
+                      </StyledBtn>
+                    </StyledBtnGroup>
                   </StyledPhotoHover>
                   <StyledPhoto
                     src={urls.small}
                     alt={alt_description}
                     onClick={() => {
-                      findPhoto(id);
                       openModal();
                     }}
                   />

@@ -15,7 +15,6 @@ const LikesList = () => {
       <StyledList>
         {likePhotosList.map(({ urls, id }) => (
           <li>
-            {" "}
             <img src={urls.small}></img>
             <button onClick={() => removeFromLikesPhotos(id)}>remove</button>
           </li>

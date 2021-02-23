@@ -17,3 +17,27 @@ export const StyledList = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
+export const StledAuthorInfoWrapper = styled.div`
+  position: static;
+  ${({ modal }) =>
+    modal &&
+    css`
+      position: absolute;
+    `}
+  ${({ margin }) =>
+    margin &&
+    css`
+      margin-right: auto;
+    `}
+  top: 0;
+  left: 0;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+`;
+export const StyledAuthorProfileImg = styled.img`
+  border-radius: 50%;
+  margin-right: 10px;
+`;
