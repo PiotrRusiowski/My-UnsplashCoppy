@@ -6,4 +6,5 @@ export const routes = {
   likesPhotosGallery: "/search/likes",
   // search: "/search/:searchType/:searchName",
   colectionsPhotos: "/search/collections/:id/:searchInputValue",
+  singleUserGallery: "/:userName",
 };

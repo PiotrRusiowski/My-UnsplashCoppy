@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { routes } from "../../../../routes";
 
 import {
-  StyledCard,
+  StyledColectionCard,
   StyledCardShowCaseLink,
   StyledCardDescription,
   StyledCardShowCaseBig,
@@ -24,7 +22,7 @@ const CollectionCard = ({
   const photosAarray = preview_photos.map((photo) => photo.urls.regular);
   const tagsArray = tags.map((tag) => tag.title);
   return (
-    <StyledCard onClick={() => getCollectionsPhotos(id)}>
+    <StyledColectionCard onClick={() => getCollectionsPhotos(id)}>
       <StyledCardShowCaseLink
         to={`/search/collections/${collection.id}/${searchInputValue}`}
       >
@@ -51,7 +49,7 @@ const CollectionCard = ({
           <li>{tagsArray[2]}</li>
         </StyledTags>
       </StyledCardDescription>
-    </StyledCard>
+    </StyledColectionCard>
   );
 };
 

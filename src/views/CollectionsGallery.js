@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import RootContext from "../context";
 
-import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsList/CollectionsAndUsersList";
+import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsAndUsersList/CollectionsAndUsersList";
 const CollectionsGallery = () => {
   const context = useContext(RootContext);
   const { collectionsList } = context;

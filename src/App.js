@@ -35,19 +35,26 @@ const App = () => {
     alt_description: "",
     user: { name: "", location: "", profile_image: { small: "" } },
   });
+  const [singleUser, setSingleUser] = useState({
+    name: "",
+    bio: "",
+    location: "",
+    profile_image: "",
+  });
   const [isPopperVisible, setIsPopperVisible] = useState(false);
   const [goToGalleryPage, setGoToGalleryPage] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [collectionsList, setCollectionList] = useState([]);
   const [selectedCollectionList, setSelectedCollectionList] = useState([]);
   const [usersList, setUsersList] = useState([]);
+  const [singleUserPhotos, setSingleUserPhotos] = useState([]);
+
   const [activeSearchType, setActiveSearchType] = useState(searchTypes.photos);
   const [homeImg, setHomeImg] = useState({});
   const [likePhotosList, setLikePhotosList] = useState([]);
 
   const handleSetActiveSearchType = (searchType) => {
     setActiveSearchType(searchType);
-    console.log(activeSearchType);
   };
 
   const handleSearchInputValueChange = (word) => {
@@ -70,13 +77,11 @@ const App = () => {
       })
       .then(() => {
         console.log(selectedCollectionList);
-        console.log(photosList);
       });
   };
 
   const getPhotos = (e, pageType) => {
     let tempWord;
-    console.log(photosList);
 
     if (e.target.matches("form")) {
       tempWord = e.target.searchPhotos.value;
@@ -99,7 +104,6 @@ const App = () => {
       );
       // window.location.pathname = `/search/${activeSearchType}/${showSearchValue}`;
     }
-    console.log(tempWord);
     axios
       .get(
         ` https://api.unsplash.com/search/photos?&query=${tempWord}&client_id=${apiKey}`
@@ -140,7 +144,6 @@ const App = () => {
       )
       .then((res) => {
         setCollectionList([...res.data.results]);
-        console.log("collectionsData", res.data.results);
       });
   };
   const getCollectionsFromApiSuggestList = (suggest) => {
@@ -151,7 +154,6 @@ const App = () => {
       )
       .then((res) => {
         setCollectionList([...res.data.results]);
-        console.log("collectionsData", res.data.results);
       });
   };
 
@@ -162,7 +164,16 @@ const App = () => {
       )
       .then((res) => {
         setUsersList([...res.data.results]);
-        console.log("usersData", res.data.results);
+      });
+  };
+  const getSingleUserPhotos = (userName) => {
+    axios
+
+      .get(
+        ` https://api.unsplash.com/users/${userName}/photos?client_id=${apiKey}`
+      )
+      .then((res) => {
+        setSingleUserPhotos(res.data);
       });
   };
 
@@ -197,9 +208,13 @@ const App = () => {
   };
 
   const findPhoto = (id, arrayToFilter) => {
-    const findedPhoto = arrayToFilter.find((foto) => foto.id === id);
-    setSinglePhoto(findedPhoto);
-    setModalPhoto(findedPhoto);
+    const findedItem = arrayToFilter.find((foto) => foto.id === id);
+    setSinglePhoto(findedItem);
+    setModalPhoto(findedItem);
+  };
+  const findSingleUser = (singleUser) => {
+    setSingleUser(singleUser);
+    console.log(singleUser);
   };
 
   const resetSinglePhoto = () => {
@@ -246,8 +261,10 @@ const App = () => {
           homeImg,
           likePhotosList,
           selectedCollectionList,
+          singleUserPhotos,
           modalPhoto,
-          // getPhotosCollectionsAndUserFromApi,
+          singleUser,
+          findSingleUser,
           resetSinglePhoto,
           handleSetActiveSearchType,
           handleSearchInputValueChange,
@@ -264,6 +281,7 @@ const App = () => {
           addToLikePhotosList,
           removeFromLikesPhotos,
           getCollectionsPhotos,
+          getSingleUserPhotos,
         }}
       >
         <GlobalStyle />

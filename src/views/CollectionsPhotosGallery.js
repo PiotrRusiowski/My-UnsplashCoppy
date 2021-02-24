@@ -4,7 +4,7 @@ import PhotosList from "../components/galleryComponets/Lists/PhotosList/PhotosLi
 
 const CollectionsPhotosList = () => {
   const context = useContext(RootContext);
-  const { selectedCollectionList, photosList } = context;
+  const { selectedCollectionList } = context;
   return <PhotosList photosList={selectedCollectionList} />;
 };
 

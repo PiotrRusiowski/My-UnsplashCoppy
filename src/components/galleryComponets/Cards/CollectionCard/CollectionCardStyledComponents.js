@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const StyledCard = styled.div`
+export const StyledColectionCard = styled.div`
   width: 32%;
   height: 330px;
   display: flex;

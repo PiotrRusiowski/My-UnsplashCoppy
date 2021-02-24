@@ -9,7 +9,8 @@ export const StyledTagList = styled.ul`
 export const StyledPhoto = styled.img`
   position: relative;
   height: 100%;
-
+  cursor: pointer;
+  /* 
   &:hover {
     &:after {
       content: "\A";
@@ -24,7 +25,7 @@ export const StyledPhoto = styled.img`
       -webkit-transition: all 1s;
     }
     opacity: 1;
-  }
+  } */
 `;
 
 export const StyledPhotoWrapper = styled.div`
@@ -59,6 +60,7 @@ export const StyledPhotoHover = styled.div`
   height: 99.5%;
   padding: 20px;
   /* z-index: 999; */
+
   display: ${({ isHover }) => (isHover ? "flex" : "none")};
   background: rgba(0, 0, 0, 0.2);
 `;

@@ -1,16 +1,21 @@
 import React, { useContext } from "react";
 import RootContext from "../../../../context";
 import CollectionCard from "../../Cards/CollectionCard/CollectionCard";
-
 import {
   Container,
   StyledList,
 } from "../../../../styles/globalStyledComponents";
 import UserCard from "../../Cards/UserCard/UserCard";
+import UserInfoCard from "../../Cards/UserCard/UserInfoCard/UserInfoCard";
 
-const CollectionsList = ({ list, user }) => {
+const CollectionsAndUsersList = ({ list, isUserList }) => {
   const context = useContext(RootContext);
-  const { getCollectionsPhotos, searchInputValue } = context;
+  const {
+    getCollectionsPhotos,
+    searchInputValue,
+    getSingleUserPhotos,
+    findSingleUser,
+  } = context;
 
   return (
     <>
@@ -18,8 +23,14 @@ const CollectionsList = ({ list, user }) => {
         <StyledList>
           {list.map((item) => (
             <>
-              {user ? (
-                <UserCard user={item} />
+              {isUserList ? (
+                <>
+                  <UserCard
+                    singleUser={item}
+                    getSingleUserPhotos={getSingleUserPhotos}
+                    findSingleUser={findSingleUser}
+                  />
+                </>
               ) : (
                 <CollectionCard
                   collection={item}
@@ -35,4 +46,4 @@ const CollectionsList = ({ list, user }) => {
   );
 };
 
-export default CollectionsList;
+export default CollectionsAndUsersList;

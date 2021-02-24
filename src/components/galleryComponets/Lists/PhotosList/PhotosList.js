@@ -27,7 +27,6 @@ import {
 } from "./PhotosListStyledComponent";
 
 const PhotosList = ({ photosList }) => {
-  // const [isHover, setIsHover] = useState(false);
   const context = useContext(RootContext);
   const {
     findPhoto,
@@ -36,12 +35,7 @@ const PhotosList = ({ photosList }) => {
     modalIsOpen,
     addToLikePhotosList,
     resetSinglePhoto,
-    selectedCollectionList,
   } = context;
-  // const setIsHoverTrue =()=>{
-  // }
-
-  const showButtons = () => {};
 
   return (
     <>
@@ -51,8 +45,6 @@ const PhotosList = ({ photosList }) => {
             let isHover = false;
             if (id === singlePhoto.id) {
               isHover = true;
-              console.log(singlePhoto.id);
-              console.log(id, isHover);
             } else {
               isHover = false;
             }

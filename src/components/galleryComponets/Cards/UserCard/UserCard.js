@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   StledAuthorInfoWrapper,
   StyledAuthorProfileImg,
@@ -11,12 +12,18 @@ import {
   StyledFollowBtn,
 } from "./UserCardStyledComponents";
 
-const UserCard = ({ user }) => {
-  console.log(user);
-  const { profile_image, name, id, photos } = user;
+const UserCard = ({ singleUser, getSingleUserPhotos, findSingleUser }) => {
+  const { profile_image, username, name, photos, id } = singleUser;
   const imgArray = photos.map((photo) => photo.urls.small);
+
   return (
-    <StyledUserCard>
+    <StyledUserCard
+      to={`/${username}`}
+      onClick={() => {
+        getSingleUserPhotos(username);
+        findSingleUser(singleUser);
+      }}
+    >
       <StledAuthorInfoWrapper margin>
         <StyledAuthorProfileImg src={profile_image.medium} />
         <StyledAuthorInfo>{name}</StyledAuthorInfo>
