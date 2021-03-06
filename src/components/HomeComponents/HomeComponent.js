@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import RootContext from "../../context";
-
+import { connect } from "react-redux";
+import { test as testAction } from "../../actions";
 import Search from "../Search/Search";
 import { Container } from "../../styles/globalStyledComponents";
 import {
@@ -10,13 +11,14 @@ import {
   StyledTitle,
 } from "./HomeComoponetStyledsComponents";
 
-const HomeComponent = () => {
+const HomeComponent = ({ showTest, changeTest }) => {
   const context = useContext(RootContext);
   const { homeImg } = context;
   return (
     <>
-      <StyledHome>
-        <Container img={homeImg}>
+      <StyledHome img={homeImg}>
+        <Container>
+          <h1>{showTest}</h1>
           <HomeWrapper>
             <StyledContent>
               <StyledTitle>Unsplash</StyledTitle>
@@ -28,9 +30,15 @@ const HomeComponent = () => {
             <Search pageType="home" />
           </HomeWrapper>
         </Container>
+        <button onClick={() => changeTest("chuj")}>test</button>
       </StyledHome>
     </>
   );
 };
-
-export default HomeComponent;
+const mapStateToProps = (state) => ({
+  showTest: state.test,
+});
+const mapDispatchToProps = (dispatch) => ({
+  changeTest: (test) => dispatch(testAction(test)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);

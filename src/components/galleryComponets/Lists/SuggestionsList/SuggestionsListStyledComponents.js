@@ -10,14 +10,14 @@ export const StyledSugestBtn = styled.button`
   width: 135px;
   font-size: 14px;
   background-color: white;
-  color: #767676;
-  border: 1px solid #d1d1d1;
+  color: ${(props) => props.theme.darkGrey};
+  border: 1px solid ${({ theme }) => theme.lightGrey};
   border-radius: 5px;
   outline: none;
   height: 42px;
 
   &:hover {
-    border-color: #767676;
+    border-color: ${({ theme }) => theme.darkGrey};
     color: black;
   }
 `;
@@ -31,7 +31,8 @@ export const StyledCarouselBtn = styled.button`
   height: 60px;
   width: 60px;
   background-color: rgba(255, 255, 255, 0.5);
-  color: #767676;
+  color: ${({ theme }) => theme.darkGrey};
+
   outline: none;
   display: flex;
   align-items: center;

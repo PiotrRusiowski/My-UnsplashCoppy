@@ -1,40 +1,26 @@
 import React, { useContext } from "react";
-import { Container } from "../../../styles/globalStyledComponents";
 import RootContext from "../../../context";
+import { Container } from "../../../styles/globalStyledComponents";
 import SuggestionsList from "../Lists/SuggestionsList/SuggestionsList";
-import Search from "../../Search/Search";
-import logo from "../../../theme/logo.svg";
-import { routes } from "../../../routes";
+import Navigation from "../Navigation.js/Navigation";
 import {
   StyledGalleryHeader,
   StyledSearchValue,
-  StyledLogo,
-  StyledMainHeader,
-  StyledSearchWrapper,
 } from "./GalleryHeaderStyledComponents";
-import Navigation from "../Navigation.js/Navigation";
-import { Link } from "react-router-dom";
+
 const GalleryHeader = () => {
   const context = useContext(RootContext);
   const { showSearchValue } = context;
-  const gallery = true;
-  return (
-    <Container xl>
-      <StyledGalleryHeader>
-        <StyledMainHeader>
-          <Link to={routes.home}>
-            <StyledLogo src={logo} alt="React Logo" />
-          </Link>
 
-          <StyledSearchWrapper>
-            <Search gallery={gallery} />
-          </StyledSearchWrapper>
-        </StyledMainHeader>
-        <Navigation />
+  return (
+    <StyledGalleryHeader>
+      <Navigation />
+      <Container xl>
         <StyledSearchValue>{showSearchValue}</StyledSearchValue>
-      </StyledGalleryHeader>
+      </Container>
+
       <SuggestionsList />
-    </Container>
+    </StyledGalleryHeader>
   );
 };
 

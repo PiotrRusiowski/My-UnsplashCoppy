@@ -5,11 +5,17 @@ import unsplashData from "./data.json";
 import { apiKey } from "./apiKey/index";
 import axios from "axios";
 import Router from "./routing/Router";
-import { searchTypes } from "./utils/searchTypes";
 import {
   getPhotosFromLocalStorage,
   getShowSearchValueFromLocalStorage,
+  getCollectionsFromLocalStorage,
+  getUsersFromLocalStorage,
+  getSuggestionsFromLocalStorage,
+  getActiveSearchTypeFromLocalStorage,
 } from "./utils/localStorageGetter";
+import { Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setPhotosList } from "./actions";
 
 const App = () => {
   const keywordsData = unsplashData.map((item) => {
@@ -17,8 +23,10 @@ const App = () => {
   });
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
-  const [suggestionsArray, setSuggestionsArray] = useState([]);
-  const [photosList, setPhotosList] = useState(getPhotosFromLocalStorage());
+  const [suggestionsArray, setSuggestionsArray] = useState(
+    getSuggestionsFromLocalStorage()
+  );
+  // const [photosList, setPhotosList] = useState(getPhotosFromLocalStorage());
   const [searchInputValue, setSearchInputValue] = useState("");
   const [showSearchValue, setshowSearchValue] = useState(
     getShowSearchValueFromLocalStorage()
@@ -42,30 +50,68 @@ const App = () => {
     profile_image: "",
   });
   const [isPopperVisible, setIsPopperVisible] = useState(false);
-  const [goToGalleryPage, setGoToGalleryPage] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [collectionsList, setCollectionList] = useState([]);
+  const [collectionsList, setCollectionList] = useState(
+    getCollectionsFromLocalStorage()
+  );
   const [selectedCollectionList, setSelectedCollectionList] = useState([]);
-  const [usersList, setUsersList] = useState([]);
+  const [usersList, setUsersList] = useState(getUsersFromLocalStorage());
   const [singleUserPhotos, setSingleUserPhotos] = useState([]);
 
-  const [activeSearchType, setActiveSearchType] = useState(searchTypes.photos);
-  const [homeImg, setHomeImg] = useState({});
+  const [activeSearchType, setActiveSearchType] = useState(
+    getActiveSearchTypeFromLocalStorage()
+  );
+  const [homeImg, setHomeImg] = useState("");
   const [likePhotosList, setLikePhotosList] = useState([]);
+  /////////////////////////
 
+  const reducerState = useSelector((state) => state);
+  const { photosList } = reducerState;
+  const dispatch = useDispatch();
   const handleSetActiveSearchType = (searchType) => {
     setActiveSearchType(searchType);
   };
 
-  const handleSearchInputValueChange = (word) => {
-    console.log(word);
-    setSearchInputValue(word);
+  const handleSearchInputValueChange = (e) => {
+    setshowSearchValue(e.target.value);
   };
+
+  useEffect(() => {
+    localStorage.setItem("showSearchValue", JSON.stringify(showSearchValue));
+  }, [showSearchValue]);
+
+  useEffect(() => {
+    localStorage.setItem("photos", JSON.stringify(photosList));
+  }, [photosList]);
+
+  useEffect(() => {
+    localStorage.setItem("collections", JSON.stringify(collectionsList));
+  }, [collectionsList]);
+
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(usersList));
+  }, [usersList]);
+
+  useEffect(() => {
+    localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
+  }, [activeSearchType]);
+
+  useEffect(() => {
+    localStorage.setItem("suggestions", JSON.stringify(suggestionsArray));
+  }, [suggestionsArray]);
+
   const getRandomPhoto = () => {
-    axios.get(
-      ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey} `
-    );
+    axios
+      .get(
+        ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey} `
+      )
+      .then((res) => setHomeImg(res.data[0].urls.regular))
+      .catch((err) => console.error(err));
   };
+
+  useEffect(() => {
+    getRandomPhoto();
+  }, []);
 
   const getCollectionsPhotos = (id) => {
     axios
@@ -80,37 +126,30 @@ const App = () => {
       });
   };
 
-  const getPhotos = (e, pageType) => {
-    let tempWord;
+  const changeShowSearchValueByClickingOnSuggestionList = (word) => {
+    setshowSearchValue(word);
+  };
+
+  const getPhotos = (e, word) => {
+    // let tempWord;
+
+    e.preventDefault();
+
+    let queryValue;
 
     if (e.target.matches("form")) {
-      tempWord = e.target.searchPhotos.value;
-      e.preventDefault();
-      setshowSearchValue(e.target.searchPhotos.value);
-      localStorage.setItem(
-        "showSearchValue",
-        JSON.stringify(e.target.searchPhotos.value)
-      );
-      // window.location.pathname = `/search/${activeSearchType}/${showSearchValue}`;
+      queryValue = showSearchValue;
     } else {
-      tempWord = e.target.innerText;
-      setSearchInputValue(e.target.innerText);
-
-      setshowSearchValue(e.target.innerText);
-
-      localStorage.setItem(
-        "showSearchValue",
-        JSON.stringify(e.target.innerText)
-      );
-      // window.location.pathname = `/search/${activeSearchType}/${showSearchValue}`;
+      queryValue = word;
     }
+
     axios
       .get(
-        ` https://api.unsplash.com/search/photos?&query=${tempWord}&client_id=${apiKey}`
+        ` https://api.unsplash.com/search/photos?&query=${queryValue}&client_id=${apiKey}`
       )
 
       .then((res) => {
-        setPhotosList(res.data.results);
+        dispatch(setPhotosList(res.data.results));
 
         const suggestions = [
           ...new Set(
@@ -120,26 +159,39 @@ const App = () => {
           ),
         ];
         setSuggestionsArray([...suggestions]);
-        setshowSearchValue(searchInputValue);
         setIsPopperVisible(false);
-
-        localStorage.setItem("photos", JSON.stringify(res.data.results));
-
-        if (!e.target.matches("button")) {
-          if (pageType === "home") {
-            setGoToGalleryPage(true);
-          }
-        }
       })
       .then(() => {
-        setGoToGalleryPage(false);
+        window.location.pathname = `/search/${activeSearchType}/${queryValue.replace(
+          /\s/g,
+          ""
+        )}`;
+      });
+
+    //get collections
+    axios
+      .get(
+        `    https://api.unsplash.com/search/collections?page=1&query=${queryValue}&client_id=${apiKey}
+        `
+      )
+      .then((res) => {
+        setCollectionList([...res.data.results]);
+      });
+
+    //get users
+    axios
+      .get(
+        `https://api.unsplash.com/search/users?page=1&query=${queryValue}&client_id=${apiKey}`
+      )
+      .then((res) => {
+        setUsersList([...res.data.results]);
       });
   };
 
   const getCollectionsFromApi = (e) => {
     axios
       .get(
-        `    https://api.unsplash.com/search/collections?page=1&query=${searchInputValue}&client_id=${apiKey}
+        `    https://api.unsplash.com/search/collections?page=1&query=${showSearchValue}&client_id=${apiKey}
         `
       )
       .then((res) => {
@@ -160,7 +212,7 @@ const App = () => {
   const getUsersFromApi = () => {
     axios
       .get(
-        `https://api.unsplash.com/search/users?page=1&query=${searchInputValue}&client_id=${apiKey}`
+        `https://api.unsplash.com/search/users?page=1&query=${showSearchValue}&client_id=${apiKey}`
       )
       .then((res) => {
         setUsersList([...res.data.results]);
@@ -176,12 +228,6 @@ const App = () => {
         setSingleUserPhotos(res.data);
       });
   };
-
-  // const getPhotosCollectionsAndUserFromApi = (e) => {
-  //   getPhotos(e);
-  //   getCollectionsFromApi(e);
-  //   getUsersFromApi(e);
-  // };
 
   const filterKeyWords = () => {
     if (searchInputValue.length >= 3) {
@@ -200,6 +246,8 @@ const App = () => {
 
   const showPopper = (e) => {
     setSearchInputValue(e.target.value);
+    setshowSearchValue(e.target.value);
+
     if (e.target.value.length < 3) {
       setIsPopperVisible(false);
     } else {
@@ -282,16 +330,20 @@ const App = () => {
           removeFromLikesPhotos,
           getCollectionsPhotos,
           getSingleUserPhotos,
+          changeShowSearchValueByClickingOnSuggestionList,
         }}
       >
         <GlobalStyle />
         <Router />
-        {/* {goToGalleryPage ? (
-          <Redirect to={`search/photos/${searchInputValue}`} />
-        ) : null} */}
       </RootContext.Provider>
     </div>
   );
 };
+// const mapStateToProps = (state) => ({
+//   photosList: state.photosList,
+// });
+// const mapDispatchToProps = (dispatch) => ({
+//   setPhotosList: (res) => dispatch(setPhotosListAction(res)),
+// });
 
 export default App;

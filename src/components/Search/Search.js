@@ -13,29 +13,28 @@ import {
 } from "./SearchStyledsComponents";
 import { Link } from "react-router-dom";
 
-const Search = ({ gallery, pageType }) => {
+const Search = ({ gallery }) => {
   const context = useContext(RootContext);
   const {
     searchInputValue,
     isPopperVisible,
     keyWordsArray,
-    getPhotosFromApiBySubmitingForm,
     showPopper,
     setSearchInputValue,
-    handleSearchInputValueChange,
-    getUsersFromApi,
-    getCollectionsFromApi,
     getPhotos,
     activeSearchType,
+    changeShowSearchValueByClickingOnSuggestionList,
   } = context;
 
   return (
     <StyledSearchWrapper gallery={gallery}>
       <StyledForm
         onSubmit={(e) => {
-          getPhotos(e, pageType);
+          getPhotos(e);
+
           // getCollectionsFromApi(e);
         }}
+        //TODO: page type to localStorage i do stanu
       >
         <StyledSearch>
           <StyledSearchBtn type="submit">
@@ -66,9 +65,11 @@ const Search = ({ gallery, pageType }) => {
                       key={index}
                       type="submit"
                       onClick={(e) => {
+                        changeShowSearchValueByClickingOnSuggestionList(word);
+
                         // getPhotosFromApiByClickingOnSuggestionList(word);
                         // handleSearchInputValueChange(word);
-                        getPhotos(e, pageType);
+                        getPhotos(e, word);
                         // getUsersFromApi();
                         // getCollectionsFromApi();
 

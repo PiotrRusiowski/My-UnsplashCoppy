@@ -31,28 +31,40 @@ const responsive = {
   },
 };
 
-const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
+const ButtonGroup = ({
+  next,
+  previous,
+  goToSlide,
+  suggestionsArray,
+  ...rest
+}) => {
   const {
     carouselState: { currentSlide },
   } = rest;
   return (
-    <StyledCarouselBtnGroup>
-      <StyledCarouselBtn
-        left
-        className={currentSlide === 0 ? "disable" : ""}
-        onClick={() => previous()}
-        style={{ left: "30px" }}
-      >
-        <ArrowBackIosIcon fontSize="inherit" />
-      </StyledCarouselBtn>
-      <StyledCarouselBtn
-        right
-        style={{ right: "-30px" }}
-        onClick={() => next()}
-      >
-        <ArrowForwardIosIcon color="inherit" fontSize="inherit" />
-      </StyledCarouselBtn>
-    </StyledCarouselBtnGroup>
+    <>
+      {suggestionsArray.length > 8 ? (
+        <StyledCarouselBtnGroup>
+          <StyledCarouselBtn
+            left
+            className={currentSlide === 0 ? "disable" : ""}
+            onClick={() => previous()}
+            style={{ left: "30px" }}
+          >
+            <ArrowBackIosIcon fontSize="inherit" />
+          </StyledCarouselBtn>
+          <StyledCarouselBtn
+            right
+            style={{ right: "-30px" }}
+            onClick={() => next()}
+          >
+            <ArrowForwardIosIcon color="inherit" fontSize="inherit" />
+          </StyledCarouselBtn>
+        </StyledCarouselBtnGroup>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
@@ -65,6 +77,7 @@ const SuggestionsList = () => {
     getCollectionsFromApiSuggestList,
     getPhotos,
     getCollectionsFromApi,
+    changeShowSearchValueByClickingOnSuggestionList,
   } = context;
 
   return (
@@ -80,7 +93,7 @@ const SuggestionsList = () => {
         itemClass="carousel-item-padding-40-px"
         centerMode={true}
         arrows={false}
-        customButtonGroup={<ButtonGroup />}
+        customButtonGroup={<ButtonGroup suggestionsArray={suggestionsArray} />}
       >
         {suggestionsArray.map((suggest, index) => (
           <>
@@ -88,8 +101,9 @@ const SuggestionsList = () => {
               <li
                 key={`${index}${suggest}`}
                 onClick={(e) => {
-                  getPhotos(e);
-                  getCollectionsFromApiSuggestList(suggest);
+                  changeShowSearchValueByClickingOnSuggestionList(suggest);
+                  getPhotos(e, suggest);
+                  // getCollectionsFromApiSuggestList(suggest);
                 }}
               >
                 <StyledSugestBtn>{suggest}</StyledSugestBtn>

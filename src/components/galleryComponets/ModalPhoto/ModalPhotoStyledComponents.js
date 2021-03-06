@@ -21,7 +21,7 @@ export const StyledAuthorInfo = styled.div`
 export const StyledAuthorName = styled.h4``;
 export const StyledUserName = styled.p`
   font-size: 11px;
-  color: #767676;
+  color: ${({ theme }) => theme.lightGrey};
 `;
 export const StyledLocation = styled.p`
   position: absolute;

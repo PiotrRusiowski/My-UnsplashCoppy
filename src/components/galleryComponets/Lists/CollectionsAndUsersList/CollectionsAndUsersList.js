@@ -12,7 +12,7 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
   const context = useContext(RootContext);
   const {
     getCollectionsPhotos,
-    searchInputValue,
+    showSearchValue,
     getSingleUserPhotos,
     findSingleUser,
   } = context;
@@ -35,7 +35,7 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
                 <CollectionCard
                   collection={item}
                   getCollectionsPhotos={getCollectionsPhotos}
-                  searchInputValue={searchInputValue}
+                  searchInputValue={showSearchValue}
                 />
               )}
             </>

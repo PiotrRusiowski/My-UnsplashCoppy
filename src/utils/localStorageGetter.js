@@ -10,6 +10,30 @@ export const getPhotosFromLocalStorage = () => {
   return localStoragePhotos;
 };
 
+export const getCollectionsFromLocalStorage = () => {
+  let localStorageCollections;
+
+  if (localStorage.getItem("collections")) {
+    localStorageCollections = JSON.parse(localStorage.getItem("collections"));
+  } else {
+    localStorageCollections = [];
+  }
+
+  return localStorageCollections;
+};
+
+export const getUsersFromLocalStorage = () => {
+  let localStorageUsers;
+
+  if (localStorage.getItem("users")) {
+    localStorageUsers = JSON.parse(localStorage.getItem("users"));
+  } else {
+    localStorageUsers = [];
+  }
+
+  return localStorageUsers;
+};
+
 export const getShowSearchValueFromLocalStorage = () => {
   let localStorageShowSearchValue;
 
@@ -22,4 +46,28 @@ export const getShowSearchValueFromLocalStorage = () => {
   }
 
   return localStorageShowSearchValue;
+};
+
+export const getActiveSearchTypeFromLocalStorage = () => {
+  let localStorageActiveSearchType;
+
+  if (localStorage.getItem("activeSearchType")) {
+    localStorageActiveSearchType = JSON.parse(
+      localStorage.getItem("activeSearchType")
+    );
+  } else {
+    localStorageActiveSearchType = "photos";
+  }
+  return localStorageActiveSearchType;
+};
+
+export const getSuggestionsFromLocalStorage = () => {
+  let localStorageSuggestions;
+
+  if (localStorage.getItem("suggestions")) {
+    localStorageSuggestions = JSON.parse(localStorage.getItem("suggestions"));
+  } else {
+    localStorageSuggestions = [];
+  }
+  return localStorageSuggestions;
 };

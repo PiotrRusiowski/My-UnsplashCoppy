@@ -7,12 +7,16 @@ export const Container = styled.div`
   ${({ xl }) =>
     xl &&
     css`
-      max-width: 95vw;
+      margin: 0px;
+      padding: 0 25px;
+      max-width: 100%;
     `}
 `;
 export const StyledList = styled.ul`
   margin-top: 50px;
   width: 100%;
+  max-width: 1320px;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

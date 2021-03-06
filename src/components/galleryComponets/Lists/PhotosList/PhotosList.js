@@ -13,7 +13,7 @@ import {
   StledAuthorInfoWrapper,
   StyledAuthorProfileImg,
 } from "../../../../styles/globalStyledComponents";
-import GalleryHeader from "../../GalleryHeader/GalleryHeader";
+import GalleryHeader from "../../MainHeader/MainHeader";
 import GalleryModal from "../../ModalPhoto/ModalPhoto";
 import {
   StyledTagList,

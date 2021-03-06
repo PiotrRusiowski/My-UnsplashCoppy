@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
+import MainHeader from "../components/galleryComponets/MainHeader/MainHeader";
 import { routes } from "../routes";
 import Home from "../views/Home";
 import PhotosGallery from "../views/PhotosGallery";
@@ -9,15 +9,15 @@ import LikesPhotosGallery from "../views/LikesPhotosGallery";
 import CollectionsGallery from "../views/CollectionsGallery";
 import UsersGallery from "../views/UsersGallery";
 import SingleUserGallery from "../views/SingleUserGallery";
+import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
 const Router = () => {
   return (
     <>
-      <GalleryHeader />
+      <MainHeader />
       <Switch>
         <Route exact path={routes.home} component={Home} />
-
-        <Route exact path={routes.photosGallery} component={PhotosGallery} />
-        <Route exact path={routes.usersGallery} component={UsersGallery} />
+        <Route path={routes.photosGallery} component={PhotosGallery} />
+        <Route path={routes.usersGallery} component={UsersGallery} />
         <Route
           exact
           path={routes.likesPhotosGallery}
@@ -28,15 +28,15 @@ const Router = () => {
           path={routes.collectionsGallery}
           component={CollectionsGallery}
         />
-        <Route //dlaczego nie działają w odwrotnej kolejnośći z collecionsPhotos????????????????
+        <Route //????????????????
           exact
-          path={routes.singleUserGallery}
-          component={SingleUserGallery}
+          path="/search/collections/:id/:searchInputValue"
+          component={CollectionsPhotosGallery}
         />
         <Route
           exact
           path={routes.collectionsPhotos}
-          component={CollectionsPhotosGallery}
+          component={SingleUserGallery}
         />
       </Switch>
     </>

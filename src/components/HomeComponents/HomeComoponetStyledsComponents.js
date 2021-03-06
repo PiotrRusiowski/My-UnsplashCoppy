@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backGroundPhoto from "../../theme/bgcPhoto/backGround.jpg";
+// import backGroundPhoto from "../../assets/bgcPhoto/backGround.jpg";
 
 export const StyledHome = styled.div`
   height: 85vh;
@@ -8,7 +8,7 @@ export const StyledHome = styled.div`
   background: rgba(0, 0, 0, 0.4);
   color: white;
   &:after {
-    background-image: url(${backGroundPhoto});
+    background-image: url(${({ img }) => img});
     background-position: center;
     background-size: cover;
     background-position: center;

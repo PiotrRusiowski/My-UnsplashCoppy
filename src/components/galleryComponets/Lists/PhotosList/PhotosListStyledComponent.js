@@ -5,6 +5,7 @@ export const StyledTagList = styled.ul`
   padding: 5px;
   display: flex;
   justify-content: space-around;
+  width: 100%;
 `;
 export const StyledPhoto = styled.img`
   position: relative;
@@ -30,6 +31,7 @@ export const StyledPhoto = styled.img`
 
 export const StyledPhotoWrapper = styled.div`
   position: relative;
+  width: 100%;
 `;
 export const StyledBtn = styled.button`
   /* color: #d1d1d1; */
@@ -47,6 +49,8 @@ export const StyledBtn = styled.button`
 `;
 export const StyledPhotosListElement = styled.li`
   margin-bottom: 10px;
+  width: 100px;
+  display: flex;
 `;
 export const StyledPhotoHover = styled.div`
   position: absolute;
@@ -57,6 +61,7 @@ export const StyledPhotoHover = styled.div`
   justify-content: space-between;
   align-items: space-between;
   width: 100%;
+
   height: 99.5%;
   padding: 20px;
   /* z-index: 999; */
@@ -72,7 +77,7 @@ export const StyledBtnGroup = styled.div`
 `;
 export const StyledUserName = styled.p`
   font-size: 14px;
-  color: #d1d1d1;
+  color: ${({ theme }) => theme.lightGrey};
   &:hover {
     color: white;
   }
