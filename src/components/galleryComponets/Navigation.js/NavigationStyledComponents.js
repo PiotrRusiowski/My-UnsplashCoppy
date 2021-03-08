@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const StyledNavigation = styled.div`
@@ -20,7 +21,7 @@ export const StyledNavigationElement = styled.li`
   align-items: center;
   height: 100%;
 `;
-export const StyledNavigationLink = styled(Link)`
+export const StyledNavigationLink = styled(NavLink)`
   text-decoration: none;
   text-transform: capitalize;
   padding: 5px;

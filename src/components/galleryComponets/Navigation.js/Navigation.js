@@ -14,6 +14,7 @@ import { Container } from "../../../styles/globalStyledComponents";
 import CollectionsIcon from "@material-ui/icons/Collections";
 import LayersIcon from "@material-ui/icons/Layers";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+
 const Navigation = () => {
   const context = useContext(RootContext);
   const {
@@ -29,6 +30,7 @@ const Navigation = () => {
       <StyledNavigationList>
         <StyledNavigationElement>
           <StyledNavigationLink
+            activeStyle={{ color: "black" }}
             // to={`search/${searchTypes.photos}/${searchInputValue}`}
             to={`/search/photos/${showSearchValue}`}
             onClick={() => {
@@ -43,6 +45,7 @@ const Navigation = () => {
         </StyledNavigationElement>
         <StyledNavigationElement>
           <StyledNavigationLink
+            activeStyle={{ color: "black" }}
             // to={`search/${searchTypes.collections}/${searchInputValue}`}
             to={`/search/collections/${showSearchValue}`}
             onClick={() => {
@@ -59,6 +62,7 @@ const Navigation = () => {
         </StyledNavigationElement>
         <StyledNavigationElement>
           <StyledNavigationLink
+            activeStyle={{ color: "black" }}
             // to={`search/${searchTypes.users}/${searchInputValue}`}
             to={`/search/users/${showSearchValue}`}
             onClick={() => {
