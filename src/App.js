@@ -7,7 +7,7 @@ import axios from "axios";
 import Router from "./routing/Router";
 import {
   getPhotosFromLocalStorage,
-  getShowSearchValueFromLocalStorage,
+  getSearchInputValueFromLocalStorage,
   getCollectionsFromLocalStorage,
   getUsersFromLocalStorage,
   getSuggestionsFromLocalStorage,
@@ -27,9 +27,9 @@ const App = () => {
     getSuggestionsFromLocalStorage()
   );
   // const [photosList, setPhotosList] = useState(getPhotosFromLocalStorage());
-  const [searchInputValue, setSearchInputValue] = useState("");
-  const [showSearchValue, setshowSearchValue] = useState(
-    getShowSearchValueFromLocalStorage()
+  const [inputValue, setInputValue] = useState("");
+  const [searchInputValue, setSearchInputValue] = useState(
+    getSearchInputValueFromLocalStorage()
   );
   const [singlePhoto, setSinglePhoto] = useState({
     id: "",
@@ -48,6 +48,7 @@ const App = () => {
     bio: "",
     location: "",
     profile_image: "",
+    portfolio_url: "",
   });
   const [isPopperVisible, setIsPopperVisible] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -68,17 +69,19 @@ const App = () => {
   const reducerState = useSelector((state) => state);
   const { photosList } = reducerState;
   const dispatch = useDispatch();
+
+  /////////
   const handleSetActiveSearchType = (searchType) => {
     setActiveSearchType(searchType);
   };
 
   const handleSearchInputValueChange = (e) => {
-    setshowSearchValue(e.target.value);
+    setSearchInputValue(e.target.value);
   };
 
   useEffect(() => {
-    localStorage.setItem("showSearchValue", JSON.stringify(showSearchValue));
-  }, [showSearchValue]);
+    localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
+  }, [searchInputValue]);
 
   useEffect(() => {
     localStorage.setItem("photos", JSON.stringify(photosList));
@@ -126,8 +129,8 @@ const App = () => {
       });
   };
 
-  const changeShowSearchValueByClickingOnSuggestionList = (word) => {
-    setshowSearchValue(word);
+  const changeSearchInputValueByClickingOnSuggestionList = (word) => {
+    setSearchInputValue(word);
   };
 
   const getPhotos = (e, word) => {
@@ -138,7 +141,7 @@ const App = () => {
     let queryValue;
 
     if (e.target.matches("form")) {
-      queryValue = showSearchValue;
+      queryValue = searchInputValue;
     } else {
       queryValue = word;
     }
@@ -188,36 +191,36 @@ const App = () => {
       });
   };
 
-  const getCollectionsFromApi = (e) => {
-    axios
-      .get(
-        `    https://api.unsplash.com/search/collections?page=1&query=${showSearchValue}&client_id=${apiKey}
-        `
-      )
-      .then((res) => {
-        setCollectionList([...res.data.results]);
-      });
-  };
-  const getCollectionsFromApiSuggestList = (suggest) => {
-    axios
-      .get(
-        `    https://api.unsplash.com/search/collections?page=1&query=${suggest}&client_id=${apiKey}
-        `
-      )
-      .then((res) => {
-        setCollectionList([...res.data.results]);
-      });
-  };
+  // const getCollectionsFromApi = (e) => {
+  //   axios
+  //     .get(
+  //       `    https://api.unsplash.com/search/collections?page=1&query=${showSearchValue}&client_id=${apiKey}
+  //       `
+  //     )
+  //     .then((res) => {
+  //       setCollectionList([...res.data.results]);
+  //     });
+  // };
+  // const getCollectionsFromApiSuggestList = (suggest) => {
+  //   axios
+  //     .get(
+  //       `    https://api.unsplash.com/search/collections?page=1&query=${suggest}&client_id=${apiKey}
+  //       `
+  //     )
+  //     .then((res) => {
+  //       setCollectionList([...res.data.results]);
+  //     });
+  // };
 
-  const getUsersFromApi = () => {
-    axios
-      .get(
-        `https://api.unsplash.com/search/users?page=1&query=${showSearchValue}&client_id=${apiKey}`
-      )
-      .then((res) => {
-        setUsersList([...res.data.results]);
-      });
-  };
+  // const getUsersFromApi = () => {
+  //   axios
+  //     .get(
+  //       `https://api.unsplash.com/search/users?page=1&query=${showSearchValue}&client_id=${apiKey}`
+  //     )
+  //     .then((res) => {
+  //       setUsersList([...res.data.results]);
+  //     });
+  // };
   const getSingleUserPhotos = (userName) => {
     axios
 
@@ -230,11 +233,11 @@ const App = () => {
   };
 
   const filterKeyWords = () => {
-    if (searchInputValue.length >= 3) {
+    if (inputValue.length >= 3) {
       const filteredKeyWordsData = keywordsDataWithoutDuplicates.filter(
         (word) => {
-          const tempWord = word.toString().slice(0, searchInputValue.length);
-          return searchInputValue.toLowerCase() === tempWord;
+          const tempWord = word.toString().slice(0, inputValue.length);
+          return inputValue.toLowerCase() === tempWord;
         }
       );
       setKeyWordArray(filteredKeyWordsData);
@@ -242,11 +245,10 @@ const App = () => {
   };
   useEffect(() => {
     filterKeyWords();
-  }, [searchInputValue]);
+  }, [inputValue]);
 
   const showPopper = (e) => {
-    setSearchInputValue(e.target.value);
-    setshowSearchValue(e.target.value);
+    setInputValue(e.target.value);
 
     if (e.target.value.length < 3) {
       setIsPopperVisible(false);
@@ -295,11 +297,10 @@ const App = () => {
     <div className="App">
       <RootContext.Provider
         value={{
-          photosList,
           isPopperVisible,
           keyWordsArray,
+          inputValue,
           searchInputValue,
-          showSearchValue,
           suggestionsArray,
           modalIsOpen,
           singlePhoto,
@@ -317,20 +318,20 @@ const App = () => {
           handleSetActiveSearchType,
           handleSearchInputValueChange,
           getPhotos,
-          getUsersFromApi,
+          // getUsersFromApi,
           findPhoto,
           openModal,
           closeModal,
-          getCollectionsFromApiSuggestList,
+          // getCollectionsFromApiSuggestList,
           showPopper,
-          setshowSearchValue,
           setSearchInputValue,
-          getCollectionsFromApi,
+          setInputValue,
+          // getCollectionsFromApi,
           addToLikePhotosList,
           removeFromLikesPhotos,
           getCollectionsPhotos,
           getSingleUserPhotos,
-          changeShowSearchValueByClickingOnSuggestionList,
+          changeSearchInputValueByClickingOnSuggestionList,
         }}
       >
         <GlobalStyle />

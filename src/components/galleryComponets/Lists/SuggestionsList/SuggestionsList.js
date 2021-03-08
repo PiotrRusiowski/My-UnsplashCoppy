@@ -77,7 +77,7 @@ const SuggestionsList = () => {
     getCollectionsFromApiSuggestList,
     getPhotos,
     getCollectionsFromApi,
-    changeShowSearchValueByClickingOnSuggestionList,
+    changeSearchInputValueByClickingOnSuggestionList,
   } = context;
 
   return (
@@ -101,9 +101,8 @@ const SuggestionsList = () => {
               <li
                 key={`${index}${suggest}`}
                 onClick={(e) => {
-                  changeShowSearchValueByClickingOnSuggestionList(suggest);
+                  changeSearchInputValueByClickingOnSuggestionList(suggest);
                   getPhotos(e, suggest);
-                  // getCollectionsFromApiSuggestList(suggest);
                 }}
               >
                 <StyledSugestBtn>{suggest}</StyledSugestBtn>

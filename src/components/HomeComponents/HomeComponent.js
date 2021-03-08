@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import RootContext from "../../context";
 import { connect } from "react-redux";
-import { test as testAction } from "../../actions";
 import Search from "../Search/Search";
 import { Container } from "../../styles/globalStyledComponents";
 import {
@@ -35,10 +34,5 @@ const HomeComponent = ({ showTest, changeTest }) => {
     </>
   );
 };
-const mapStateToProps = (state) => ({
-  showTest: state.test,
-});
-const mapDispatchToProps = (dispatch) => ({
-  changeTest: (test) => dispatch(testAction(test)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);
+
+export default HomeComponent;

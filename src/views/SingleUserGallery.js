@@ -4,18 +4,21 @@ import PhotosList from "../components/galleryComponets/Lists/PhotosList/PhotosLi
 import UserInfoCard from "../components/galleryComponets/Cards/UserCard/UserInfoCard/UserInfoCard";
 import { Container } from "../styles/globalStyledComponents";
 import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
+import { useSelector } from "react-redux";
+import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
 
 const SingleUserGallery = () => {
-  const context = useContext(RootContext);
-  const { singleUserPhotos } = context;
+  const selectedSingleUserPhotos = useSelector(
+    ({ singleUserPhotos }) => singleUserPhotos
+  );
 
   return (
     <div>
-      <GalleryHeader />
       <Container>
         <UserInfoCard />
       </Container>
-      <PhotosList photosList={singleUserPhotos} />
+      <Navigation />
+      <PhotosList photosList={selectedSingleUserPhotos} />
     </div>
   );
 };

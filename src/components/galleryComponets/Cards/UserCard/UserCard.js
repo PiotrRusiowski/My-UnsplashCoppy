@@ -11,8 +11,11 @@ import {
   StyledShowCase,
   StyledFollowBtn,
 } from "./UserCardStyledComponents";
+import { getSingleUserPhotosTest } from "../../../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
-const UserCard = ({ singleUser, getSingleUserPhotos, findSingleUser }) => {
+const UserCard = ({ singleUser, findSingleUser }) => {
+  const dispatch = useDispatch();
   const { profile_image, username, name, photos, id } = singleUser;
   const imgArray = photos.map((photo) => photo.urls.small);
 
@@ -20,7 +23,7 @@ const UserCard = ({ singleUser, getSingleUserPhotos, findSingleUser }) => {
     <StyledUserCard
       to={`/${username}`}
       onClick={() => {
-        getSingleUserPhotos(username);
+        // dispatch(getSingleUserPhotosTest(username));
         findSingleUser(singleUser);
       }}
     >

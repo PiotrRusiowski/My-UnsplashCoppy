@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import RootContext from "../context";
 import PhotosList from "../components/galleryComponets/Lists/PhotosList/PhotosList";
 import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
+import { useSelector } from "react-redux";
 
 const PhotosGallery = () => {
-  const context = useContext(RootContext);
-  const { photosList } = context;
+  const selectedPhotosList = useSelector(({ photosList }) => photosList);
   return (
     <>
       <GalleryHeader />
-      <PhotosList photosList={photosList} />
+      <PhotosList photosList={selectedPhotosList} />
     </>
   );
 };

@@ -16,14 +16,15 @@ import { Link } from "react-router-dom";
 const Search = ({ gallery }) => {
   const context = useContext(RootContext);
   const {
-    searchInputValue,
+    inputValue,
     isPopperVisible,
     keyWordsArray,
     showPopper,
-    setSearchInputValue,
+    setInputValue,
     getPhotos,
     activeSearchType,
-    changeShowSearchValueByClickingOnSuggestionList,
+    changeSearchInputValueByClickingOnSuggestionList,
+    handleSearchInputValueChange,
   } = context;
 
   return (
@@ -31,10 +32,7 @@ const Search = ({ gallery }) => {
       <StyledForm
         onSubmit={(e) => {
           getPhotos(e);
-
-          // getCollectionsFromApi(e);
         }}
-        //TODO: page type to localStorage i do stanu
       >
         <StyledSearch>
           <StyledSearchBtn type="submit">
@@ -43,13 +41,16 @@ const Search = ({ gallery }) => {
           <StyledSearchInput
             type="text"
             placeholder="Search free high-resolution photos"
-            onChange={showPopper}
-            value={searchInputValue}
+            onChange={(e) => {
+              showPopper(e);
+              handleSearchInputValueChange(e);
+            }}
+            value={inputValue}
             name="searchPhotos"
             autoComplete="off"
           />
-          {searchInputValue.length ? (
-            <StyledSearchBtn onClick={() => setSearchInputValue("")}>
+          {inputValue.length ? (
+            <StyledSearchBtn onClick={() => setInputValue("")}>
               <CloseIcon fontSize="inherit" />
             </StyledSearchBtn>
           ) : null}
@@ -60,22 +61,18 @@ const Search = ({ gallery }) => {
             {keyWordsArray.map((word, index) => (
               <>
                 {index <= 4 ? (
-                  <Link to={`/search/${activeSearchType}/${word}`}>
+                  <Link
+                    style={{ color: "black" }}
+                    to={`/search/${activeSearchType}/${word}`}
+                  >
                     <StyledPopperListElement
                       key={index}
                       type="submit"
                       onClick={(e) => {
-                        changeShowSearchValueByClickingOnSuggestionList(word);
+                        changeSearchInputValueByClickingOnSuggestionList(word);
 
-                        // getPhotosFromApiByClickingOnSuggestionList(word);
-                        // handleSearchInputValueChange(word);
                         getPhotos(e, word);
-                        // getUsersFromApi();
-                        // getCollectionsFromApi();
-
-                        // setshowSearchValue(word);
                       }}
-                      style={{ cursor: "pointer" }}
                     >
                       {word}
                     </StyledPopperListElement>

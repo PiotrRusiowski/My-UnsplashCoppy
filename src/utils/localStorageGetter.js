@@ -34,12 +34,12 @@ export const getUsersFromLocalStorage = () => {
   return localStorageUsers;
 };
 
-export const getShowSearchValueFromLocalStorage = () => {
+export const getSearchInputValueFromLocalStorage = () => {
   let localStorageShowSearchValue;
 
-  if (localStorage.getItem("showSearchValue")) {
+  if (localStorage.getItem("searchInputValue")) {
     localStorageShowSearchValue = JSON.parse(
-      localStorage.getItem("showSearchValue")
+      localStorage.getItem("searchInputValue")
     );
   } else {
     localStorageShowSearchValue = "";
