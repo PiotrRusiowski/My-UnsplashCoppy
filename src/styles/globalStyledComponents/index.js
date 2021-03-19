@@ -8,15 +8,18 @@ export const Container = styled.div`
     xl &&
     css`
       margin: 0px;
-      padding: 0 25px;
+      padding: 0 20px;
       max-width: 100%;
+      @media (max-width: 768px) {
+        padding: 0 10px;
+      }
     `}
 `;
 export const StyledList = styled.ul`
   margin-top: 50px;
   width: 100%;
   max-width: 1320px;
-
+  flex-wrap: wrap;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

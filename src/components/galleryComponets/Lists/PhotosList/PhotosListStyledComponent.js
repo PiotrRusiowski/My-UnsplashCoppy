@@ -11,6 +11,11 @@ export const StyledPhoto = styled.img`
   position: relative;
   height: 100%;
   cursor: pointer;
+  width: 100%;
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
   /* 
   &:hover {
     &:after {
@@ -48,9 +53,12 @@ export const StyledBtn = styled.button`
   }
 `;
 export const StyledPhotosListElement = styled.li`
-  margin-bottom: 10px;
-  width: 100px;
-  display: flex;
+  margin-bottom: 20px;
+  width: 32%;
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 `;
 export const StyledPhotoHover = styled.div`
   position: absolute;

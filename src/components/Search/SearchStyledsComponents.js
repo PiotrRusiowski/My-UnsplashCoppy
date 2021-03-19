@@ -6,6 +6,7 @@ export const StyledSearchWrapper = styled.div`
   background-color: white;
   height: 54px;
   outline: none;
+
   ${({ gallery }) =>
     gallery &&
     css`
@@ -27,7 +28,6 @@ export const StyledForm = styled.form`
 `;
 export const StyledSearch = styled.div`
   position: relative;
-  width: 100%;
 
   height: 100%;
   display: flex;
@@ -40,6 +40,8 @@ export const StyledSearchInput = styled.input`
   border-radius: 5px;
   font-size: 15px;
   background-color: transparent;
+  padding-right: 10px;
+
   &:focus {
     outline: none;
   }

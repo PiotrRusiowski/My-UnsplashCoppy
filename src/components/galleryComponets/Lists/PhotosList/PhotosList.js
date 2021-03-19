@@ -17,7 +17,7 @@ import GalleryHeader from "../../MainHeader/MainHeader";
 import GalleryModal from "../../ModalPhoto/ModalPhoto";
 import {
   StyledTagList,
-  StyledTagListElemnt,
+  StyledPhotosListElement,
   StyledPhoto,
   StyledPhotoWrapper,
   StyledBtn,
@@ -39,68 +39,64 @@ const PhotosList = ({ photosList }) => {
 
   return (
     <>
-      <Container xl>
-        <StyledList>
-          {photosList.map(({ id, alt_description, urls }) => {
-            let isHover = false;
-            if (id === singlePhoto.id) {
-              isHover = true;
-            } else {
-              isHover = false;
-            }
-            return (
-              <li>
-                <StyledPhotoWrapper
-                  key={id}
-                  onMouseEnter={() => {
-                    findPhoto(id, photosList);
+      <StyledList>
+        {photosList.map(({ id, alt_description, urls }) => {
+          let isHover = false;
+          if (id === singlePhoto.id) {
+            isHover = true;
+          } else {
+            isHover = false;
+          }
+          return (
+            <StyledPhotosListElement>
+              <StyledPhotoWrapper
+                key={id}
+                onMouseEnter={() => {
+                  findPhoto(id, photosList);
+                }}
+                onMouseLeave={resetSinglePhoto}
+              >
+                <StyledPhotoHover isHover={isHover}>
+                  <StyledBtnGroup>
+                    <StyledBtn>
+                      <AddBoxIcon fontSize="large" />
+                    </StyledBtn>
+                    <StyledBtn
+                      onClick={() => {
+                        addToLikePhotosList();
+                      }}
+                    >
+                      <LoyaltyIcon fontSize="large" />
+                    </StyledBtn>
+                  </StyledBtnGroup>
+                  <StyledBtnGroup width>
+                    <StyledBtn>
+                      <StledAuthorInfoWrapper>
+                        <StyledAuthorProfileImg
+                          src={singlePhoto.user.profile_image.small}
+                          alt="author profile image"
+                        />
+                        <StyledUserName>{singlePhoto.user.name}</StyledUserName>
+                      </StledAuthorInfoWrapper>
+                    </StyledBtn>
+                    <StyledBtn>
+                      <ArrowDropDownCircleIcon fontSize="large" />
+                    </StyledBtn>
+                  </StyledBtnGroup>
+                </StyledPhotoHover>
+                <StyledPhoto
+                  src={urls.small}
+                  alt={alt_description}
+                  onClick={() => {
+                    openModal();
                   }}
-                  onMouseLeave={resetSinglePhoto}
-                >
-                  <StyledPhotoHover isHover={isHover}>
-                    <StyledBtnGroup>
-                      <StyledBtn>
-                        <AddBoxIcon fontSize="large" />
-                      </StyledBtn>
-                      <StyledBtn
-                        onClick={() => {
-                          addToLikePhotosList();
-                        }}
-                      >
-                        <LoyaltyIcon fontSize="large" />
-                      </StyledBtn>
-                    </StyledBtnGroup>
-                    <StyledBtnGroup width>
-                      <StyledBtn>
-                        <StledAuthorInfoWrapper>
-                          <StyledAuthorProfileImg
-                            src={singlePhoto.user.profile_image.small}
-                            alt="author profile image"
-                          />
-                          <StyledUserName>
-                            {singlePhoto.user.name}
-                          </StyledUserName>
-                        </StledAuthorInfoWrapper>
-                      </StyledBtn>
-                      <StyledBtn>
-                        <ArrowDropDownCircleIcon fontSize="large" />
-                      </StyledBtn>
-                    </StyledBtnGroup>
-                  </StyledPhotoHover>
-                  <StyledPhoto
-                    src={urls.small}
-                    alt={alt_description}
-                    onClick={() => {
-                      openModal();
-                    }}
-                  />
-                </StyledPhotoWrapper>
-              </li>
-            );
-          })}
-        </StyledList>
-        <GalleryModal />
-      </Container>
+                />
+              </StyledPhotoWrapper>
+            </StyledPhotosListElement>
+          );
+        })}
+      </StyledList>
+      <GalleryModal />
     </>
   );
 };

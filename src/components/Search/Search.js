@@ -40,7 +40,7 @@ const Search = ({ gallery }) => {
           </StyledSearchBtn>
           <StyledSearchInput
             type="text"
-            placeholder="Search free high-resolution photos"
+            placeholder="Search photos"
             onChange={(e) => {
               showPopper(e);
               handleSearchInputValueChange(e);

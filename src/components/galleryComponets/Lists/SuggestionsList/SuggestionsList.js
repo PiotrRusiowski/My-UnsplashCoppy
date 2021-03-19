@@ -20,14 +20,19 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 5,
+    items: 4,
 
-    slidesToSlide: 2,
+    slidesToSlide: 4,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 3,
-    slidesToSlide: 1,
+    breakpoint: { max: 425, min: 375 },
+    items: 1,
+    slidesToSlide: 2,
+  },
+  mobileS: {
+    breakpoint: { max: 375, min: 200 },
+    items: 1,
+    slidesToSlide: 4,
   },
 };
 
@@ -88,7 +93,7 @@ const SuggestionsList = () => {
         keyBoardControl={true}
         transitionDuration={1000}
         containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
+        removeArrowOnDeviceType={false}
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
         centerMode={true}

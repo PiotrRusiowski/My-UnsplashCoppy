@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import MainHeader from "../components/galleryComponets/MainHeader/MainHeader";
 import { routes } from "../routes";
-import Home from "../views/Home";
+import Home from "../views/HomeView/Home";
 import PhotosGallery from "../views/PhotosGallery";
 import CollectionsPhotosGallery from "../views/CollectionsPhotosGallery";
 import LikesPhotosGallery from "../views/LikesPhotosGallery";

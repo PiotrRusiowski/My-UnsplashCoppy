@@ -1,0 +1,7 @@
+search fn.
+całość przerobić na reduxa.
+skonwertować favicon.
+dodać suggestie na głównej.
+poprawić photos list żeby się dobrze wyświetlała! 
+przerobić na input na 2 inputy.
+przyciemnianie na hover na zdj.

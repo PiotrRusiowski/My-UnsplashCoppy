@@ -18,6 +18,7 @@ const inicialState = {
   sugestionArray: getSuggestionsFromLocalStorage(),
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   singleUserPhotos: [],
+  testText: "",
 };
 
 // const keywordsData = unsplashData.map((item) => {
@@ -74,6 +75,19 @@ const reducer = (state = inicialState, actions) => {
         ...state,
         photosList: payload,
       };
+
+    case "GET_PHOTOS_2":
+      return {
+        ...state,
+        photosList: payload,
+      };
+
+    case "SAY_HELLO":
+      return {
+        ...state,
+        testText: "HELLO",
+      };
+
     case actionsTypes.getSingleUserPhotos:
       // let setSingleUserPhotos
       // axios

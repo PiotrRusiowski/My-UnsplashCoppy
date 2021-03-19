@@ -5,15 +5,19 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const StyledNavigation = styled.div`
   box-shadow: inset 0px -2px 0px 0px #d1d1d1;
-  padding-left: 20px;
+
   width: 100%;
   height: 54px;
 `;
 export const StyledNavigationList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-left: -32px;
   height: 100%;
+  @media (max-width: 320px) {
+    justify-content: space-between;
+  }
 `;
 export const StyledNavigationElement = styled.li`
   padding-left: 32px;
@@ -24,7 +28,7 @@ export const StyledNavigationElement = styled.li`
 export const StyledNavigationLink = styled(NavLink)`
   text-decoration: none;
   text-transform: capitalize;
-  padding: 5px;
+  /* padding: 5px; */
   height: 100%;
   display: flex;
   align-items: center;
@@ -39,4 +43,7 @@ export const StyledIcon = styled.div`
   display: flex;
   margin-right: 7px;
   font-size: 16px;
+  @media (max-width: 426px) {
+    display: none;
+  }
 `;

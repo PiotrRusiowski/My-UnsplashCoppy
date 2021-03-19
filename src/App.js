@@ -13,7 +13,6 @@ import {
   getSuggestionsFromLocalStorage,
   getActiveSearchTypeFromLocalStorage,
 } from "./utils/localStorageGetter";
-import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotosList } from "./actions";
 
@@ -78,7 +77,9 @@ const App = () => {
   const handleSearchInputValueChange = (e) => {
     setSearchInputValue(e.target.value);
   };
-
+  useEffect(() => {
+    setActiveSearchType("photos");
+  }, []); ///////////?????
   useEffect(() => {
     localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
   }, [searchInputValue]);
@@ -108,12 +109,16 @@ const App = () => {
       .get(
         ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey} `
       )
-      .then((res) => setHomeImg(res.data[0].urls.regular))
+      .then((res) => {
+        setHomeImg(res.data[0].urls.regular);
+      })
+
       .catch((err) => console.error(err));
   };
 
   useEffect(() => {
     getRandomPhoto();
+    console.log("jestem");
   }, []);
 
   const getCollectionsPhotos = (id) => {

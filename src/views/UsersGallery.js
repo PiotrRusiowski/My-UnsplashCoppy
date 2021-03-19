@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import RootContext from "../context";
 
 import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsAndUsersList/CollectionsAndUsersList";
@@ -7,6 +7,7 @@ const CollectionsGallery = () => {
   const context = useContext(RootContext);
   const { usersList } = context;
   const isUserList = true;
+
   return (
     <>
       <GalleryHeader />

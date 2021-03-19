@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import backGroundPhoto from "../../assets/bgcPhoto/backGround.jpg";
 
 export const StyledHome = styled.div`
   height: 85vh;
@@ -40,4 +39,12 @@ export const StyledTitle = styled.h1`
   margin-top: 100px;
   margin-bottom: 15px;
   font-size: 46px;
+`;
+export const StyledLink = styled.a`
+  color: ${({ theme }) => theme.lightGrey};
+  text-decoration: underline;
+  &:visted {
+    color: ${({ theme }) => theme.lightGrey};
+    text-decoration: underline;
+  }
 `;

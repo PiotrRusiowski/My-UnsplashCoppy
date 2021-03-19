@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const StyledUserCard = styled(Link)`
   text-decoration: none;
   width: 32%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   border: 1px solid #d1d1d1;
@@ -15,6 +15,13 @@ export const StyledUserCard = styled(Link)`
   transition: 0.2s;
   &:hover {
     border: 1px solid #767676;
+  }
+  @media (max-width: 768px) {
+    width: 49%;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 425px) {
+    width: 100%;
   }
 `;
 export const StyledShowCase = styled.div`

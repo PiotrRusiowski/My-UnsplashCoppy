@@ -5,7 +5,15 @@ export const StyledColectionCard = styled.div`
   width: 32%;
   height: 330px;
   display: flex;
+  margin-bottom: 20px;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 49%;
+    height: 300px;
+  }
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 `;
 export const StyledCardShowCaseLink = styled(Link)`
   display: flex;
