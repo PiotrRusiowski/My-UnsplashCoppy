@@ -25,7 +25,7 @@ export const StyledList = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between; */
   @media (max-width: 768px) {
-    margin-left: 0px;
+    margin-left: -15px;
   }
 `;
 export const StledAuthorInfoWrapper = styled.div`

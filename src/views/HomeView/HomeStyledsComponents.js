@@ -22,7 +22,6 @@ export const StyledHome = styled.div`
 `;
 
 export const HomeWrapper = styled.div`
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -33,7 +32,7 @@ export const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   letter-spacing: 1.5px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 export const StyledTitle = styled.h1`
   margin-top: 100px;
