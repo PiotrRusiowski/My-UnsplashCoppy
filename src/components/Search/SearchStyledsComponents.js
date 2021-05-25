@@ -46,6 +46,19 @@ export const StyledSearchInput = styled.input`
     outline: none;
   }
 `;
+export const StyledSearchInput2 = styled.input`
+  border: none;
+  height: 100%;
+  flex-grow: 1;
+  border-radius: 5px;
+  font-size: 15px;
+  background-color: transparent;
+  padding-right: 10px;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 export const StyledSearchBtn = styled.div`
   display: flex;

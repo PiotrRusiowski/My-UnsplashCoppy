@@ -28,7 +28,7 @@ const Router = () => {
           path={routes.collectionsGallery}
           component={CollectionsGallery}
         />
-        <Route //????????????????
+        <Route
           exact
           path="/search/collections/:id/:searchInputValue"
           component={CollectionsPhotosGallery}

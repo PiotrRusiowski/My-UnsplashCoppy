@@ -6,6 +6,9 @@ import {
   StyledList,
 } from "../../../../styles/globalStyledComponents";
 import UserCard from "../../Cards/UserCard/UserCard";
+import Masonry from "react-masonry-css";
+import "../PhotosList/masonry.css";
+
 import UserInfoCard from "../../Cards/UserCard/UserInfoCard/UserInfoCard";
 
 const CollectionsAndUsersList = ({ list, isUserList }) => {
@@ -16,11 +19,20 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
     getSingleUserPhotos,
     findSingleUser,
   } = context;
+  const breakpointColumnsObj = {
+    default: 3,
 
+    700: 1,
+    500: 1,
+  };
   return (
     <>
-      <Container xl>
-        <StyledList>
+      <StyledList>
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
           {list.map((item) => (
             <>
               {isUserList ? (
@@ -40,8 +52,8 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
               )}
             </>
           ))}
-        </StyledList>
-      </Container>
+        </Masonry>
+      </StyledList>
     </>
   );
 };

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import RootContext from "../../context";
 import { connect, useDispatch, useSelector } from "react-redux";
-import Search from "../../components/Search/Search";
+import HomeSearch from "../../components/Search/HomeSearch/HomeSearch";
 import { Container } from "../../styles/globalStyledComponents";
+import SuggestionsList from "../../components/galleryComponets/Lists/SuggestionsList/SuggestionsList";
 import {
   StyledHome,
   StyledContent,
@@ -10,20 +11,15 @@ import {
   StyledTitle,
   StyledLink,
 } from "./HomeStyledsComponents";
-import { getData, getPhotos, sayHelloAfterTime } from "../../actions";
 
-const Home = ({ showTest, changeTest }) => {
+const Home = () => {
   const context = useContext(RootContext);
-  const { homeImg } = context;
-
-  const dispatch = useDispatch();
-
-  const getTest = async () => {};
-
-  const testText = useSelector((state) => state.testText);
+  const { homeImg, exampleSuggestionsArray } = context;
+  const main = true;
 
   return (
     <>
+      <SuggestionsList suggestionsArray={exampleSuggestionsArray} main={main} />
       <StyledHome img={homeImg}>
         <Container>
           <HomeWrapper>
@@ -37,7 +33,7 @@ const Home = ({ showTest, changeTest }) => {
                 <br /> Powered by creators everywhere.
               </p>
             </StyledContent>
-            <Search pageType="home" />
+            <HomeSearch pageType="home" />
           </HomeWrapper>
         </Container>
         {/* <button onClick={() => dispatch(getData())}>get photos</button>

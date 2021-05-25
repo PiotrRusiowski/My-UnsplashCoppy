@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import RootContext from "../../context";
+import React, { useContext, useRef } from "react";
+import RootContext from "../../../context";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import {
@@ -10,23 +10,31 @@ import {
   StyledSearchWrapper,
   StyledForm,
   StyledSearch,
-} from "./SearchStyledsComponents";
+} from "../SearchStyledsComponents";
 import { Link } from "react-router-dom";
 
 const Search = ({ gallery }) => {
   const context = useContext(RootContext);
   const {
     inputValue,
-    isPopperVisible,
     keyWordsArray,
-    showPopper,
+    // showPopper,
     setInputValue,
     getPhotos,
     activeSearchType,
     changeSearchInputValueByClickingOnSuggestionList,
     handleSearchInputValueChange,
+    handleHeaderInputValue,
+    headerInputValue,
   } = context;
-
+  const headerPopperRef = useRef(null);
+  const visible = (e) => {
+    if (e.target.value.length < 3) {
+      headerPopperRef.current.style.display = "none";
+    } else {
+      headerPopperRef.current.style.display = "block";
+    }
+  };
   return (
     <StyledSearchWrapper gallery={gallery}>
       <StyledForm
@@ -38,14 +46,18 @@ const Search = ({ gallery }) => {
           <StyledSearchBtn type="submit">
             <SearchIcon fontSize="inherit" />
           </StyledSearchBtn>
+
           <StyledSearchInput
             type="text"
             placeholder="Search photos"
             onChange={(e) => {
-              showPopper(e);
+              handleHeaderInputValue(e);
               handleSearchInputValueChange(e);
+              visible(e);
+              //   showPopper(e, "headerInput");
             }}
-            value={inputValue}
+            // value={headerInputValue}
+            // value={inputValue}
             name="searchPhotos"
             autoComplete="off"
           />
@@ -56,7 +68,7 @@ const Search = ({ gallery }) => {
           ) : null}
         </StyledSearch>
 
-        <StyledPopper isPopperVisible={isPopperVisible} gallery={gallery}>
+        <StyledPopper ref={headerPopperRef} gallery={gallery}>
           <ul>
             {keyWordsArray.map((word, index) => (
               <>

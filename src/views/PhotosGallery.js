@@ -8,11 +8,7 @@ const PhotosGallery = () => {
   const selectedPhotosList = useSelector(({ photosList }) => photosList);
   return (
     <>
-      <GalleryHeader />
-      <Container xl>
-        {" "}
-        <PhotosList photosList={selectedPhotosList} />
-      </Container>
+      <GalleryHeader /> <PhotosList photosList={selectedPhotosList} />
     </>
   );
 };

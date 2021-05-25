@@ -19,10 +19,14 @@ export const StyledList = styled.ul`
   margin-top: 50px;
   width: 100%;
   max-width: 1320px;
-  flex-wrap: wrap;
+  margin-left: 0px;
+  /* flex-wrap: wrap;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; */
+  @media (max-width: 768px) {
+    margin-left: 0px;
+  }
 `;
 export const StledAuthorInfoWrapper = styled.div`
   position: static;

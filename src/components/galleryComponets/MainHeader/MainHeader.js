@@ -2,12 +2,10 @@ import React, { useContext } from "react";
 import { Container } from "../../../styles/globalStyledComponents";
 import RootContext from "../../../context";
 import SuggestionsList from "../Lists/SuggestionsList/SuggestionsList";
-import Search from "../../Search/Search";
+import HeaderSearch from "../../Search/HeaderSearch/HeaderSearch";
 import logo from "../../../assets/logo.svg";
 import { routes } from "../../../routes";
 import {
-  StyledGalleryHeader,
-  StyledSearchValue,
   StyledLogo,
   StyledMainHeader,
   StyledSearchWrapper,
@@ -31,7 +29,7 @@ const MainHeader = () => {
         </Link>
 
         <StyledSearchWrapper>
-          <Search gallery={gallery} />
+          <HeaderSearch gallery={gallery} />
         </StyledSearchWrapper>
       </StyledMainHeader>
     </Container>

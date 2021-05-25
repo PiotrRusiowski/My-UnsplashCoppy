@@ -6,6 +6,8 @@ import {
   StyledCarouselBtn,
   StyledCarouselBtnGroup,
   StyledSuggestionsList,
+  StyledSuggestLink,
+  StyledSugestListElement,
 } from "./SuggestionsListStyledComponents.js";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -73,15 +75,11 @@ const ButtonGroup = ({
   );
 };
 
-const SuggestionsList = () => {
+const SuggestionsList = ({ suggestionsArray, main }) => {
   const context = useContext(RootContext);
   const {
-    suggestionsArray,
-    activeSearchType,
-    getPhotosCollectionsAndUserFromApi,
-    getCollectionsFromApiSuggestList,
     getPhotos,
-    getCollectionsFromApi,
+
     changeSearchInputValueByClickingOnSuggestionList,
   } = context;
 
@@ -102,17 +100,16 @@ const SuggestionsList = () => {
       >
         {suggestionsArray.map((suggest, index) => (
           <>
-            <Link to={`/search/${activeSearchType}/${suggest}`}>
-              <li
-                key={`${index}${suggest}`}
-                onClick={(e) => {
-                  changeSearchInputValueByClickingOnSuggestionList(suggest);
-                  getPhotos(e, suggest);
-                }}
-              >
-                <StyledSugestBtn>{suggest}</StyledSugestBtn>
-              </li>
-            </Link>
+            <StyledSugestListElement
+              main={main}
+              key={`${index}${suggest}`}
+              onClick={(e) => {
+                changeSearchInputValueByClickingOnSuggestionList(suggest);
+                getPhotos(e, suggest);
+              }}
+            >
+              {suggest}
+            </StyledSugestListElement>
           </>
         ))}
       </Carousel>

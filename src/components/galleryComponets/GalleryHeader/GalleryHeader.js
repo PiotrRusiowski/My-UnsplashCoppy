@@ -10,8 +10,8 @@ import {
 
 const GalleryHeader = () => {
   const context = useContext(RootContext);
-  const { showSearchValue } = context;
-
+  const { showSearchValue, suggestionsArray } = context;
+  const main = false;
   return (
     <StyledGalleryHeader>
       <Navigation />
@@ -19,7 +19,7 @@ const GalleryHeader = () => {
         <StyledSearchValue>{showSearchValue}</StyledSearchValue>
       </Container>
 
-      <SuggestionsList />
+      <SuggestionsList suggestionsArray={suggestionsArray} main={main} />
     </StyledGalleryHeader>
   );
 };

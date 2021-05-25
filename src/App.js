@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RootContext from "./context";
 import GlobalStyle from "./styles/GlobalStyles";
 import unsplashData from "./data.json";
 import { apiKey } from "./apiKey/index";
 import axios from "axios";
 import Router from "./routing/Router";
+import { exampleSuggestionsArray } from "./loclalData/localData";
 import {
   getPhotosFromLocalStorage,
   getSearchInputValueFromLocalStorage,
@@ -49,7 +50,6 @@ const App = () => {
     profile_image: "",
     portfolio_url: "",
   });
-  const [isPopperVisible, setIsPopperVisible] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [collectionsList, setCollectionList] = useState(
     getCollectionsFromLocalStorage()
@@ -63,6 +63,9 @@ const App = () => {
   );
   const [homeImg, setHomeImg] = useState("");
   const [likePhotosList, setLikePhotosList] = useState([]);
+  const [HeaderInputValue, setHeaderInputValue] = useState();
+  const [homeInputValue, setHomeInputValue] = useState("");
+  // const [isHeaderPopperVisible, setIsHeaderPopperVisible] = useState(false);
   /////////////////////////
 
   const reducerState = useSelector((state) => state);
@@ -70,6 +73,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   /////////
+
   const handleSetActiveSearchType = (searchType) => {
     setActiveSearchType(searchType);
   };
@@ -77,32 +81,48 @@ const App = () => {
   const handleSearchInputValueChange = (e) => {
     setSearchInputValue(e.target.value);
   };
-  useEffect(() => {
-    setActiveSearchType("photos");
-  }, []); ///////////?????
+
   useEffect(() => {
     localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
-  }, [searchInputValue]);
-
-  useEffect(() => {
     localStorage.setItem("photos", JSON.stringify(photosList));
-  }, [photosList]);
-
-  useEffect(() => {
     localStorage.setItem("collections", JSON.stringify(collectionsList));
-  }, [collectionsList]);
-
-  useEffect(() => {
     localStorage.setItem("users", JSON.stringify(usersList));
-  }, [usersList]);
-
-  useEffect(() => {
     localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
-  }, [activeSearchType]);
-
-  useEffect(() => {
     localStorage.setItem("suggestions", JSON.stringify(suggestionsArray));
-  }, [suggestionsArray]);
+  }, [
+    searchInputValue,
+    photosList,
+    collectionsList,
+    usersList,
+    activeSearchType,
+    suggestionsArray,
+  ]);
+  // useEffect(() => {
+  //   setActiveSearchType("photos");
+  // }, []);/////?????????????
+  // useEffect(() => {
+  //   localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
+  // }, [searchInputValue]);
+
+  // useEffect(() => {
+  //   localStorage.setItem("photos", JSON.stringify(photosList));
+  // }, [photosList]);
+
+  // useEffect(() => {
+  //   localStorage.setItem("collections", JSON.stringify(collectionsList));
+  // }, [collectionsList]);
+
+  // useEffect(() => {
+  //   localStorage.setItem("users", JSON.stringify(usersList));
+  // }, [usersList]);
+
+  // useEffect(() => {
+  //   localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
+  // }, [activeSearchType]);
+
+  // useEffect(() => {
+  //   localStorage.setItem("suggestions", JSON.stringify(suggestionsArray));
+  // }, [suggestionsArray]);
 
   const getRandomPhoto = () => {
     axios
@@ -118,7 +138,6 @@ const App = () => {
 
   useEffect(() => {
     getRandomPhoto();
-    console.log("jestem");
   }, []);
 
   const getCollectionsPhotos = (id) => {
@@ -167,7 +186,8 @@ const App = () => {
           ),
         ];
         setSuggestionsArray([...suggestions]);
-        setIsPopperVisible(false);
+
+        // setIsPopperVisible(false); /////////////////////////////////////??????
       })
       .then(() => {
         window.location.pathname = `/search/${activeSearchType}/${queryValue.replace(
@@ -183,6 +203,7 @@ const App = () => {
         `
       )
       .then((res) => {
+        console.log("COLLECTIONS", res);
         setCollectionList([...res.data.results]);
       });
 
@@ -196,36 +217,6 @@ const App = () => {
       });
   };
 
-  // const getCollectionsFromApi = (e) => {
-  //   axios
-  //     .get(
-  //       `    https://api.unsplash.com/search/collections?page=1&query=${showSearchValue}&client_id=${apiKey}
-  //       `
-  //     )
-  //     .then((res) => {
-  //       setCollectionList([...res.data.results]);
-  //     });
-  // };
-  // const getCollectionsFromApiSuggestList = (suggest) => {
-  //   axios
-  //     .get(
-  //       `    https://api.unsplash.com/search/collections?page=1&query=${suggest}&client_id=${apiKey}
-  //       `
-  //     )
-  //     .then((res) => {
-  //       setCollectionList([...res.data.results]);
-  //     });
-  // };
-
-  // const getUsersFromApi = () => {
-  //   axios
-  //     .get(
-  //       `https://api.unsplash.com/search/users?page=1&query=${showSearchValue}&client_id=${apiKey}`
-  //     )
-  //     .then((res) => {
-  //       setUsersList([...res.data.results]);
-  //     });
-  // };
   const getSingleUserPhotos = (userName) => {
     axios
 
@@ -252,14 +243,28 @@ const App = () => {
     filterKeyWords();
   }, [inputValue]);
 
-  const showPopper = (e) => {
+  const handleHomeInputValue = (e) => {
+    // setHomeInputValue(e.target.value);
     setInputValue(e.target.value);
-
-    if (e.target.value.length < 3) {
-      setIsPopperVisible(false);
-    } else {
-      setIsPopperVisible(true);
-    }
+  };
+  const handleHeaderInputValue = (e) => {
+    setInputValue(e.target.value);
+    // setHeaderInputValue(e.target.value);
+  };
+  const showPopper = (e, inputName) => {
+    // if (inputName === "homeInput") {
+    //   if (e.target.value.length < 3) {
+    //     setIsPopperVisible(false);
+    //   } else {
+    //     setIsPopperVisible(true);
+    //   }
+    // } else {
+    //   if (e.target.value.length < 3) {
+    //     setIsHeaderPopperVisible(false);
+    //   } else {
+    //     setIsHeaderPopperVisible(true);
+    //   }
+    // }
   };
 
   const findPhoto = (id, arrayToFilter) => {
@@ -302,7 +307,7 @@ const App = () => {
     <div className="App">
       <RootContext.Provider
         value={{
-          isPopperVisible,
+          // isPopperVisible,
           keyWordsArray,
           inputValue,
           searchInputValue,
@@ -318,6 +323,12 @@ const App = () => {
           singleUserPhotos,
           modalPhoto,
           singleUser,
+          homeInputValue,
+          exampleSuggestionsArray,
+
+          // isHeaderPopperVisible,
+
+          handleHomeInputValue,
           findSingleUser,
           resetSinglePhoto,
           handleSetActiveSearchType,
@@ -337,6 +348,7 @@ const App = () => {
           getCollectionsPhotos,
           getSingleUserPhotos,
           changeSearchInputValueByClickingOnSuggestionList,
+          handleHeaderInputValue,
         }}
       >
         <GlobalStyle />

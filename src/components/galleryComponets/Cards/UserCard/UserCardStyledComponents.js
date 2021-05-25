@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const StyledUserCard = styled(Link)`
   text-decoration: none;
-  width: 32%;
+
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;

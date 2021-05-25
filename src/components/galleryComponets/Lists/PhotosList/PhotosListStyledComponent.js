@@ -54,7 +54,6 @@ export const StyledBtn = styled.button`
 `;
 export const StyledPhotosListElement = styled.li`
   margin-bottom: 20px;
-  width: 32%;
 
   @media (max-width: 425px) {
     width: 100%;
@@ -62,9 +61,10 @@ export const StyledPhotosListElement = styled.li`
 `;
 export const StyledPhotoHover = styled.div`
   position: absolute;
+  display: ${({ isHover }) => (isHover ? "flex" : "none")};
+
   left: 0px;
   top: 0px;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: space-between;
@@ -72,9 +72,7 @@ export const StyledPhotoHover = styled.div`
 
   height: 99.5%;
   padding: 20px;
-  /* z-index: 999; */
 
-  display: ${({ isHover }) => (isHover ? "flex" : "none")};
   background: rgba(0, 0, 0, 0.2);
 `;
 export const StyledBtnGroup = styled.div`
