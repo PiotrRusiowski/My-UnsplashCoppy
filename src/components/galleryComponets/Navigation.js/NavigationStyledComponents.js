@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const StyledNavigation = styled.div`
   box-shadow: inset 0px -2px 0px 0px #d1d1d1;

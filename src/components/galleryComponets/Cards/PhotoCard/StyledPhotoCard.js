@@ -12,26 +12,7 @@ export const StyledPhoto = styled.img`
   height: 100%;
   cursor: pointer;
   width: 100%;
-
-  @media (max-width: 425px) {
-    width: 100%;
   }
-  /* 
-  &:hover {
-    &:after {
-      content: "\A";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      transition: all 1s;
-      -webkit-transition: all 1s;
-    }
-    opacity: 1;
-  } */
 `;
 
 export const StyledPhotoWrapper = styled.div`
@@ -39,12 +20,9 @@ export const StyledPhotoWrapper = styled.div`
   width: 100%;
 `;
 export const StyledBtn = styled.button`
-  /* color: #d1d1d1; */
   color: white;
   padding: 0px;
   border: none;
-
-  /* border: 1px solid black; */
   background-color: transparent;
   z-index: 4;
   font-size: 20px;
@@ -52,27 +30,18 @@ export const StyledBtn = styled.button`
     color: red;
   }
 `;
-export const StyledPhotosListElement = styled.li`
-  margin-bottom: 20px;
 
-  @media (max-width: 425px) {
-    width: 100%;
-  }
-`;
 export const StyledPhotoHover = styled.div`
   position: absolute;
   display: ${({ isHover }) => (isHover ? "flex" : "none")};
-
   left: 0px;
   top: 0px;
   flex-direction: column;
   justify-content: space-between;
   align-items: space-between;
   width: 100%;
-
-  height: 99.5%;
+  height: 99%;
   padding: 20px;
-
   background: rgba(0, 0, 0, 0.2);
 `;
 export const StyledBtnGroup = styled.div`

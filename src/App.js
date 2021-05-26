@@ -15,7 +15,7 @@ import {
   getActiveSearchTypeFromLocalStorage,
 } from "./utils/localStorageGetter";
 import { useDispatch, useSelector } from "react-redux";
-import { setPhotosList } from "./actions";
+import { setPhotosList, getPhotos as getPhotosAction } from "./actions";
 
 const App = () => {
   const keywordsData = unsplashData.map((item) => {
@@ -97,48 +97,22 @@ const App = () => {
     activeSearchType,
     suggestionsArray,
   ]);
-  // useEffect(() => {
-  //   setActiveSearchType("photos");
-  // }, []);/////?????????????
-  // useEffect(() => {
-  //   localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
-  // }, [searchInputValue]);
+
+  // const getRandomPhoto = () => {
+  //   axios
+  //     .get(
+  //       ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey}`
+  //     )
+  //     .then((res) => {
+  //       setHomeImg(res.data[0].urls.regular);
+  //     })
+
+  //     .catch((err) => console.error(err));
+  // };
 
   // useEffect(() => {
-  //   localStorage.setItem("photos", JSON.stringify(photosList));
-  // }, [photosList]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("collections", JSON.stringify(collectionsList));
-  // }, [collectionsList]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("users", JSON.stringify(usersList));
-  // }, [usersList]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
-  // }, [activeSearchType]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("suggestions", JSON.stringify(suggestionsArray));
-  // }, [suggestionsArray]);
-
-  const getRandomPhoto = () => {
-    axios
-      .get(
-        ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey} `
-      )
-      .then((res) => {
-        setHomeImg(res.data[0].urls.regular);
-      })
-
-      .catch((err) => console.error(err));
-  };
-
-  useEffect(() => {
-    getRandomPhoto();
-  }, []);
+  //   getRandomPhoto();
+  // }, []);
 
   const getCollectionsPhotos = (id) => {
     axios
@@ -169,32 +143,7 @@ const App = () => {
     } else {
       queryValue = word;
     }
-
-    axios
-      .get(
-        ` https://api.unsplash.com/search/photos?&query=${queryValue}&client_id=${apiKey}`
-      )
-
-      .then((res) => {
-        dispatch(setPhotosList(res.data.results));
-
-        const suggestions = [
-          ...new Set(
-            res.data.results.flatMap((result) => {
-              return result.tags.map((tag) => tag.title);
-            })
-          ),
-        ];
-        setSuggestionsArray([...suggestions]);
-
-        // setIsPopperVisible(false); /////////////////////////////////////??????
-      })
-      .then(() => {
-        window.location.pathname = `/search/${activeSearchType}/${queryValue.replace(
-          /\s/g,
-          ""
-        )}`;
-      });
+    dispatch(getPhotosAction(queryValue, activeSearchType));
 
     //get collections
     axios
@@ -250,21 +199,6 @@ const App = () => {
   const handleHeaderInputValue = (e) => {
     setInputValue(e.target.value);
     // setHeaderInputValue(e.target.value);
-  };
-  const showPopper = (e, inputName) => {
-    // if (inputName === "homeInput") {
-    //   if (e.target.value.length < 3) {
-    //     setIsPopperVisible(false);
-    //   } else {
-    //     setIsPopperVisible(true);
-    //   }
-    // } else {
-    //   if (e.target.value.length < 3) {
-    //     setIsHeaderPopperVisible(false);
-    //   } else {
-    //     setIsHeaderPopperVisible(true);
-    //   }
-    // }
   };
 
   const findPhoto = (id, arrayToFilter) => {
@@ -339,7 +273,6 @@ const App = () => {
           openModal,
           closeModal,
           // getCollectionsFromApiSuggestList,
-          showPopper,
           setSearchInputValue,
           setInputValue,
           // getCollectionsFromApi,

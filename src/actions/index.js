@@ -54,27 +54,6 @@ export const getSingleUserPhotosTest = (userName) => {
   };
 };
 
-export const getPhotos = () => {
-  let photos = [];
-
-  axios
-    .get(
-      `https://api.unsplash.com/search/photos?&query=animal&client_id=${apiKey}`
-    )
-
-    .then((res) => {
-      photos = res.data.results;
-      console.log(photos);
-    })
-    .catch((err) => console.error(err));
-
-  console.log(photos);
-  return {
-    type: "GET_PHOTOS",
-    payload: photos,
-  };
-};
-
 export const sayHello = () => {
   return {
     type: "SAY_HELLO",
@@ -89,29 +68,65 @@ export const sayHelloAfterTime = () => {
   };
 };
 
-export const getPhotos2 = (photos) => {
-  return {
-    type: "GET_PHOTOS_2",
-    payload: photos,
+export const getRandomPhoto = () => {
+  return (dispatch) => {
+    axios
+      .get(`https://api.unsplash.com/photos/random?count=1&client_id=${apiKey}`)
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_RANDOM_PHOTO,
+          payload: res.data[0].urls.regular,
+        });
+      })
+      .catch((err) => console.error(err));
   };
 };
 
-// export const getData = () => {
-//   let photos = [];
+export const getPhotos = (queryValue, activeSearchType) => {
+  return (dispatch) => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?&query=${queryValue}&client_id=${apiKey}`
+      )
 
-//   axios
-//     .get(
-//       `https://api.unsplash.com/search/photos?&query=animal&client_id=${apiKey}`
-//     )
+      .then((res) => {
+        const suggestions = [
+          ...new Set(
+            res.data.results.flatMap((result) => {
+              return result.tags.map((tag) => tag.title);
+            })
+          ),
+        ];
 
-//     .then((res) => {
-//       photos = res.data.results;
-//       console.log(photos);
-//     })
-//     .catch((err) => console.error(err));
-//   if (photos.length !== 0) {
-//     return (dispatch) => {
-//       return dispatch(getPhotos2(photos));
-//     };
-//   }
-// };
+        dispatch({
+          type: actionsTypes.GET_PHOTOS,
+          payload: {
+            photos: res.data.results,
+            suggestions,
+          },
+        });
+      })
+      .then(() => {
+        window.location.pathname = `/search/${activeSearchType}/${queryValue.replace(
+          /\s/g,
+          ""
+        )}`;
+      });
+  };
+};
+
+export const getCollections = (queryValue) => {
+  return (dispatch) => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/collections?page=1&query=${queryValue}&client_id=${apiKey}`
+      )
+
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_COLLECTIONS,
+          payload: res.data.results,
+        });
+      });
+  };
+};

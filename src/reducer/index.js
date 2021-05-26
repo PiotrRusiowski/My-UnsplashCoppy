@@ -19,6 +19,8 @@ const inicialState = {
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   singleUserPhotos: [],
   testText: "",
+  randomPhoto: "",
+  suggestionsTagsArray: [],
 };
 
 // const keywordsData = unsplashData.map((item) => {
@@ -88,6 +90,12 @@ const reducer = (state = inicialState, actions) => {
         testText: "HELLO",
       };
 
+    case actionsTypes.GET_RANDOM_PHOTO:
+      return {
+        ...state,
+        randomPhoto: payload,
+      };
+
     case actionsTypes.getSingleUserPhotos:
       // let setSingleUserPhotos
       // axios
@@ -102,6 +110,18 @@ const reducer = (state = inicialState, actions) => {
       return {
         ...state,
         singleUserPhotos: payload,
+      };
+
+    case actionsTypes.GET_PHOTOS:
+      return {
+        photosList: [...payload.photos],
+        suggestionsTagsArray: [...payload.suggestions],
+      };
+
+    case actionsTypes.GET_COLLECTIONS:
+      return {
+        ...state,
+        collectionsList: [...payload],
       };
 
     default:
