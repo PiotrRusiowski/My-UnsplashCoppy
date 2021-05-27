@@ -11,7 +11,6 @@ const PhotosList = ({ photosList }) => {
   const { singlePhoto } = context;
   const breakpointColumnsObj = {
     default: 3,
-
     700: 1,
     500: 1,
   };

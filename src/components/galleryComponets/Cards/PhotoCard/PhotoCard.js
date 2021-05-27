@@ -22,7 +22,6 @@ const PhotoCard = ({ photosList, photo, isHover }) => {
     findPhoto,
     openModal,
     singlePhoto,
-    modalIsOpen,
     addToLikePhotosList,
     resetSinglePhoto,
   } = context;
@@ -33,7 +32,11 @@ const PhotoCard = ({ photosList, photo, isHover }) => {
       onMouseEnter={() => {
         findPhoto(id, photosList);
       }}
+      onClick={() => {
+        openModal();
+      }}
       onMouseLeave={resetSinglePhoto}
+      isHover={isHover}
     >
       <StyledPhotoHover isHover={isHover}>
         <StyledBtnGroup>
@@ -63,13 +66,7 @@ const PhotoCard = ({ photosList, photo, isHover }) => {
           </StyledBtn>
         </StyledBtnGroup>
       </StyledPhotoHover>
-      <StyledPhoto
-        src={urls.small}
-        alt={alt_description}
-        onClick={() => {
-          openModal();
-        }}
-      />
+      <StyledPhoto src={urls.small} alt={alt_description} />
     </StyledPhotoWrapper>
   );
 };

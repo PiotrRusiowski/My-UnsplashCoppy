@@ -10,14 +10,17 @@ export const StyledTagList = styled.ul`
 export const StyledPhoto = styled.img`
   position: relative;
   height: 100%;
-  cursor: pointer;
   width: 100%;
+  z-index:-3;
   }
 `;
 
 export const StyledPhotoWrapper = styled.div`
   position: relative;
   width: 100%;
+  cursor: pointer;
+  background: ${({ isHover }) =>
+    isHover ? "rgba(0, 0, 0, 0.2)" : "transparent"};
 `;
 export const StyledBtn = styled.button`
   color: white;
@@ -42,7 +45,6 @@ export const StyledPhotoHover = styled.div`
   width: 100%;
   height: 99%;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.2);
 `;
 export const StyledBtnGroup = styled.div`
   display: flex;
@@ -56,4 +58,8 @@ export const StyledUserName = styled.p`
   &:hover {
     color: white;
   }
+`;
+export const StyledOpacity = styled.div`
+  /* background: ${({ isHover }) =>
+    isHover ? "rgba(0, 0, 0, 0.2)" : "transparent"}; */
 `;
