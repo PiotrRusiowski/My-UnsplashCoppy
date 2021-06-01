@@ -59,7 +59,3 @@ export const StyledUserName = styled.p`
     color: white;
   }
 `;
-export const StyledOpacity = styled.div`
-  /* background: ${({ isHover }) =>
-    isHover ? "rgba(0, 0, 0, 0.2)" : "transparent"}; */
-`;

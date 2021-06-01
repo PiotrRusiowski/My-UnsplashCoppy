@@ -20,6 +20,9 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const homeImg = useSelector(({ randomPhoto }) => randomPhoto);
+  const suggestionsTagsArray = useSelector(
+    ({ suggestionsTagsArray }) => suggestionsTagsArray
+  );
 
   useEffect(() => {
     dispatch(getRandomPhoto());
@@ -27,7 +30,7 @@ const Home = () => {
 
   return (
     <>
-      <SuggestionsList suggestionsArray={exampleSuggestionsArray} main={main} />
+      <SuggestionsList suggestionsArray={suggestionsTagsArray} main={main} />
       <StyledHome img={homeImg}>
         <Container>
           <HomeWrapper>
@@ -44,9 +47,6 @@ const Home = () => {
             <HomeSearch pageType="home" />
           </HomeWrapper>
         </Container>
-        {/* <button onClick={() => dispatch(getData())}>get photos</button>
-        <button onClick={() => dispatch(sayHelloAfterTime())}>Say hello</button>
-        <h1 style={{ color: "yellow" }}>{testText}</h1> */}
       </StyledHome>
     </>
   );

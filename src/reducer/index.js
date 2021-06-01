@@ -15,12 +15,12 @@ const inicialState = {
   collectionsList: getCollectionsFromLocalStorage(),
   usersList: getUsersFromLocalStorage(),
   showSearchValue: getSearchInputValueFromLocalStorage(),
-  sugestionArray: getSuggestionsFromLocalStorage(),
+  // sugestionArray: [],
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   singleUserPhotos: [],
   testText: "",
   randomPhoto: "",
-  suggestionsTagsArray: [],
+  suggestionsTagsArray: getSuggestionsFromLocalStorage(),
 };
 
 // const keywordsData = unsplashData.map((item) => {
@@ -122,6 +122,11 @@ const reducer = (state = inicialState, actions) => {
       return {
         ...state,
         collectionsList: [...payload],
+      };
+    case actionsTypes.GET_USERS:
+      return {
+        ...state,
+        usersList: [...payload],
       };
 
     default:

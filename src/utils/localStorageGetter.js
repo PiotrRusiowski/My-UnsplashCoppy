@@ -10,7 +10,7 @@ export const getPhotosFromLocalStorage = () => {
   return localStoragePhotos;
 };
 
-export const getCollectionsFromLocalStorage = () => {
+export const getCollectionsFromLocalStorage2 = () => {
   let localStorageCollections;
 
   if (localStorage.getItem("collections")) {
@@ -21,6 +21,11 @@ export const getCollectionsFromLocalStorage = () => {
 
   return localStorageCollections;
 };
+
+export const getCollectionsFromLocalStorage = () =>
+  localStorage.getItem("collections")
+    ? JSON.parse(localStorage.getItem("collections"))
+    : [];
 
 export const getUsersFromLocalStorage = () => {
   let localStorageUsers;

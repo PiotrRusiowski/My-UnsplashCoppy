@@ -15,7 +15,12 @@ import {
   getActiveSearchTypeFromLocalStorage,
 } from "./utils/localStorageGetter";
 import { useDispatch, useSelector } from "react-redux";
-import { setPhotosList, getPhotos as getPhotosAction } from "./actions";
+import {
+  setPhotosList,
+  getPhotos as getPhotosAction,
+  getCollections,
+  getUsers,
+} from "./actions";
 
 const App = () => {
   const keywordsData = unsplashData.map((item) => {
@@ -23,9 +28,9 @@ const App = () => {
   });
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
-  const [suggestionsArray, setSuggestionsArray] = useState(
-    getSuggestionsFromLocalStorage()
-  );
+  // const [suggestionsArray, setSuggestionsArray] = useState(
+  //   getSuggestionsFromLocalStorage()
+  // );
   // const [photosList, setPhotosList] = useState(getPhotosFromLocalStorage());
   const [inputValue, setInputValue] = useState("");
   const [searchInputValue, setSearchInputValue] = useState(
@@ -51,11 +56,11 @@ const App = () => {
     portfolio_url: "",
   });
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [collectionsList, setCollectionList] = useState(
-    getCollectionsFromLocalStorage()
-  );
+  // const [collectionsList, setCollectionList] = useState(
+  //   getCollectionsFromLocalStorage()
+  // );
   const [selectedCollectionList, setSelectedCollectionList] = useState([]);
-  const [usersList, setUsersList] = useState(getUsersFromLocalStorage());
+  // const [usersList, setUsersList] = useState(getUsersFromLocalStorage());
   const [singleUserPhotos, setSingleUserPhotos] = useState([]);
 
   const [activeSearchType, setActiveSearchType] = useState(
@@ -69,7 +74,8 @@ const App = () => {
   /////////////////////////
 
   const reducerState = useSelector((state) => state);
-  const { photosList } = reducerState;
+  const { photosList, collectionsList, usersList, suggestionsTagsArray } =
+    reducerState;
   const dispatch = useDispatch();
 
   /////////
@@ -88,31 +94,15 @@ const App = () => {
     localStorage.setItem("collections", JSON.stringify(collectionsList));
     localStorage.setItem("users", JSON.stringify(usersList));
     localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
-    localStorage.setItem("suggestions", JSON.stringify(suggestionsArray));
+    localStorage.setItem("suggestions", JSON.stringify(suggestionsTagsArray));
   }, [
     searchInputValue,
     photosList,
     collectionsList,
     usersList,
     activeSearchType,
-    suggestionsArray,
+    suggestionsTagsArray,
   ]);
-
-  // const getRandomPhoto = () => {
-  //   axios
-  //     .get(
-  //       ` https://api.unsplash.com/photos/random?count=1&client_id=${apiKey}`
-  //     )
-  //     .then((res) => {
-  //       setHomeImg(res.data[0].urls.regular);
-  //     })
-
-  //     .catch((err) => console.error(err));
-  // };
-
-  // useEffect(() => {
-  //   getRandomPhoto();
-  // }, []);
 
   const getCollectionsPhotos = (id) => {
     axios
@@ -146,24 +136,26 @@ const App = () => {
     dispatch(getPhotosAction(queryValue, activeSearchType));
 
     //get collections
-    axios
-      .get(
-        `    https://api.unsplash.com/search/collections?page=1&query=${queryValue}&client_id=${apiKey}
-        `
-      )
-      .then((res) => {
-        console.log("COLLECTIONS", res);
-        setCollectionList([...res.data.results]);
-      });
+    // axios
+    //   .get(
+    //     `    https://api.unsplash.com/search/collections?page=1&query=${queryValue}&client_id=${apiKey}
+    //     `
+    //   )
+    //   .then((res) => {
+    //     console.log("COLLECTIONS", res);
+    //     setCollectionList([...res.data.results]);
+    //   });
+    dispatch(getCollections(queryValue));
 
     //get users
-    axios
-      .get(
-        `https://api.unsplash.com/search/users?page=1&query=${queryValue}&client_id=${apiKey}`
-      )
-      .then((res) => {
-        setUsersList([...res.data.results]);
-      });
+    dispatch(getUsers(queryValue));
+    //   axios
+    //     .get(
+    //       `https://api.unsplash.com/search/users?page=1&query=${queryValue}&client_id=${apiKey}`
+    //     )
+    //     .then((res) => {
+    //       setUsersList([...res.data.results]);
+    //     });
   };
 
   const getSingleUserPhotos = (userName) => {
@@ -245,7 +237,6 @@ const App = () => {
           keyWordsArray,
           inputValue,
           searchInputValue,
-          suggestionsArray,
           modalIsOpen,
           singlePhoto,
           collectionsList,

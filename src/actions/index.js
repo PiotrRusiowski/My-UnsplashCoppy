@@ -23,16 +23,6 @@ export const getSingleUserPhotos = (res) => {
   };
 };
 
-// export const getSingleUserPhotosTest = ({ userName }) => {
-//   // dispatch(formActionRequest());
-//   return async function (dispatch) {
-//     let response = await axios.get(
-//       ` https://api.unsplash.com/users/${userName}/photos?client_id=${apiKey}`
-//     );
-//     dispatch(getSingleUserPhotos(response.data));
-//   };
-// };
-
 export const getSingleUserPhotosTest = (userName) => {
   return (dispatch) => {
     return axios
@@ -125,6 +115,22 @@ export const getCollections = (queryValue) => {
       .then((res) => {
         dispatch({
           type: actionsTypes.GET_COLLECTIONS,
+          payload: res.data.results,
+        });
+      });
+  };
+};
+
+export const getUsers = (queryValue) => {
+  return (dispatch) => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/users?page=1&query=${queryValue}&client_id=${apiKey}`
+      )
+
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_USERS,
           payload: res.data.results,
         });
       });
