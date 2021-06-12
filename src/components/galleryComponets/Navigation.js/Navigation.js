@@ -51,7 +51,6 @@ const Navigation = () => {
               to={`/search/collections/${searchInputValue}`}
               onClick={() => {
                 handleSetActiveSearchType(searchTypes.collections);
-                // getCollectionsFromApi();
               }}
             >
               <StyledIcon>

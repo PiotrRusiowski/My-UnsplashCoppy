@@ -17,7 +17,6 @@ const inicialState = {
   showSearchValue: getSearchInputValueFromLocalStorage(),
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   singleUserPhotos: [],
-  testText: "",
   randomPhoto: "",
   suggestionsTagsArray: getSuggestionsFromLocalStorage(),
 };
@@ -37,17 +36,7 @@ const reducer = (state = inicialState, actions) => {
         randomPhoto: payload,
       };
 
-    case actionsTypes.getSingleUserPhotos:
-      // let setSingleUserPhotos
-      // axios
-      //   .get(
-      //     ` https://api.unsplash.com/users/${payload}/photos?client_id=${apiKey}`
-      //   )
-      //   .then((res) => {
-      //     setSingleUserPhotos = res.data;
-      //   });
-      // let setSingleUserPhotos;
-      console.log(payload);
+    case actionsTypes.GET_SINGLE_USER_PHOTOS:
       return {
         ...state,
         singleUserPhotos: payload,

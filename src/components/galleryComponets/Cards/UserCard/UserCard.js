@@ -11,7 +11,7 @@ import {
   StyledShowCase,
   StyledFollowBtn,
 } from "./UserCardStyledComponents";
-import { getSingleUserPhotosTest } from "../../../../actions";
+import { getSingleUserPhotos } from "../../../../actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const UserCard = ({ singleUser, findSingleUser }) => {
@@ -23,8 +23,8 @@ const UserCard = ({ singleUser, findSingleUser }) => {
     <StyledUserCard
       to={`/${username}`}
       onClick={() => {
-        // dispatch(getSingleUserPhotosTest(username));
         findSingleUser(singleUser);
+        dispatch(getSingleUserPhotos(username));
       }}
     >
       <StledAuthorInfoWrapper margin>

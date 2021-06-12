@@ -11,14 +11,8 @@ export function formActionRequest() {
     type: "FORM_ACTION_REQUEST",
   };
 }
-export const getSingleUserPhotos = (res) => {
-  return {
-    type: actionsTypes.getSingleUserPhotos,
-    payload: res,
-  };
-};
 
-export const getSingleUserPhotosTest = (userName) => {
+export const getSingleUserPhotos = (userName) => {
   return (dispatch) => {
     return axios
       .get(
@@ -29,12 +23,12 @@ export const getSingleUserPhotosTest = (userName) => {
       })
       .then((data) => {
         dispatch({
-          type: actionsTypes.getSingleUserPhotos,
+          type: actionsTypes.GET_SINGLE_USER_PHOTOS,
           payload: data,
         });
       })
       .catch((error) => {
-        throw error;
+        console.log(error);
       });
   };
 };
@@ -80,7 +74,7 @@ export const getPhotos = (queryValue, activeSearchType) => {
   };
 };
 
-export const getCollections = (queryValue, activeSearchType) => {
+export const getCollections = (queryValue) => {
   return (dispatch) => {
     axios
       .get(
@@ -88,8 +82,6 @@ export const getCollections = (queryValue, activeSearchType) => {
       )
 
       .then((res) => {
-        console.log(res, "Coll");
-
         dispatch({
           type: actionsTypes.GET_COLLECTIONS,
           payload: res.data.results,

@@ -69,8 +69,10 @@ export const getActiveSearchTypeFromLocalStorage = () => {
 export const getSuggestionsFromLocalStorage = () => {
   let localStorageSuggestions;
 
-  if (localStorage.getItem("suggestions")) {
-    localStorageSuggestions = JSON.parse(localStorage.getItem("suggestions"));
+  if (localStorage.getItem("suggestionsTagsArray")) {
+    localStorageSuggestions = JSON.parse(
+      localStorage.getItem("suggestionsTagsArray")
+    );
   } else {
     localStorageSuggestions = [];
   }
