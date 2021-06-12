@@ -7,16 +7,11 @@ import axios from "axios";
 import Router from "./routing/Router";
 import { exampleSuggestionsArray } from "./loclalData/localData";
 import {
-  getPhotosFromLocalStorage,
   getSearchInputValueFromLocalStorage,
-  getCollectionsFromLocalStorage,
-  getUsersFromLocalStorage,
-  getSuggestionsFromLocalStorage,
   getActiveSearchTypeFromLocalStorage,
 } from "./utils/localStorageGetter";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setPhotosList,
   getPhotos as getPhotosAction,
   getCollections,
   getUsers,
@@ -28,10 +23,7 @@ const App = () => {
   });
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
-  // const [suggestionsArray, setSuggestionsArray] = useState(
-  //   getSuggestionsFromLocalStorage()
-  // );
-  // const [photosList, setPhotosList] = useState(getPhotosFromLocalStorage());
+
   const [inputValue, setInputValue] = useState("");
   const [searchInputValue, setSearchInputValue] = useState(
     getSearchInputValueFromLocalStorage()
@@ -56,11 +48,8 @@ const App = () => {
     portfolio_url: "",
   });
   const [modalIsOpen, setIsOpen] = useState(false);
-  // const [collectionsList, setCollectionList] = useState(
-  //   getCollectionsFromLocalStorage()
-  // );
+
   const [selectedCollectionList, setSelectedCollectionList] = useState([]);
-  // const [usersList, setUsersList] = useState(getUsersFromLocalStorage());
   const [singleUserPhotos, setSingleUserPhotos] = useState([]);
 
   const [activeSearchType, setActiveSearchType] = useState(
@@ -68,10 +57,7 @@ const App = () => {
   );
   const [homeImg, setHomeImg] = useState("");
   const [likePhotosList, setLikePhotosList] = useState([]);
-  const [HeaderInputValue, setHeaderInputValue] = useState();
   const [homeInputValue, setHomeInputValue] = useState("");
-  // const [isHeaderPopperVisible, setIsHeaderPopperVisible] = useState(false);
-  /////////////////////////
 
   const reducerState = useSelector((state) => state);
   const { photosList, collectionsList, usersList, suggestionsTagsArray } =
@@ -87,19 +73,21 @@ const App = () => {
   const handleSearchInputValueChange = (e) => {
     setSearchInputValue(e.target.value);
   };
-
   useEffect(() => {
-    localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
     localStorage.setItem("photos", JSON.stringify(photosList));
     localStorage.setItem("collections", JSON.stringify(collectionsList));
     localStorage.setItem("users", JSON.stringify(usersList));
+    localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
     localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
-    localStorage.setItem("suggestions", JSON.stringify(suggestionsTagsArray));
+    localStorage.setItem(
+      "suggestionsTagsArray",
+      JSON.stringify(suggestionsTagsArray)
+    );
   }, [
-    searchInputValue,
     photosList,
     collectionsList,
     usersList,
+    searchInputValue,
     activeSearchType,
     suggestionsTagsArray,
   ]);
@@ -122,8 +110,6 @@ const App = () => {
   };
 
   const getPhotos = (e, word) => {
-    // let tempWord;
-
     e.preventDefault();
 
     let queryValue;
@@ -135,27 +121,9 @@ const App = () => {
     }
     dispatch(getPhotosAction(queryValue, activeSearchType));
 
-    //get collections
-    // axios
-    //   .get(
-    //     `    https://api.unsplash.com/search/collections?page=1&query=${queryValue}&client_id=${apiKey}
-    //     `
-    //   )
-    //   .then((res) => {
-    //     console.log("COLLECTIONS", res);
-    //     setCollectionList([...res.data.results]);
-    //   });
-    dispatch(getCollections(queryValue));
+    dispatch(getCollections(queryValue, activeSearchType));
 
-    //get users
-    dispatch(getUsers(queryValue));
-    //   axios
-    //     .get(
-    //       `https://api.unsplash.com/search/users?page=1&query=${queryValue}&client_id=${apiKey}`
-    //     )
-    //     .then((res) => {
-    //       setUsersList([...res.data.results]);
-    //     });
+    dispatch(getUsers(queryValue, activeSearchType));
   };
 
   const getSingleUserPhotos = (userName) => {
@@ -185,12 +153,10 @@ const App = () => {
   }, [inputValue]);
 
   const handleHomeInputValue = (e) => {
-    // setHomeInputValue(e.target.value);
     setInputValue(e.target.value);
   };
   const handleHeaderInputValue = (e) => {
     setInputValue(e.target.value);
-    // setHeaderInputValue(e.target.value);
   };
 
   const findPhoto = (id, arrayToFilter) => {
@@ -233,7 +199,6 @@ const App = () => {
     <div className="App">
       <RootContext.Provider
         value={{
-          // isPopperVisible,
           keyWordsArray,
           inputValue,
           searchInputValue,
@@ -251,22 +216,17 @@ const App = () => {
           homeInputValue,
           exampleSuggestionsArray,
 
-          // isHeaderPopperVisible,
-
           handleHomeInputValue,
           findSingleUser,
           resetSinglePhoto,
           handleSetActiveSearchType,
           handleSearchInputValueChange,
           getPhotos,
-          // getUsersFromApi,
           findPhoto,
           openModal,
           closeModal,
-          // getCollectionsFromApiSuggestList,
           setSearchInputValue,
           setInputValue,
-          // getCollectionsFromApi,
           addToLikePhotosList,
           removeFromLikesPhotos,
           getCollectionsPhotos,
@@ -281,11 +241,5 @@ const App = () => {
     </div>
   );
 };
-// const mapStateToProps = (state) => ({
-//   photosList: state.photosList,
-// });
-// const mapDispatchToProps = (dispatch) => ({
-//   setPhotosList: (res) => dispatch(setPhotosListAction(res)),
-// });
 
 export default App;

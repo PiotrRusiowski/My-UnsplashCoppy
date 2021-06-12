@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import RootContext from "../../../context";
 import { Container } from "../../../styles/globalStyledComponents";
 import SuggestionsList from "../Lists/SuggestionsList/SuggestionsList";
 import Navigation from "../Navigation.js/Navigation";
@@ -10,12 +9,8 @@ import {
 } from "./GalleryHeaderStyledComponents";
 
 const GalleryHeader = () => {
-  const context = useContext(RootContext);
-  const { showSearchValue } = context;
-
-  const suggestionsTagsArray = useSelector(
-    (state) => state.suggestionsTagsArray
-  );
+  const state = useSelector((state) => state);
+  const { showSearchValue, suggestionsTagsArray } = state;
   const main = false;
   return (
     <StyledGalleryHeader>

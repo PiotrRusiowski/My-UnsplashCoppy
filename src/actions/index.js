@@ -12,11 +12,6 @@ export function formActionRequest() {
   };
 }
 export const getSingleUserPhotos = (res) => {
-  // axios
-  //   .get(
-  //     ` https://api.unsplash.com/users/${userName}/photos?client_id=${apiKey}`
-  //   )
-  //   .then((res) => {
   return {
     type: actionsTypes.getSingleUserPhotos,
     payload: res,
@@ -41,20 +36,6 @@ export const getSingleUserPhotosTest = (userName) => {
       .catch((error) => {
         throw error;
       });
-  };
-};
-
-export const sayHello = () => {
-  return {
-    type: "SAY_HELLO",
-  };
-};
-
-export const sayHelloAfterTime = () => {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(sayHello());
-    }, 3000);
   };
 };
 
@@ -95,17 +76,11 @@ export const getPhotos = (queryValue, activeSearchType) => {
             suggestions,
           },
         });
-      })
-      .then(() => {
-        window.location.pathname = `/search/${activeSearchType}/${queryValue.replace(
-          /\s/g,
-          ""
-        )}`;
       });
   };
 };
 
-export const getCollections = (queryValue) => {
+export const getCollections = (queryValue, activeSearchType) => {
   return (dispatch) => {
     axios
       .get(
@@ -113,6 +88,8 @@ export const getCollections = (queryValue) => {
       )
 
       .then((res) => {
+        console.log(res, "Coll");
+
         dispatch({
           type: actionsTypes.GET_COLLECTIONS,
           payload: res.data.results,
@@ -121,7 +98,7 @@ export const getCollections = (queryValue) => {
   };
 };
 
-export const getUsers = (queryValue) => {
+export const getUsers = (queryValue, activeSearchType) => {
   return (dispatch) => {
     axios
       .get(
@@ -129,10 +106,17 @@ export const getUsers = (queryValue) => {
       )
 
       .then((res) => {
+        console.log(res, "Users");
         dispatch({
           type: actionsTypes.GET_USERS,
           payload: res.data.results,
         });
+      })
+      .then(() => {
+        window.location.pathname = `/search/${activeSearchType}/${queryValue.replace(
+          /\s/g,
+          ""
+        )}`;
       });
   };
 };

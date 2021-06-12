@@ -8,8 +8,6 @@ import {
 import {
   StyledModalContent,
   StyledImg,
-  // StledAuthorInfoWrapper,
-  // StyledAuthorProfileImg,
   StyledAuthorInfo,
   StyledLocation,
   StyledUserName,

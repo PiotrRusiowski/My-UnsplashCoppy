@@ -24,14 +24,14 @@ const Home = () => {
     ({ suggestionsTagsArray }) => suggestionsTagsArray
   );
 
-  useEffect(() => {
-    dispatch(getRandomPhoto());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getRandomPhoto());
+  // }, []);
 
   return (
     <>
-      <SuggestionsList suggestionsArray={suggestionsTagsArray} main={main} />
-      <StyledHome img={homeImg}>
+      <SuggestionsList suggestionsArray={exampleSuggestionsArray} main={main} />
+      <StyledHome>
         <Container>
           <HomeWrapper>
             <StyledContent>

@@ -33,7 +33,7 @@ const Navigation = () => {
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
               // to={`search/${searchTypes.photos}/${searchInputValue}`}
-              to={`/search/photos/${showSearchValue}`}
+              to={`/search/photos/${searchInputValue}`}
               onClick={() => {
                 handleSetActiveSearchType(searchTypes.photos);
               }}
@@ -48,7 +48,7 @@ const Navigation = () => {
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
               // to={`search/${searchTypes.collections}/${searchInputValue}`}
-              to={`/search/collections/${showSearchValue}`}
+              to={`/search/collections/${searchInputValue}`}
               onClick={() => {
                 handleSetActiveSearchType(searchTypes.collections);
                 // getCollectionsFromApi();
@@ -65,7 +65,7 @@ const Navigation = () => {
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
               // to={`search/${searchTypes.users}/${searchInputValue}`}
-              to={`/search/users/${showSearchValue}`}
+              to={`/search/users/${searchInputValue}`}
               onClick={() => {
                 // getUsersFromApi();
                 handleSetActiveSearchType(searchTypes.users);
