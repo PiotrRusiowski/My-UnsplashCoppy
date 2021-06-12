@@ -2,15 +2,6 @@ import { actionsTypes } from "./actionsTypes";
 import axios from "axios";
 import { apiKey } from "../apiKey";
 import { useDispatch } from "react-redux";
-export const setPhotosList = (res) => ({
-  type: actionsTypes.setPhotosList,
-  payload: res,
-});
-export function formActionRequest() {
-  return {
-    type: "FORM_ACTION_REQUEST",
-  };
-}
 
 export const getSingleUserPhotos = (userName) => {
   return (dispatch) => {
@@ -112,3 +103,7 @@ export const getUsers = (queryValue, activeSearchType) => {
       });
   };
 };
+export const handleSearchInputValueChange = (e) => ({
+  type: actionsTypes.HANDLE_SEARCH_INPUT_VALUE_CHANGE,
+  payload: e,
+});

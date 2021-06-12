@@ -12,7 +12,7 @@ import {
   StyledFollowBtn,
 } from "./UserCardStyledComponents";
 import { getSingleUserPhotos } from "../../../../actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const UserCard = ({ singleUser, findSingleUser }) => {
   const dispatch = useDispatch();

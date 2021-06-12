@@ -2,6 +2,10 @@ import React, { useContext, useRef } from "react";
 import RootContext from "../../../context";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import { Link } from "react-router-dom";
+import { handleSearchInputValueChange } from "../../../actions";
+import { useDispatch } from "react-redux";
+
 import {
   StyledSearchInput,
   StyledSearchBtn,
@@ -11,19 +15,17 @@ import {
   StyledForm,
   StyledSearch,
 } from "../SearchStyledsComponents";
-import { Link } from "react-router-dom";
 
 const Search = ({ gallery }) => {
+  const dispatch = useDispatch();
   const context = useContext(RootContext);
   const {
     inputValue,
     keyWordsArray,
-    // showPopper,
     setInputValue,
     getPhotos,
     activeSearchType,
     changeSearchInputValueByClickingOnSuggestionList,
-    handleSearchInputValueChange,
     handleHeaderInputValue,
     headerInputValue,
   } = context;
@@ -52,12 +54,9 @@ const Search = ({ gallery }) => {
             placeholder="Search photos"
             onChange={(e) => {
               handleHeaderInputValue(e);
-              handleSearchInputValueChange(e);
+              dispatch(handleSearchInputValueChange(e.target.value));
               visible(e);
-              //   showPopper(e, "headerInput");
             }}
-            // value={headerInputValue}
-            // value={inputValue}
             name="searchPhotos"
             autoComplete="off"
           />

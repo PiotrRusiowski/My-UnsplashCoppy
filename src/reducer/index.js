@@ -11,25 +11,20 @@ import {
 
 const inicialState = {
   photosList: getPhotosFromLocalStorage(),
-  likePhotosList: [],
   collectionsList: getCollectionsFromLocalStorage(),
   usersList: getUsersFromLocalStorage(),
   showSearchValue: getSearchInputValueFromLocalStorage(),
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
+  suggestionsTagsArray: getSuggestionsFromLocalStorage(),
+  searchInputValue: getSearchInputValueFromLocalStorage(),
+  likePhotosList: [],
   singleUserPhotos: [],
   randomPhoto: "",
-  suggestionsTagsArray: getSuggestionsFromLocalStorage(),
 };
 
 const reducer = (state = inicialState, actions) => {
   const { type, payload } = actions;
   switch (type) {
-    case actionsTypes.setPhotosList:
-      return {
-        ...state,
-        photosList: payload,
-      };
-
     case actionsTypes.GET_RANDOM_PHOTO:
       return {
         ...state,
@@ -58,6 +53,11 @@ const reducer = (state = inicialState, actions) => {
       return {
         ...state,
         usersList: [...payload],
+      };
+    case actionsTypes.HANDLE_SEARCH_INPUT_VALUE_CHANGE:
+      return {
+        ...state,
+        searchInputValue: payload,
       };
 
     default:

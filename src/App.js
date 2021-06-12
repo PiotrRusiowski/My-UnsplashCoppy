@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import RootContext from "./context";
 import GlobalStyle from "./styles/GlobalStyles";
 import unsplashData from "./data.json";
@@ -25,9 +25,7 @@ const App = () => {
   const [keyWordsArray, setKeyWordArray] = useState([]);
 
   const [inputValue, setInputValue] = useState("");
-  const [searchInputValue, setSearchInputValue] = useState(
-    getSearchInputValueFromLocalStorage()
-  );
+
   const [singlePhoto, setSinglePhoto] = useState({
     id: "",
     urls: "",
@@ -60,8 +58,13 @@ const App = () => {
   const [homeInputValue, setHomeInputValue] = useState("");
 
   const reducerState = useSelector((state) => state);
-  const { photosList, collectionsList, usersList, suggestionsTagsArray } =
-    reducerState;
+  const {
+    photosList,
+    collectionsList,
+    usersList,
+    suggestionsTagsArray,
+    searchInputValue,
+  } = reducerState;
   const dispatch = useDispatch();
 
   /////////
@@ -70,9 +73,6 @@ const App = () => {
     setActiveSearchType(searchType);
   };
 
-  const handleSearchInputValueChange = (e) => {
-    setSearchInputValue(e.target.value);
-  };
   useEffect(() => {
     localStorage.setItem("photos", JSON.stringify(photosList));
     localStorage.setItem("collections", JSON.stringify(collectionsList));
@@ -105,9 +105,9 @@ const App = () => {
       });
   };
 
-  const changeSearchInputValueByClickingOnSuggestionList = (word) => {
-    setSearchInputValue(word);
-  };
+  // const changeSearchInputValueByClickingOnSuggestionList = (word) => {
+  //   setSearchInputValue(word);
+  // };
 
   const getPhotos = (e, word) => {
     e.preventDefault();
@@ -220,18 +220,16 @@ const App = () => {
           findSingleUser,
           resetSinglePhoto,
           handleSetActiveSearchType,
-          handleSearchInputValueChange,
+
           getPhotos,
           findPhoto,
           openModal,
           closeModal,
-          setSearchInputValue,
           setInputValue,
           addToLikePhotosList,
           removeFromLikesPhotos,
           getCollectionsPhotos,
           getSingleUserPhotos,
-          changeSearchInputValueByClickingOnSuggestionList,
           handleHeaderInputValue,
         }}
       >

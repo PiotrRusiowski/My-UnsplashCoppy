@@ -2,6 +2,9 @@ import React, { useContext, useRef } from "react";
 import RootContext from "../../../context";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import { useDispatch } from "react-redux";
+
+import { handleSearchInputValueChange } from "../../../actions";
 import {
   StyledSearchInput,
   StyledSearchBtn,
@@ -23,17 +26,15 @@ const Search = ({ gallery }) => {
     }
   };
   const context = useContext(RootContext);
+  const dispatch = useDispatch();
   const {
     inputValue,
     keyWordsArray,
-    showPopper,
     setInputValue,
     getPhotos,
     activeSearchType,
     changeSearchInputValueByClickingOnSuggestionList,
-    handleSearchInputValueChange,
     handleHomeInputValue,
-    homeInputValue,
   } = context;
 
   return (
@@ -53,10 +54,8 @@ const Search = ({ gallery }) => {
             onChange={(e) => {
               handleHomeInputValue(e);
               handleSearchInputValueChange(e);
-              // showPopper(e, "homeInput");
               visible(e);
             }}
-            // value={homeInputValue}
             name="searchPhotos"
             autoComplete="off"
           />
@@ -81,8 +80,7 @@ const Search = ({ gallery }) => {
                       type="submit"
                       onClick={(e) => {
                         changeSearchInputValueByClickingOnSuggestionList(word);
-                        handleSearchInputValueChange(e);
-
+                        dispatch(handleSearchInputValueChange(e));
                         getPhotos(e, word);
                       }}
                     >
