@@ -1,7 +1,6 @@
 import { actionsTypes } from "./actionsTypes";
 import axios from "axios";
 import { apiKey } from "../apiKey";
-import { useDispatch } from "react-redux";
 
 export const getSingleUserPhotos = (userName) => {
   return (dispatch) => {
@@ -38,7 +37,7 @@ export const getRandomPhoto = () => {
   };
 };
 
-export const getPhotos = (queryValue, activeSearchType) => {
+export const getPhotos = (queryValue) => {
   return (dispatch) => {
     axios
       .get(
@@ -80,6 +79,20 @@ export const getCollections = (queryValue) => {
       });
   };
 };
+export const getSingleCollectionPhotos = (id) => {
+  return (dispatch) => {
+    axios
+      .get(
+        ` https://api.unsplash.com/collections/${id}/photos?client_id=${apiKey}`
+      )
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_SINGLE_COLLECTION_PHOTOS,
+          payload: res.data,
+        });
+      });
+  };
+};
 
 export const getUsers = (queryValue, activeSearchType) => {
   return (dispatch) => {
@@ -103,7 +116,12 @@ export const getUsers = (queryValue, activeSearchType) => {
       });
   };
 };
+
 export const handleSearchInputValueChange = (e) => ({
   type: actionsTypes.HANDLE_SEARCH_INPUT_VALUE_CHANGE,
   payload: e,
+});
+export const setActiveSearchType = (activeSearchType) => ({
+  type: actionsTypes.SET_ACTIVE_SEARCH_TYPE,
+  payload: activeSearchType,
 });

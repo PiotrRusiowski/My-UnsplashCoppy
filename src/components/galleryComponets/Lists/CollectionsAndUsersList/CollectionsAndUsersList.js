@@ -1,27 +1,16 @@
 import React, { useContext } from "react";
 import RootContext from "../../../../context";
 import CollectionCard from "../../Cards/CollectionCard/CollectionCard";
-import {
-  Container,
-  StyledList,
-} from "../../../../styles/globalStyledComponents";
+import { StyledList } from "../../../../styles/globalStyledComponents";
 import UserCard from "../../Cards/UserCard/UserCard";
 import Masonry from "react-masonry-css";
 import "../PhotosList/masonry.css";
 
-import UserInfoCard from "../../Cards/UserCard/UserInfoCard/UserInfoCard";
-
 const CollectionsAndUsersList = ({ list, isUserList }) => {
   const context = useContext(RootContext);
-  const {
-    getCollectionsPhotos,
-    showSearchValue,
-    getSingleUserPhotos,
-    findSingleUser,
-  } = context;
+  const { showSearchValue, findSingleUser } = context;
   const breakpointColumnsObj = {
     default: 3,
-
     700: 1,
     500: 1,
   };
@@ -37,16 +26,11 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
             <>
               {isUserList ? (
                 <>
-                  <UserCard
-                    singleUser={item}
-                    getSingleUserPhotos={getSingleUserPhotos}
-                    findSingleUser={findSingleUser}
-                  />
+                  <UserCard singleUser={item} findSingleUser={findSingleUser} />
                 </>
               ) : (
                 <CollectionCard
                   collection={item}
-                  getCollectionsPhotos={getCollectionsPhotos}
                   searchInputValue={showSearchValue}
                 />
               )}

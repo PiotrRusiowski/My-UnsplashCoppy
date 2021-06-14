@@ -1,5 +1,6 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import { getSingleCollectionPhotos } from "../../../../actions";
 import {
   StyledColectionCard,
   StyledCardShowCaseLink,
@@ -10,19 +11,17 @@ import {
   StyledLargeImg,
   StyledAuthor,
   StyledTags,
-  StyledImgSmallDiv,
 } from "./CollectionCardStyledComponents";
 
-const CollectionCard = ({
-  collection,
-  getCollectionsPhotos,
-  searchInputValue,
-}) => {
+const CollectionCard = ({ collection, searchInputValue }) => {
+  const dispatch = useDispatch();
   const { title, preview_photos, user, total_photos, tags, id } = collection;
   const photosAarray = preview_photos.map((photo) => photo.urls.regular);
   const tagsArray = tags.map((tag) => tag.title);
   return (
-    <StyledColectionCard onClick={() => getCollectionsPhotos(id)}>
+    <StyledColectionCard
+      onClick={() => dispatch(getSingleCollectionPhotos(id))}
+    >
       <StyledCardShowCaseLink
         to={`/search/collections/${collection.id}/${searchInputValue}`}
       >

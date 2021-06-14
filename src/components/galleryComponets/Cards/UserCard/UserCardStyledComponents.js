@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import breakpoint, { map } from "styled-components-breakpoint";
 
 export const StyledUserCard = styled(Link)`
   text-decoration: none;
@@ -20,12 +19,6 @@ export const StyledUserCard = styled(Link)`
   @media (max-width: 768px) {
     margin-bottom: 10px;
   }
-  /* @media (max-width: 425px) {
-    width: 100%;
-  } */
-  ${breakpoint("md")`
-    width: 100%;
-  `}
 `;
 export const StyledShowCase = styled.div`
   margin-top: 15px;

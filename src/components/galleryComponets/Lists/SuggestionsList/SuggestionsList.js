@@ -12,6 +12,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { handleSearchInputValueChange } from "../../../../actions";
+import { useDispatch } from "react-redux";
 
 const responsive = {
   desktop: {
@@ -76,11 +78,8 @@ const ButtonGroup = ({
 
 const SuggestionsList = ({ suggestionsArray, main }) => {
   const context = useContext(RootContext);
-  const {
-    getPhotos,
-
-    changeSearchInputValueByClickingOnSuggestionList,
-  } = context;
+  const dispatch = useDispatch();
+  const { getPhotos } = context;
 
   return (
     <StyledSuggestionsList>
@@ -103,7 +102,7 @@ const SuggestionsList = ({ suggestionsArray, main }) => {
               main={main}
               key={`${index}${suggest}`}
               onClick={(e) => {
-                changeSearchInputValueByClickingOnSuggestionList(suggest);
+                dispatch(handleSearchInputValueChange(suggest));
                 getPhotos(e, suggest);
               }}
             >

@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import RootContext from "../context";
 import PhotosList from "../components/galleryComponets/Lists/PhotosList/PhotosList";
+import { useSelector } from "react-redux";
 
 const CollectionsPhotosList = () => {
-  const context = useContext(RootContext);
-  const { selectedCollectionList } = context;
-  return <PhotosList photosList={selectedCollectionList} />;
+  const singleCollectionPhotos = useSelector(
+    ({ singleCollectionPhotos }) => singleCollectionPhotos
+  );
+  return <PhotosList photosList={singleCollectionPhotos} />;
 };
 
 export default CollectionsPhotosList;

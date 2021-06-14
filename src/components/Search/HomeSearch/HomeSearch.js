@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react";
 import RootContext from "../../../context";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { handleSearchInputValueChange } from "../../../actions";
 import {
@@ -17,25 +17,21 @@ import {
 import { Link } from "react-router-dom";
 
 const Search = ({ gallery }) => {
-  const headerPopperRef = useRef(null);
+  const homeRef = useRef(null);
+
   const visible = (e) => {
     if (e.target.value.length < 3) {
-      headerPopperRef.current.style.display = "none";
+      homeRef.current.style.display = "none";
     } else {
-      headerPopperRef.current.style.display = "block";
+      homeRef.current.style.display = "block";
     }
   };
   const context = useContext(RootContext);
+  const searchInputValue = useSelector(
+    ({ searchInputValue }) => searchInputValue
+  );
   const dispatch = useDispatch();
-  const {
-    inputValue,
-    keyWordsArray,
-    setInputValue,
-    getPhotos,
-    activeSearchType,
-    changeSearchInputValueByClickingOnSuggestionList,
-    handleHomeInputValue,
-  } = context;
+  const { keyWordsArray, getPhotos, activeSearchType } = context;
 
   return (
     <StyledSearchWrapper gallery={gallery}>
@@ -52,21 +48,23 @@ const Search = ({ gallery }) => {
             type="text"
             placeholder="Search photos"
             onChange={(e) => {
-              handleHomeInputValue(e);
-              handleSearchInputValueChange(e);
+              dispatch(handleSearchInputValueChange(e.target.value));
               visible(e);
             }}
             name="searchPhotos"
             autoComplete="off"
           />
-          {inputValue.length ? (
-            <StyledSearchBtn onClick={() => setInputValue("")}>
+
+          {searchInputValue.length ? (
+            <StyledSearchBtn
+              onClick={() => dispatch(handleSearchInputValueChange(""))}
+            >
               <CloseIcon fontSize="inherit" />
             </StyledSearchBtn>
           ) : null}
         </StyledSearch>
 
-        <StyledPopper ref={headerPopperRef} gallery={gallery}>
+        <StyledPopper ref={homeRef} gallery={gallery}>
           <ul>
             {keyWordsArray.map((word, index) => (
               <>
@@ -79,8 +77,7 @@ const Search = ({ gallery }) => {
                       key={index}
                       type="submit"
                       onClick={(e) => {
-                        changeSearchInputValueByClickingOnSuggestionList(word);
-                        dispatch(handleSearchInputValueChange(e));
+                        dispatch(handleSearchInputValueChange(word));
                         getPhotos(e, word);
                       }}
                     >

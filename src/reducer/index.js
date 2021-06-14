@@ -19,6 +19,7 @@ const inicialState = {
   searchInputValue: getSearchInputValueFromLocalStorage(),
   likePhotosList: [],
   singleUserPhotos: [],
+  singleCollectionPhotos: [],
   randomPhoto: "",
 };
 
@@ -58,6 +59,16 @@ const reducer = (state = inicialState, actions) => {
       return {
         ...state,
         searchInputValue: payload,
+      };
+    case actionsTypes.GET_SINGLE_COLLECTION_PHOTOS:
+      return {
+        ...state,
+        singleCollectionPhotos: [...payload],
+      };
+    case actionsTypes.SET_ACTIVE_SEARCH_TYPE:
+      return {
+        ...state,
+        activeSearchType: payload,
       };
 
     default:

@@ -2,14 +2,8 @@ import React, { useState, useEffect } from "react";
 import RootContext from "./context";
 import GlobalStyle from "./styles/GlobalStyles";
 import unsplashData from "./data.json";
-import { apiKey } from "./apiKey/index";
-import axios from "axios";
 import Router from "./routing/Router";
 import { exampleSuggestionsArray } from "./loclalData/localData";
-import {
-  getSearchInputValueFromLocalStorage,
-  getActiveSearchTypeFromLocalStorage,
-} from "./utils/localStorageGetter";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getPhotos as getPhotosAction,
@@ -47,15 +41,7 @@ const App = () => {
   });
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const [selectedCollectionList, setSelectedCollectionList] = useState([]);
-  const [singleUserPhotos, setSingleUserPhotos] = useState([]);
-
-  const [activeSearchType, setActiveSearchType] = useState(
-    getActiveSearchTypeFromLocalStorage()
-  );
-  const [homeImg, setHomeImg] = useState("");
   const [likePhotosList, setLikePhotosList] = useState([]);
-  const [homeInputValue, setHomeInputValue] = useState("");
 
   const reducerState = useSelector((state) => state);
   const {
@@ -64,14 +50,9 @@ const App = () => {
     usersList,
     suggestionsTagsArray,
     searchInputValue,
+    activeSearchType,
   } = reducerState;
   const dispatch = useDispatch();
-
-  /////////
-
-  const handleSetActiveSearchType = (searchType) => {
-    setActiveSearchType(searchType);
-  };
 
   useEffect(() => {
     localStorage.setItem("photos", JSON.stringify(photosList));
@@ -92,23 +73,6 @@ const App = () => {
     suggestionsTagsArray,
   ]);
 
-  const getCollectionsPhotos = (id) => {
-    axios
-      .get(
-        ` https://api.unsplash.com/collections/${id}/photos?client_id=${apiKey}`
-      )
-      .then((res) => {
-        setSelectedCollectionList(res.data);
-      })
-      .then(() => {
-        console.log(selectedCollectionList);
-      });
-  };
-
-  // const changeSearchInputValueByClickingOnSuggestionList = (word) => {
-  //   setSearchInputValue(word);
-  // };
-
   const getPhotos = (e, word) => {
     e.preventDefault();
 
@@ -126,23 +90,12 @@ const App = () => {
     dispatch(getUsers(queryValue, activeSearchType));
   };
 
-  const getSingleUserPhotos = (userName) => {
-    axios
-
-      .get(
-        ` https://api.unsplash.com/users/${userName}/photos?client_id=${apiKey}`
-      )
-      .then((res) => {
-        setSingleUserPhotos(res.data);
-      });
-  };
-
   const filterKeyWords = () => {
-    if (inputValue.length >= 3) {
+    if (searchInputValue.length >= 3) {
       const filteredKeyWordsData = keywordsDataWithoutDuplicates.filter(
         (word) => {
-          const tempWord = word.toString().slice(0, inputValue.length);
-          return inputValue.toLowerCase() === tempWord;
+          const tempWord = word.toString().slice(0, searchInputValue.length);
+          return searchInputValue.toLowerCase() === tempWord;
         }
       );
       setKeyWordArray(filteredKeyWordsData);
@@ -150,7 +103,7 @@ const App = () => {
   };
   useEffect(() => {
     filterKeyWords();
-  }, [inputValue]);
+  }, [searchInputValue]);
 
   const handleHomeInputValue = (e) => {
     setInputValue(e.target.value);
@@ -206,21 +159,14 @@ const App = () => {
           singlePhoto,
           collectionsList,
           usersList,
-          activeSearchType,
-          homeImg,
           likePhotosList,
-          selectedCollectionList,
-          singleUserPhotos,
           modalPhoto,
           singleUser,
-          homeInputValue,
           exampleSuggestionsArray,
 
           handleHomeInputValue,
           findSingleUser,
           resetSinglePhoto,
-          handleSetActiveSearchType,
-
           getPhotos,
           findPhoto,
           openModal,
@@ -228,8 +174,6 @@ const App = () => {
           setInputValue,
           addToLikePhotosList,
           removeFromLikesPhotos,
-          getCollectionsPhotos,
-          getSingleUserPhotos,
           handleHeaderInputValue,
         }}
       >

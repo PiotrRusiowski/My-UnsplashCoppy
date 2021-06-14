@@ -4,7 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
 import { handleSearchInputValueChange } from "../../../actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   StyledSearchInput,
@@ -18,17 +18,11 @@ import {
 
 const Search = ({ gallery }) => {
   const dispatch = useDispatch();
+  const searchInputValue = useSelector(
+    ({ searchInputValue }) => searchInputValue
+  );
   const context = useContext(RootContext);
-  const {
-    inputValue,
-    keyWordsArray,
-    setInputValue,
-    getPhotos,
-    activeSearchType,
-    changeSearchInputValueByClickingOnSuggestionList,
-    handleHeaderInputValue,
-    headerInputValue,
-  } = context;
+  const { keyWordsArray, getPhotos, activeSearchType } = context;
   const headerPopperRef = useRef(null);
   const visible = (e) => {
     if (e.target.value.length < 3) {
@@ -53,15 +47,16 @@ const Search = ({ gallery }) => {
             type="text"
             placeholder="Search photos"
             onChange={(e) => {
-              handleHeaderInputValue(e);
               dispatch(handleSearchInputValueChange(e.target.value));
               visible(e);
             }}
             name="searchPhotos"
             autoComplete="off"
           />
-          {inputValue.length ? (
-            <StyledSearchBtn onClick={() => setInputValue("")}>
+          {searchInputValue.length ? (
+            <StyledSearchBtn
+              onClick={() => dispatch(handleSearchInputValueChange(""))}
+            >
               <CloseIcon fontSize="inherit" />
             </StyledSearchBtn>
           ) : null}
@@ -80,8 +75,7 @@ const Search = ({ gallery }) => {
                       key={index}
                       type="submit"
                       onClick={(e) => {
-                        changeSearchInputValueByClickingOnSuggestionList(word);
-
+                        dispatch(handleSearchInputValueChange(word));
                         getPhotos(e, word);
                       }}
                     >

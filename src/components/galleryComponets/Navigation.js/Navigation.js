@@ -6,6 +6,7 @@ import {
   StyledNavigationList,
   StyledIcon,
 } from "./NavigationStyledComponents";
+import { setActiveSearchType } from "../../../actions";
 import RootContext from "../../../context";
 import { searchTypes } from "../../../utils/searchTypes";
 import { routes } from "../../../routes";
@@ -14,17 +15,12 @@ import { Container } from "../../../styles/globalStyledComponents";
 import CollectionsIcon from "@material-ui/icons/Collections";
 import LayersIcon from "@material-ui/icons/Layers";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useDispatch } from "react-redux";
 
 const Navigation = () => {
   const context = useContext(RootContext);
-  const {
-    getUsersFromApi,
-    getCollectionsFromApi,
-    searchInputValue,
-    showSearchValue,
-    handleSetActiveSearchType,
-    getPhotos,
-  } = context;
+  const { searchInputValue, handleSetActiveSearchType } = context;
+  const dispatch = useDispatch();
   return (
     <StyledNavigation>
       <Container xl>
@@ -32,10 +28,9 @@ const Navigation = () => {
           <StyledNavigationElement>
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
-              // to={`search/${searchTypes.photos}/${searchInputValue}`}
               to={`/search/photos/${searchInputValue}`}
               onClick={() => {
-                handleSetActiveSearchType(searchTypes.photos);
+                dispatch(setActiveSearchType(searchTypes.photos));
               }}
             >
               <StyledIcon>
@@ -47,10 +42,10 @@ const Navigation = () => {
           <StyledNavigationElement>
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
-              // to={`search/${searchTypes.collections}/${searchInputValue}`}
               to={`/search/collections/${searchInputValue}`}
               onClick={() => {
-                handleSetActiveSearchType(searchTypes.collections);
+                // handleSetActiveSearchType(searchTypes.collections);
+                dispatch(setActiveSearchType(searchTypes.collections));
               }}
             >
               <StyledIcon>
@@ -63,11 +58,10 @@ const Navigation = () => {
           <StyledNavigationElement>
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
-              // to={`search/${searchTypes.users}/${searchInputValue}`}
               to={`/search/users/${searchInputValue}`}
               onClick={() => {
-                // getUsersFromApi();
-                handleSetActiveSearchType(searchTypes.users);
+                // handleSetActiveSearchType(searchTypes.users);
+                dispatch(setActiveSearchType(searchTypes.users));
               }}
             >
               <StyledIcon>
@@ -79,7 +73,6 @@ const Navigation = () => {
           <StyledNavigationElement>
             <StyledNavigationLink
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
-              // to={`search/${searchTypes.users}/${searchInputValue}`}
               to={routes.likesPhotosGallery}
             >
               <StyledIcon>
