@@ -26,12 +26,7 @@ const App = () => {
     alt_description: "",
     user: { name: "", location: "", profile_image: { small: "" } },
   });
-  const [modalPhoto, setModalPhoto] = useState({
-    id: "",
-    urls: "",
-    alt_description: "",
-    user: { name: "", location: "", profile_image: { small: "" } },
-  });
+
   const [singleUser, setSingleUser] = useState({
     name: "",
     bio: "",
@@ -115,20 +110,9 @@ const App = () => {
   const findPhoto = (id, arrayToFilter) => {
     const findedItem = arrayToFilter.find((foto) => foto.id === id);
     setSinglePhoto(findedItem);
-    setModalPhoto(findedItem);
   };
   const findSingleUser = (singleUser) => {
     setSingleUser(singleUser);
-    console.log(singleUser);
-  };
-
-  const resetSinglePhoto = () => {
-    setSinglePhoto({
-      id: "",
-      urls: "",
-      alt_description: "",
-      user: { name: "", location: "", profile_image: { small: "" } },
-    });
   };
 
   const openModal = () => {
@@ -160,13 +144,11 @@ const App = () => {
           collectionsList,
           usersList,
           likePhotosList,
-          modalPhoto,
           singleUser,
           exampleSuggestionsArray,
 
           handleHomeInputValue,
           findSingleUser,
-          resetSinglePhoto,
           getPhotos,
           findPhoto,
           openModal,

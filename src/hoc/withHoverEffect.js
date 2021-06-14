@@ -5,9 +5,9 @@ const withHoverEffect = (WrappedComponent) => {
     state = {
       isHover: false,
     };
-    toggleIsHover = () => {
+    toggleIsHover = (isTrue) => {
       this.setState({
-        isHover: !this.state.isHover,
+        isHover: !isTrue,
       });
     };
     render() {

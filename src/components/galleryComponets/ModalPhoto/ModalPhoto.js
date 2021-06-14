@@ -31,8 +31,8 @@ const customStyles = {
 
 const ModalPhoto = () => {
   const context = useContext(RootContext);
-  const { modalIsOpen, closeModal, modalPhoto } = context;
-  const { urls, alt_description, user } = modalPhoto;
+  const { modalIsOpen, closeModal, singlePhoto } = context;
+  const { urls, alt_description, user } = singlePhoto;
   const { name, username, location, profile_image } = user;
 
   return (

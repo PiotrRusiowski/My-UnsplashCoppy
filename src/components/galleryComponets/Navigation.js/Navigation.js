@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 
 const Navigation = () => {
   const context = useContext(RootContext);
-  const { searchInputValue, handleSetActiveSearchType } = context;
+  const { searchInputValue } = context;
   const dispatch = useDispatch();
   return (
     <StyledNavigation>
@@ -44,7 +44,6 @@ const Navigation = () => {
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
               to={`/search/collections/${searchInputValue}`}
               onClick={() => {
-                // handleSetActiveSearchType(searchTypes.collections);
                 dispatch(setActiveSearchType(searchTypes.collections));
               }}
             >
@@ -60,7 +59,6 @@ const Navigation = () => {
               activeStyle={{ color: "black", boxShadow: "inset 0 -2px #111" }}
               to={`/search/users/${searchInputValue}`}
               onClick={() => {
-                // handleSetActiveSearchType(searchTypes.users);
                 dispatch(setActiveSearchType(searchTypes.users));
               }}
             >

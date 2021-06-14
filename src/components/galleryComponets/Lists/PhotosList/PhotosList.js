@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import RootContext from "../../../../context";
+import React from "react";
 import "./masonry.css";
 import Masonry from "react-masonry-css";
 import { StyledList } from "../../../../styles/globalStyledComponents";
@@ -7,8 +6,6 @@ import GalleryModal from "../../ModalPhoto/ModalPhoto";
 import PhotoCard from "../../Cards/PhotoCard/PhotoCard";
 
 const PhotosList = ({ photosList }) => {
-  const context = useContext(RootContext);
-  const { singlePhoto } = context;
   const breakpointColumnsObj = {
     default: 3,
     700: 1,
@@ -23,19 +20,7 @@ const PhotosList = ({ photosList }) => {
           columnClassName="my-masonry-grid_column"
         >
           {photosList.map((photo) => {
-            let isHover = false;
-            if (photo.id === singlePhoto.id) {
-              isHover = true;
-            } else {
-              isHover = false;
-            }
-            return (
-              <PhotoCard
-                photosList={photosList}
-                photo={photo}
-                isHover={isHover}
-              />
-            );
+            return <PhotoCard photosList={photosList} photo={photo} />;
           })}
         </Masonry>
       </StyledList>

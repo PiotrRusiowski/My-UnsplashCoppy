@@ -15,27 +15,25 @@ import RootContext from "../../../../context";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import ArrowDropDownCircleIcon from "@material-ui/icons/ArrowDropDownCircle";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import withHoverEffect from "../../../../hoc/withHoverEffect";
 
-const PhotoCard = ({ photosList, photo, isHover }) => {
+const PhotoCard = ({ photosList, photo, isHover, toggleIsHover }) => {
   const context = useContext(RootContext);
-  const {
-    findPhoto,
-    openModal,
-    singlePhoto,
-    addToLikePhotosList,
-    resetSinglePhoto,
-  } = context;
+  const { findPhoto, openModal, singlePhoto, addToLikePhotosList } = context;
   const { id, urls, alt_description } = photo;
   return (
     <StyledPhotoWrapper
       key={id}
       onMouseEnter={() => {
-        findPhoto(id, photosList);
+        toggleIsHover(false);
       }}
       onClick={() => {
         openModal();
+        findPhoto(id, photosList);
       }}
-      onMouseLeave={resetSinglePhoto}
+      onMouseLeave={() => {
+        toggleIsHover(true);
+      }}
       isHover={isHover}
     >
       <StyledPhotoHover isHover={isHover}>
@@ -55,10 +53,10 @@ const PhotoCard = ({ photosList, photo, isHover }) => {
           <StyledBtn>
             <StledAuthorInfoWrapper>
               <StyledAuthorProfileImg
-                src={singlePhoto.user.profile_image.small}
+                src={photo.user.profile_image.small}
                 alt="author profile image"
               />
-              <StyledUserName>{singlePhoto.user.name}</StyledUserName>
+              <StyledUserName>{photo.user.name}</StyledUserName>
             </StledAuthorInfoWrapper>
           </StyledBtn>
           <StyledBtn>
@@ -71,4 +69,4 @@ const PhotoCard = ({ photosList, photo, isHover }) => {
   );
 };
 
-export default PhotoCard;
+export default withHoverEffect(PhotoCard);

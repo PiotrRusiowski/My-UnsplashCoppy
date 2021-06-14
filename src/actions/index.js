@@ -125,3 +125,4 @@ export const setActiveSearchType = (activeSearchType) => ({
   type: actionsTypes.SET_ACTIVE_SEARCH_TYPE,
   payload: activeSearchType,
 });
+// export const addToLikePhotosList =()=>({})
