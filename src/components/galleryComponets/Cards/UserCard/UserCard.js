@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 
 const UserCard = ({ singleUser, findSingleUser }) => {
   const dispatch = useDispatch();
-  const { profile_image, username, name, photos, id } = singleUser;
+  const { profile_image, username, name, photos } = singleUser;
   const imgArray = photos.map((photo) => photo.urls.small);
 
   return (

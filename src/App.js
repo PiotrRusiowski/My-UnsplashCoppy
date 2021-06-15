@@ -26,7 +26,6 @@ const App = () => {
     portfolio_url: "",
   });
   const [modalIsOpen, setIsOpen] = useState(false);
-
   const reducerState = useSelector((state) => state);
   const {
     photosList,

@@ -91,7 +91,7 @@ const reducer = (state = inicialState, actions) => {
       };
     case actionsTypes.REMOVE_FROM_LIKES_PHOTOS_LIST:
       const filteredLikesPhotos = state.likesPhotosList.filter(
-        (photo) => photo.id !== payload.id
+        (photo) => photo.id !== payload
       );
       return {
         ...state,
