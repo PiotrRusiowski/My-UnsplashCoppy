@@ -17,10 +17,16 @@ const inicialState = {
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   suggestionsTagsArray: getSuggestionsFromLocalStorage(),
   searchInputValue: getSearchInputValueFromLocalStorage(),
-  likePhotosList: [],
+  likesPhotosList: [],
   singleUserPhotos: [],
   singleCollectionPhotos: [],
   randomPhoto: "",
+  singlePhoto: {
+    id: "",
+    urls: "",
+    alt_description: "",
+    user: { name: "", location: "", profile_image: { small: "" } },
+  },
 };
 
 const reducer = (state = inicialState, actions) => {
@@ -69,6 +75,27 @@ const reducer = (state = inicialState, actions) => {
       return {
         ...state,
         activeSearchType: payload,
+      };
+    case actionsTypes.FIND_PHOTO_DETAILS:
+      const findItem = payload.photosList.find(
+        (photo) => photo.id === payload.id
+      );
+      return {
+        ...state,
+        singlePhoto: findItem,
+      };
+    case actionsTypes.ADD_TO_LIKES_PHOTOS_LIST:
+      return {
+        ...state,
+        likesPhotosList: [...state.likesPhotosList, state.singlePhoto],
+      };
+    case actionsTypes.REMOVE_FROM_LIKES_PHOTOS_LIST:
+      const filteredLikesPhotos = state.likesPhotosList.filter(
+        (photo) => photo.id !== payload.id
+      );
+      return {
+        ...state,
+        likesPhotosList: [...filteredLikesPhotos],
       };
 
     default:

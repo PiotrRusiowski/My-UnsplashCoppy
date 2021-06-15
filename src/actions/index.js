@@ -125,4 +125,17 @@ export const setActiveSearchType = (activeSearchType) => ({
   type: actionsTypes.SET_ACTIVE_SEARCH_TYPE,
   payload: activeSearchType,
 });
-// export const addToLikePhotosList =()=>({})
+export const findPhotoDetails = (id, photosList) => ({
+  type: actionsTypes.FIND_PHOTO_DETAILS,
+  payload: {
+    id: id,
+    photosList: photosList,
+  },
+});
+export const addToLikesPhotosList = () => ({
+  type: actionsTypes.ADD_TO_LIKES_PHOTOS_LIST,
+});
+export const removeFromLikesPhotos = (id) => ({
+  type: actionsTypes.REMOVE_FROM_LIKES_PHOTOS_LIST,
+  payload: id,
+});

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const StyledTagList = styled.ul`
   padding: 5px;
@@ -29,6 +28,7 @@ export const StyledBtn = styled.button`
   background-color: transparent;
   z-index: 4;
   font-size: 20px;
+  margin-left: auto;
   &:hover {
     color: red;
   }
@@ -53,7 +53,7 @@ export const StyledBtnGroup = styled.div`
   justify-content: space-between;
 `;
 export const StyledUserName = styled.p`
-  font-size: 14px;
+  font-size: 15px;
   color: ${({ theme }) => theme.lightGrey};
   &:hover {
     color: white;

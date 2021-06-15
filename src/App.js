@@ -17,16 +17,7 @@ const App = () => {
   });
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
-
   const [inputValue, setInputValue] = useState("");
-
-  const [singlePhoto, setSinglePhoto] = useState({
-    id: "",
-    urls: "",
-    alt_description: "",
-    user: { name: "", location: "", profile_image: { small: "" } },
-  });
-
   const [singleUser, setSingleUser] = useState({
     name: "",
     bio: "",
@@ -35,8 +26,6 @@ const App = () => {
     portfolio_url: "",
   });
   const [modalIsOpen, setIsOpen] = useState(false);
-
-  const [likePhotosList, setLikePhotosList] = useState([]);
 
   const reducerState = useSelector((state) => state);
   const {
@@ -100,17 +89,6 @@ const App = () => {
     filterKeyWords();
   }, [searchInputValue]);
 
-  const handleHomeInputValue = (e) => {
-    setInputValue(e.target.value);
-  };
-  const handleHeaderInputValue = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const findPhoto = (id, arrayToFilter) => {
-    const findedItem = arrayToFilter.find((foto) => foto.id === id);
-    setSinglePhoto(findedItem);
-  };
   const findSingleUser = (singleUser) => {
     setSingleUser(singleUser);
   };
@@ -122,16 +100,7 @@ const App = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const addToLikePhotosList = () => {
-    setLikePhotosList([...likePhotosList, singlePhoto]);
-    console.log(likePhotosList);
-  };
-  const removeFromLikesPhotos = (id) => {
-    const filteredLikesPhotos = likePhotosList.filter(
-      (photo) => photo.id !== id
-    );
-    setLikePhotosList(filteredLikesPhotos);
-  };
+
   return (
     <div className="App">
       <RootContext.Provider
@@ -140,23 +109,16 @@ const App = () => {
           inputValue,
           searchInputValue,
           modalIsOpen,
-          singlePhoto,
           collectionsList,
           usersList,
-          likePhotosList,
           singleUser,
           exampleSuggestionsArray,
 
-          handleHomeInputValue,
           findSingleUser,
           getPhotos,
-          findPhoto,
           openModal,
           closeModal,
           setInputValue,
-          addToLikePhotosList,
-          removeFromLikesPhotos,
-          handleHeaderInputValue,
         }}
       >
         <GlobalStyle />

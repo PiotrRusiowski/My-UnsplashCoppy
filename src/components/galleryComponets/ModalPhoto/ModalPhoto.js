@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import RootContext from "../../../context";
+import { useSelector } from "react-redux";
 import {
   StledAuthorInfoWrapper,
   StyledAuthorProfileImg,
@@ -31,7 +32,9 @@ const customStyles = {
 
 const ModalPhoto = () => {
   const context = useContext(RootContext);
-  const { modalIsOpen, closeModal, singlePhoto } = context;
+  const singlePhoto = useSelector(({ singlePhoto }) => singlePhoto);
+  const { modalIsOpen, closeModal } = context;
+
   const { urls, alt_description, user } = singlePhoto;
   const { name, username, location, profile_image } = user;
 

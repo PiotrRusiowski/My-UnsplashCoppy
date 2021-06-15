@@ -2,7 +2,7 @@ import React from "react";
 import "./masonry.css";
 import Masonry from "react-masonry-css";
 import { StyledList } from "../../../../styles/globalStyledComponents";
-import GalleryModal from "../../ModalPhoto/ModalPhoto";
+import ModalPhoto from "../../ModalPhoto/ModalPhoto";
 import PhotoCard from "../../Cards/PhotoCard/PhotoCard";
 
 const PhotosList = ({ photosList }) => {
@@ -11,6 +11,7 @@ const PhotosList = ({ photosList }) => {
     700: 1,
     500: 1,
   };
+
   return (
     <>
       <StyledList>
@@ -24,7 +25,7 @@ const PhotosList = ({ photosList }) => {
           })}
         </Masonry>
       </StyledList>
-      <GalleryModal />
+      <ModalPhoto />
     </>
   );
 };
