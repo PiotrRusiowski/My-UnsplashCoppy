@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import RootContext from "../../context";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { exampleSuggestionsArray } from "../../loclalData/localData";
+import { useSelector } from "react-redux";
 import HomeSearch from "../../components/Search/HomeSearch/HomeSearch";
 import { Container } from "../../styles/globalStyledComponents";
 import SuggestionsList from "../../components/galleryComponets/Lists/SuggestionsList/SuggestionsList";
@@ -11,19 +11,15 @@ import {
   StyledTitle,
   StyledLink,
 } from "./HomeStyledsComponents";
-import { getRandomPhoto } from "../../actions";
 
 const Home = () => {
-  const context = useContext(RootContext);
-  const { exampleSuggestionsArray } = context;
   const main = true;
-
   const homeImg = useSelector(({ randomPhoto }) => randomPhoto);
 
   return (
     <>
       <SuggestionsList suggestionsArray={exampleSuggestionsArray} main={main} />
-      <StyledHome>
+      <StyledHome img={homeImg}>
         <Container>
           <HomeWrapper>
             <StyledContent>

@@ -132,6 +132,10 @@ export const findPhotoDetails = (id, photosList) => ({
     photosList: photosList,
   },
 });
+export const findUserDetails = (user) => ({
+  type: actionsTypes.FIND_USER_DETAILS,
+  payload: user,
+});
 export const addToLikesPhotosList = () => ({
   type: actionsTypes.ADD_TO_LIKES_PHOTOS_LIST,
 });

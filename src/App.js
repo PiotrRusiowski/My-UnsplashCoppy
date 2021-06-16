@@ -3,12 +3,12 @@ import RootContext from "./context";
 import GlobalStyle from "./styles/GlobalStyles";
 import unsplashData from "./data.json";
 import Router from "./routing/Router";
-import { exampleSuggestionsArray } from "./loclalData/localData";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getPhotos as getPhotosAction,
   getCollections,
   getUsers,
+  getRandomPhoto,
 } from "./actions";
 
 const App = () => {
@@ -17,14 +17,6 @@ const App = () => {
   });
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [singleUser, setSingleUser] = useState({
-    name: "",
-    bio: "",
-    location: "",
-    profile_image: "",
-    portfolio_url: "",
-  });
   const [modalIsOpen, setIsOpen] = useState(false);
   const reducerState = useSelector((state) => state);
   const {
@@ -55,7 +47,12 @@ const App = () => {
     activeSearchType,
     suggestionsTagsArray,
   ]);
-
+  useEffect(() => {
+    filterKeyWords();
+  }, [searchInputValue]);
+  useEffect(() => {
+    dispatch(getRandomPhoto());
+  }, []);
   const getPhotos = (e, word) => {
     e.preventDefault();
 
@@ -84,13 +81,6 @@ const App = () => {
       setKeyWordArray(filteredKeyWordsData);
     }
   };
-  useEffect(() => {
-    filterKeyWords();
-  }, [searchInputValue]);
-
-  const findSingleUser = (singleUser) => {
-    setSingleUser(singleUser);
-  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -105,19 +95,11 @@ const App = () => {
       <RootContext.Provider
         value={{
           keyWordsArray,
-          inputValue,
-          searchInputValue,
           modalIsOpen,
-          collectionsList,
           usersList,
-          singleUser,
-          exampleSuggestionsArray,
-
-          findSingleUser,
           getPhotos,
           openModal,
           closeModal,
-          setInputValue,
         }}
       >
         <GlobalStyle />

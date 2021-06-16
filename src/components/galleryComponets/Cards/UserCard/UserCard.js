@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   StledAuthorInfoWrapper,
   StyledAuthorProfileImg,
@@ -11,10 +10,10 @@ import {
   StyledShowCase,
   StyledFollowBtn,
 } from "./UserCardStyledComponents";
-import { getSingleUserPhotos } from "../../../../actions";
+import { findUserDetails, getSingleUserPhotos } from "../../../../actions";
 import { useDispatch } from "react-redux";
 
-const UserCard = ({ singleUser, findSingleUser }) => {
+const UserCard = ({ singleUser }) => {
   const dispatch = useDispatch();
   const { profile_image, username, name, photos } = singleUser;
   const imgArray = photos.map((photo) => photo.urls.small);
@@ -23,7 +22,7 @@ const UserCard = ({ singleUser, findSingleUser }) => {
     <StyledUserCard
       to={`/${username}`}
       onClick={() => {
-        findSingleUser(singleUser);
+        dispatch(findUserDetails(singleUser));
         dispatch(getSingleUserPhotos(username));
       }}
     >

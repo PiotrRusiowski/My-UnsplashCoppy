@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import RootContext from "../context";
-
 import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsAndUsersList/CollectionsAndUsersList";
 import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
 const CollectionsGallery = () => {

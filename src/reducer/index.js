@@ -27,6 +27,13 @@ const inicialState = {
     alt_description: "",
     user: { name: "", location: "", profile_image: { small: "" } },
   },
+  singleUser: {
+    name: "",
+    bio: "",
+    location: "",
+    profile_image: "",
+    portfolio_url: "",
+  },
 };
 
 const reducer = (state = inicialState, actions) => {
@@ -96,6 +103,11 @@ const reducer = (state = inicialState, actions) => {
       return {
         ...state,
         likesPhotosList: [...filteredLikesPhotos],
+      };
+    case actionsTypes.FIND_USER_DETAILS:
+      return {
+        ...state,
+        singleUser: payload,
       };
 
     default:

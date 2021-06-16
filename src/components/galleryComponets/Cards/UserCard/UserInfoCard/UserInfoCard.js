@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import RootContext from "../../../../../context";
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   StyledAuthorInfo,
   StyledUserInfoCard,
@@ -12,8 +12,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LanguageIcon from "@material-ui/icons/Language";
 
 const UserInfoCard = () => {
-  const context = useContext(RootContext);
-  const { singleUser } = context;
+  const singleUser = useSelector(({ singleUser }) => singleUser);
   const { name, bio, location, profile_image, portfolio_url } = singleUser;
 
   return (
