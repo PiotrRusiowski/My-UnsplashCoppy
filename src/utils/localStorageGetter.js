@@ -39,3 +39,7 @@ export const getSuggestionsFromLocalStorage = () =>
   localStorage.getItem("suggestionsTagsArray")
     ? JSON.parse(localStorage.getItem("suggestionsTagsArray"))
     : [];
+export const getLikesPhotosFromLocalStorage = () =>
+  localStorage.getItem("likesPhotos")
+    ? JSON.parse(localStorage.getItem("likesPhotos"))
+    : [];

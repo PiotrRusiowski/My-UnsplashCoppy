@@ -9,7 +9,6 @@ import LikesPhotosGallery from "../views/LikesPhotosGallery";
 import CollectionsGallery from "../views/CollectionsGallery";
 import UsersGallery from "../views/UsersGallery";
 import SingleUserGallery from "../views/SingleUserGallery";
-import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
 const Router = () => {
   return (
     <>

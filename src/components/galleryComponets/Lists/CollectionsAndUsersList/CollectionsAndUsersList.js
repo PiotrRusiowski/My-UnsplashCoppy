@@ -22,12 +22,10 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {list.map((item) => (
+          {list.map((item, index) => (
             <>
               {isUserList ? (
-                <>
-                  <UserCard singleUser={item} findSingleUser={findSingleUser} />
-                </>
+                <UserCard singleUser={item} findSingleUser={findSingleUser} />
               ) : (
                 <CollectionCard
                   collection={item}

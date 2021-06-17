@@ -22,6 +22,7 @@ export const StyledPhotoWrapper = styled.div`
     isHover ? "rgba(0, 0, 0, 0.2)" : "transparent"};
 `;
 export const StyledBtn = styled.button`
+  position: absolute;
   color: white;
   padding: 0px;
   border: none;
@@ -45,10 +46,11 @@ export const StyledPhotoHover = styled.div`
   width: 100%;
   height: 99%;
   padding: 20px;
+  z-index: 0;
 `;
 export const StyledBtnGroup = styled.div`
   display: flex;
-  width: ${({ width }) => (width ? "100%" : "70px")};
+  width: ${({ width }) => (width === "true" ? "100%" : "70px")};
   margin-left: auto;
   justify-content: space-between;
 `;

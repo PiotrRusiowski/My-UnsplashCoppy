@@ -7,6 +7,7 @@ import {
   getUsersFromLocalStorage,
   getSuggestionsFromLocalStorage,
   getActiveSearchTypeFromLocalStorage,
+  getLikesPhotosFromLocalStorage,
 } from "../utils/localStorageGetter";
 
 const inicialState = {
@@ -17,7 +18,7 @@ const inicialState = {
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   suggestionsTagsArray: getSuggestionsFromLocalStorage(),
   searchInputValue: getSearchInputValueFromLocalStorage(),
-  likesPhotosList: [],
+  likesPhotosList: getLikesPhotosFromLocalStorage(),
   singleUserPhotos: [],
   singleCollectionPhotos: [],
   randomPhoto: "",

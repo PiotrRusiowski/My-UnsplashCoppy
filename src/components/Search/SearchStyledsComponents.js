@@ -89,7 +89,7 @@ export const StyledPopper = styled.div`
       border: solid rgb(238, 238, 238) 1px;
     `}
 `;
-export const StyledPopperListElement = styled.li`
+export const StyledPopperListElement = styled.div`
   padding: 8px;
   text-align: left;
   &:hover {

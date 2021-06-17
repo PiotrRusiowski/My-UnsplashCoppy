@@ -20,9 +20,11 @@ const PhotosList = ({ photosList }) => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {photosList.map((photo) => {
-            return <PhotoCard photosList={photosList} photo={photo} />;
-          })}
+          {photosList.map((photo, index) => (
+            <li key={index}>
+              <PhotoCard photosList={photosList} photo={photo} />
+            </li>
+          ))}
         </Masonry>
       </StyledList>
       <ModalPhoto />

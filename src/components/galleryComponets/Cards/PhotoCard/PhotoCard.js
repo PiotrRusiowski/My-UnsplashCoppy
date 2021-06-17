@@ -36,16 +36,18 @@ const PhotoCard = ({ photosList, photo, isHover, toggleIsHover }) => {
       onMouseEnter={() => {
         toggleIsHover(false);
       }}
-      onClick={() => {
-        openModal();
-        dispatch(findPhotoDetails(id, photosList));
-      }}
       onMouseLeave={() => {
         toggleIsHover(true);
       }}
       isHover={isHover}
     >
-      <StyledPhotoHover isHover={isHover}>
+      <StyledPhotoHover
+        isHover={isHover}
+        onClick={() => {
+          openModal();
+          dispatch(findPhotoDetails(id, photosList));
+        }}
+      >
         <StyledBtnGroup>
           {likesPhotosList === photosList ? (
             <>
@@ -69,7 +71,7 @@ const PhotoCard = ({ photosList, photo, isHover, toggleIsHover }) => {
             </>
           )}
         </StyledBtnGroup>
-        <StyledBtnGroup width>
+        <StyledBtnGroup width="true">
           <StledAuthorInfoWrapper>
             <StyledAuthorProfileImg
               src={photo.user.profile_image.small}

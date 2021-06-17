@@ -26,6 +26,7 @@ const App = () => {
     suggestionsTagsArray,
     searchInputValue,
     activeSearchType,
+    likesPhotosList,
   } = reducerState;
   const dispatch = useDispatch();
 
@@ -35,6 +36,7 @@ const App = () => {
     localStorage.setItem("users", JSON.stringify(usersList));
     localStorage.setItem("searchInputValue", JSON.stringify(searchInputValue));
     localStorage.setItem("activeSearchType", JSON.stringify(activeSearchType));
+    localStorage.setItem("likesPhotos", JSON.stringify(likesPhotosList));
     localStorage.setItem(
       "suggestionsTagsArray",
       JSON.stringify(suggestionsTagsArray)
@@ -46,6 +48,7 @@ const App = () => {
     searchInputValue,
     activeSearchType,
     suggestionsTagsArray,
+    likesPhotosList,
   ]);
   useEffect(() => {
     filterKeyWords();
@@ -63,9 +66,9 @@ const App = () => {
     } else {
       queryValue = word;
     }
-    dispatch(getPhotosAction(queryValue, activeSearchType));
+    dispatch(getPhotosAction(queryValue));
 
-    dispatch(getCollections(queryValue, activeSearchType));
+    dispatch(getCollections(queryValue));
 
     dispatch(getUsers(queryValue, activeSearchType));
   };

@@ -65,29 +65,27 @@ const Search = ({ gallery }) => {
         </StyledSearch>
 
         <StyledPopper ref={homeRef} gallery={gallery}>
-          <ul>
-            {keyWordsArray.map((word, index) => (
-              <>
-                {index <= 4 ? (
-                  <Link
-                    style={{ color: "black" }}
-                    to={`/search/${activeSearchType}/${word}`}
+          {keyWordsArray.map((word, index) => (
+            <div key={index}>
+              {index <= 4 ? (
+                <Link
+                  style={{ color: "black" }}
+                  to={`/search/${activeSearchType}/${word}`}
+                >
+                  <StyledPopperListElement
+                    key={index}
+                    type="submit"
+                    onClick={(e) => {
+                      dispatch(handleSearchInputValueChange(word));
+                      getPhotos(e, word);
+                    }}
                   >
-                    <StyledPopperListElement
-                      key={index}
-                      type="submit"
-                      onClick={(e) => {
-                        dispatch(handleSearchInputValueChange(word));
-                        getPhotos(e, word);
-                      }}
-                    >
-                      {word}
-                    </StyledPopperListElement>
-                  </Link>
-                ) : null}
-              </>
-            ))}
-          </ul>
+                    {word}
+                  </StyledPopperListElement>
+                </Link>
+              ) : null}
+            </div>
+          ))}
         </StyledPopper>
       </StyledForm>
     </StyledSearchWrapper>

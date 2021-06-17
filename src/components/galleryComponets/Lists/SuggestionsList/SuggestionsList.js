@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import RootContext from "../../../../context";
 import {
-  StyledSugestBtn,
   StyledCarouselBtn,
   StyledCarouselBtnGroup,
   StyledSuggestionsList,
-  StyledSuggestLink,
   StyledSugestListElement,
 } from "./SuggestionsListStyledComponents.js";
 import Carousel from "react-multi-carousel";
@@ -97,10 +95,9 @@ const SuggestionsList = ({ suggestionsArray, main }) => {
         customButtonGroup={<ButtonGroup suggestionsArray={suggestionsArray} />}
       >
         {suggestionsArray.map((suggest, index) => (
-          <>
+          <div key={`${index}${suggest}`}>
             <StyledSugestListElement
               main={main}
-              key={`${index}${suggest}`}
               onClick={(e) => {
                 dispatch(handleSearchInputValueChange(suggest));
                 getPhotos(e, suggest);
@@ -108,7 +105,7 @@ const SuggestionsList = ({ suggestionsArray, main }) => {
             >
               {suggest}
             </StyledSugestListElement>
-          </>
+          </div>
         ))}
       </Carousel>
     </StyledSuggestionsList>
