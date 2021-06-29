@@ -28,8 +28,12 @@ const Search = ({ gallery }) => {
   };
   const context = useContext(RootContext);
   const searchInputValue = useSelector(
-    ({ searchInputValue }) => searchInputValue
+    ({ mainReducer: { searchInputValue } }) => searchInputValue
   );
+
+  // const searchInputValue = useSelector(
+  //   (state) => state.mainReducer.searchInputValue
+  // );
   const dispatch = useDispatch();
   const { keyWordsArray, getPhotos, activeSearchType } = context;
 

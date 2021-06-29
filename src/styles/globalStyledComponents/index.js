@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   height: 100%;
@@ -20,25 +21,26 @@ export const StyledList = styled.ul`
   max-width: 1320px;
   margin-left: 0px;
 `;
-export const StledAuthorInfoWrapper = styled.div`
-  position: static;
-  ${({ modal }) =>
-    modal &&
-    css`
-      position: absolute;
-    `}
-  ${({ margin }) =>
-    margin &&
-    css`
-      margin-right: auto;
-    `}
-  top: 0;
-  left: 0;
+export const StledAuthorInfoWrapper = styled(Link)`
+  position: absolute;
   color: black;
-  display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1.4;
+  ${({ photoCard }) =>
+    photoCard &&
+    css`
+      display: ${({ isHover }) => (isHover ? "flex" : "none")};
+      bottom: 10px;
+      left: 10px;
+    `}
+  ${({ modal }) =>
+    modal &&
+    css`
+      display: flex;
+      top: 0;
+      left: 0;
+    `}
 `;
 export const StyledAuthorProfileImg = styled.img`
   border-radius: 50%;

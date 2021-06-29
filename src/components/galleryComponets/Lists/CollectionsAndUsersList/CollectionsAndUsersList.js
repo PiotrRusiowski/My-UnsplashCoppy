@@ -7,8 +7,6 @@ import Masonry from "react-masonry-css";
 import "../PhotosList/masonry.css";
 
 const CollectionsAndUsersList = ({ list, isUserList }) => {
-  const context = useContext(RootContext);
-  const { showSearchValue, findSingleUser } = context;
   const breakpointColumnsObj = {
     default: 3,
     700: 1,
@@ -22,15 +20,12 @@ const CollectionsAndUsersList = ({ list, isUserList }) => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {list.map((item, index) => (
+          {list.map((item) => (
             <>
               {isUserList ? (
-                <UserCard singleUser={item} findSingleUser={findSingleUser} />
+                <UserCard singleUser={item} />
               ) : (
-                <CollectionCard
-                  collection={item}
-                  searchInputValue={showSearchValue}
-                />
+                <CollectionCard collection={item} />
               )}
             </>
           ))}

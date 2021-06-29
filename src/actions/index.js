@@ -37,11 +37,11 @@ export const getRandomPhoto = () => {
   };
 };
 
-export const getPhotos = (queryValue) => {
+export const getPhotos = (queryValue, pageCounter) => {
   return (dispatch) => {
     axios
       .get(
-        `https://api.unsplash.com/search/photos?&query=${queryValue}&client_id=${apiKey}`
+        `https://api.unsplash.com/search/photos?page=${pageCounter}pa&query=${queryValue}&client_id=${apiKey}`
       )
 
       .then((res) => {
@@ -143,3 +143,23 @@ export const removeFromLikesPhotos = (id) => ({
   type: actionsTypes.REMOVE_FROM_LIKES_PHOTOS_LIST,
   payload: id,
 });
+
+export const increasePageCounter = () => ({
+  type: actionsTypes.INCREASE_PAGE_COUNTER,
+});
+
+export const getMorePhotosAction = (queryValue, pageCounter) => {
+  return (dispatch) => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?page=${pageCounter}pa&query=${queryValue}&client_id=${apiKey}`
+      )
+
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_MORE_PHOTOS,
+          payload: res.data.results,
+        });
+      });
+  };
+};

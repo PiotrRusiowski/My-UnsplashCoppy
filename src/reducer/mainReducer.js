@@ -7,7 +7,6 @@ import {
   getUsersFromLocalStorage,
   getSuggestionsFromLocalStorage,
   getActiveSearchTypeFromLocalStorage,
-  getLikesPhotosFromLocalStorage,
 } from "../utils/localStorageGetter";
 
 const inicialState = {
@@ -18,34 +17,13 @@ const inicialState = {
   activeSearchType: getActiveSearchTypeFromLocalStorage(),
   suggestionsTagsArray: getSuggestionsFromLocalStorage(),
   searchInputValue: getSearchInputValueFromLocalStorage(),
-  likesPhotosList: getLikesPhotosFromLocalStorage(),
   singleUserPhotos: [],
   singleCollectionPhotos: [],
-  randomPhoto: "",
-  singlePhoto: {
-    id: "",
-    urls: "",
-    alt_description: "",
-    user: { name: "", location: "", profile_image: { small: "" } },
-  },
-  singleUser: {
-    name: "",
-    bio: "",
-    location: "",
-    profile_image: "",
-    portfolio_url: "",
-  },
 };
 
-const reducer = (state = inicialState, actions) => {
+const mainReducer = (state = inicialState, actions) => {
   const { type, payload } = actions;
   switch (type) {
-    case actionsTypes.GET_RANDOM_PHOTO:
-      return {
-        ...state,
-        randomPhoto: payload,
-      };
-
     case actionsTypes.GET_SINGLE_USER_PHOTOS:
       return {
         ...state,
@@ -84,32 +62,6 @@ const reducer = (state = inicialState, actions) => {
         ...state,
         activeSearchType: payload,
       };
-    case actionsTypes.FIND_PHOTO_DETAILS:
-      const findItem = payload.photosList.find(
-        (photo) => photo.id === payload.id
-      );
-      return {
-        ...state,
-        singlePhoto: findItem,
-      };
-    case actionsTypes.ADD_TO_LIKES_PHOTOS_LIST:
-      return {
-        ...state,
-        likesPhotosList: [...state.likesPhotosList, state.singlePhoto],
-      };
-    case actionsTypes.REMOVE_FROM_LIKES_PHOTOS_LIST:
-      const filteredLikesPhotos = state.likesPhotosList.filter(
-        (photo) => photo.id !== payload
-      );
-      return {
-        ...state,
-        likesPhotosList: [...filteredLikesPhotos],
-      };
-    case actionsTypes.FIND_USER_DETAILS:
-      return {
-        ...state,
-        singleUser: payload,
-      };
 
     case actionsTypes.INCREASE_PAGE_COUNTER:
       return {
@@ -128,4 +80,4 @@ const reducer = (state = inicialState, actions) => {
   }
 };
 
-export default reducer;
+export default mainReducer;

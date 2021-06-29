@@ -9,6 +9,8 @@ import {
   getCollections,
   getUsers,
   getRandomPhoto,
+  increasePageCounter,
+  getMorePhotosAction,
 } from "./actions";
 
 const App = () => {
@@ -18,7 +20,7 @@ const App = () => {
   const keywordsDataWithoutDuplicates = [...new Set(keywordsData)];
   const [keyWordsArray, setKeyWordArray] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const reducerState = useSelector((state) => state);
+  const mainReducerState = useSelector((state) => state.mainReducer);
   const {
     photosList,
     collectionsList,
@@ -26,8 +28,13 @@ const App = () => {
     suggestionsTagsArray,
     searchInputValue,
     activeSearchType,
-    likesPhotosList,
-  } = reducerState;
+    pageCounter,
+    showSearchValue,
+  } = mainReducerState;
+
+  const supportReducerState = useSelector((state) => state.supportReducer);
+  const { likesPhotosList } = supportReducerState;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,6 +63,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getRandomPhoto());
   }, []);
+  //
   const getPhotos = (e, word) => {
     e.preventDefault();
 
@@ -66,7 +74,7 @@ const App = () => {
     } else {
       queryValue = word;
     }
-    dispatch(getPhotosAction(queryValue));
+    dispatch(getPhotosAction(queryValue, pageCounter));
 
     dispatch(getCollections(queryValue));
 

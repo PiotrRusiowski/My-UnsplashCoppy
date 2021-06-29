@@ -19,7 +19,7 @@ import {
 const Search = ({ gallery }) => {
   const dispatch = useDispatch();
   const searchInputValue = useSelector(
-    ({ searchInputValue }) => searchInputValue
+    ({ mainReducer: { searchInputValue } }) => searchInputValue
   );
   const context = useContext(RootContext);
   const { keyWordsArray, getPhotos, activeSearchType } = context;

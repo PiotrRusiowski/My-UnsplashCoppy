@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledImg = styled.img`
   max-height: 100%;
   position: relative;
-  z-index: 200;
+  z-index: 99;
 `;
 export const StyledModalContent = styled.div`
   height: 100%;

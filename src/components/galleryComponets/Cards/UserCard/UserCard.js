@@ -1,10 +1,5 @@
 import React from "react";
 import {
-  StledAuthorInfoWrapper,
-  StyledAuthorProfileImg,
-} from "../../../../styles/globalStyledComponents";
-import { StyledAuthorInfo } from "../../ModalPhoto/ModalPhotoStyledComponents";
-import {
   StyledUserCard,
   StyledImg,
   StyledShowCase,
@@ -15,7 +10,7 @@ import { useDispatch } from "react-redux";
 
 const UserCard = ({ singleUser }) => {
   const dispatch = useDispatch();
-  const { profile_image, username, name, photos } = singleUser;
+  const { username, photos } = singleUser;
   const imgArray = photos.map((photo) => photo.urls.small);
 
   return (
@@ -26,10 +21,6 @@ const UserCard = ({ singleUser }) => {
         dispatch(getSingleUserPhotos(username));
       }}
     >
-      <StledAuthorInfoWrapper margin>
-        <StyledAuthorProfileImg src={profile_image.medium} />
-        <StyledAuthorInfo>{name}</StyledAuthorInfo>
-      </StledAuthorInfoWrapper>
       <StyledShowCase>
         <StyledImg src={imgArray[0]} />
         <StyledImg src={imgArray[1]} />
