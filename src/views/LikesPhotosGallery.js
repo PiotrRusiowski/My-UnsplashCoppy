@@ -4,7 +4,9 @@ import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryH
 import { useSelector } from "react-redux";
 
 const LikesPhotosGallery = () => {
-  const likesPhotosList = useSelector(({ likesPhotosList }) => likesPhotosList);
+  const likesPhotosList = useSelector(
+    (state) => state.supportReducer.likesPhotosList
+  );
 
   return (
     <div>

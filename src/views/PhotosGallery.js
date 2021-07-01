@@ -6,11 +6,8 @@ import SuggestionsList from "../components/galleryComponets/Lists/SuggestionsLis
 import { getMorePhotosAction } from "../actions";
 
 const PhotosGallery = () => {
-  const selectedPhotosList = useSelector(({ photosList }) => photosList);
-  const suggestionsTagsArray = useSelector(
-    ({ suggestionsTagsArray }) => suggestionsTagsArray
-  );
-  const showSearchValue = useSelector(({ showSearchValue }) => showSearchValue);
+  const mainReducer = useSelector((state) => state.mainReducer);
+  const { suggestionsTagsArray, photosList, showSearchValue } = mainReducer;
   const dispatch = useDispatch();
 
   let pageNumber = 1;
@@ -22,7 +19,6 @@ const PhotosGallery = () => {
     ) {
       pageNumber += 1;
       dispatch(getMorePhotosAction(showSearchValue, pageNumber));
-      console.log("fetch");
     }
   };
 
@@ -37,7 +33,7 @@ const PhotosGallery = () => {
     <>
       <GalleryHeader />
       <SuggestionsList suggestionsArray={suggestionsTagsArray} />
-      <PhotosList photosList={selectedPhotosList} />
+      <PhotosList photosList={photosList} />
     </>
   );
 };

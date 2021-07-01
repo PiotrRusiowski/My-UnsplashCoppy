@@ -14,7 +14,7 @@ import {
 
 const Home = () => {
   const main = true;
-  const homeImg = useSelector(({ randomPhoto }) => randomPhoto);
+  const homeImg = useSelector((state) => state.supportReducer.randomPhoto);
 
   return (
     <>

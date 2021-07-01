@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const CollectionsPhotosList = () => {
   const singleCollectionPhotos = useSelector(
-    ({ singleCollectionPhotos }) => singleCollectionPhotos
+    (state) => state.mainReducer.singleCollectionPhotos
   );
   return <PhotosList photosList={singleCollectionPhotos} />;
 };

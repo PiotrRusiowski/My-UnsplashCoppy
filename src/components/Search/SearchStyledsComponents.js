@@ -70,6 +70,9 @@ export const StyledSearchBtn = styled.div`
   transition: 0.2s;
   color: #767676;
   cursor: pointer;
+  @media (max-width: 320px) {
+    width: 10px;
+  }
 `;
 
 export const StyledPopper = styled.div`

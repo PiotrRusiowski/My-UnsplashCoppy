@@ -4,7 +4,6 @@ import { getLikesPhotosFromLocalStorage } from "../utils/localStorageGetter";
 
 const inicialState = {
   likesPhotosList: getLikesPhotosFromLocalStorage(),
-
   randomPhoto: "",
   singlePhoto: {
     id: "",

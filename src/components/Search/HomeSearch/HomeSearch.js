@@ -3,7 +3,6 @@ import RootContext from "../../../context";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
-
 import { handleSearchInputValueChange } from "../../../actions";
 import {
   StyledSearchInput,

@@ -12,7 +12,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LanguageIcon from "@material-ui/icons/Language";
 
 const UserInfoCard = () => {
-  const singleUser = useSelector(({ singleUser }) => singleUser);
+  const singleUser = useSelector((state) => state.supportReducer.singleUser);
   const { name, bio, location, profile_image, portfolio_url } = singleUser;
 
   return (

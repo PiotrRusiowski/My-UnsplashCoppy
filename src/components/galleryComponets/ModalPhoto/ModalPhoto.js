@@ -32,7 +32,7 @@ const customStyles = {
 
 const ModalPhoto = () => {
   const context = useContext(RootContext);
-  const singlePhoto = useSelector(({ singlePhoto }) => singlePhoto);
+  const singlePhoto = useSelector((state) => state.supportReducer.singlePhoto);
   const { modalIsOpen, closeModal } = context;
 
   const { urls, alt_description, user } = singlePhoto;

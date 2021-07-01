@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
 
 const SingleUserGallery = () => {
-  const selectedSingleUserPhotos = useSelector(
-    ({ singleUserPhotos }) => singleUserPhotos
+  const singleUserPhotos = useSelector(
+    (state) => state.mainReducer.singleUserPhotos
   );
 
   return (
@@ -16,7 +16,7 @@ const SingleUserGallery = () => {
         <UserInfoCard />
       </Container>
       <Navigation />
-      <PhotosList photosList={selectedSingleUserPhotos} />
+      <PhotosList photosList={singleUserPhotos} />
     </div>
   );
 };

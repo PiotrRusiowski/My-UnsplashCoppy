@@ -25,7 +25,9 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 const PhotoCard = ({ photosList, photo, isHover, toggleIsHover }) => {
   const context = useContext(RootContext);
   const dispatch = useDispatch();
-  const likesPhotosList = useSelector(({ likesPhotosList }) => likesPhotosList);
+  const likesPhotosList = useSelector(
+    (state) => state.supportReducer.likesPhotosList
+  );
   const { openModal } = context;
   const { id, urls, alt_description } = photo;
   return (

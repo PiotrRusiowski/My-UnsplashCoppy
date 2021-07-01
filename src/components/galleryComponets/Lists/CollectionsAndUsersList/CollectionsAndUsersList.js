@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import RootContext from "../../../../context";
+import React from "react";
 import CollectionCard from "../../Cards/CollectionCard/CollectionCard";
 import { StyledList } from "../../../../styles/globalStyledComponents";
 import UserCard from "../../Cards/UserCard/UserCard";
