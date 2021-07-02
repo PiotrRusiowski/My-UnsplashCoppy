@@ -28,7 +28,6 @@ export const StyledForm = styled.form`
 `;
 export const StyledSearch = styled.div`
   position: relative;
-
   height: 100%;
   display: flex;
   width: 100%;
@@ -40,23 +39,11 @@ export const StyledSearchInput = styled.input`
   border-radius: 5px;
   font-size: 15px;
   background-color: transparent;
-  padding-right: 10px;
-
   &:focus {
     outline: none;
   }
-`;
-export const StyledSearchInput2 = styled.input`
-  border: none;
-  height: 100%;
-  flex-grow: 1;
-  border-radius: 5px;
-  font-size: 15px;
-  background-color: transparent;
-  padding-right: 10px;
-
-  &:focus {
-    outline: none;
+  @media (max-width: 320px) {
+    padding-left: 20px;
   }
 `;
 
@@ -71,7 +58,14 @@ export const StyledSearchBtn = styled.div`
   color: #767676;
   cursor: pointer;
   @media (max-width: 320px) {
-    width: 10px;
+    width: 0px;
+    margin-left: 20px;
+    ${({ clear }) =>
+      clear &&
+      css`
+        margin-left: 0px;
+        margin-right: 20px;
+      `}
   }
 `;
 
@@ -84,7 +78,6 @@ export const StyledPopper = styled.div`
   color: black;
   border-radius: 5px;
   background-color: white;
-  display: flex;
   display: ${({ isPopperVisible }) => (isPopperVisible ? "block" : "none")};
   ${({ gallery }) =>
     gallery &&

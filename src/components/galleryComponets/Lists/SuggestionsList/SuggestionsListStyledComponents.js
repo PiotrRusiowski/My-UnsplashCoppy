@@ -1,16 +1,17 @@
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
 
 export const StyledSuggestionsList = styled.div`
   margin: 20px 40px;
-
   height: 42px;
+  @media (max-width: 320px) {
+    display: ${({ main }) => (main ? "block" : "none")};
+  }
 `;
 export const StyledSugestListElement = styled.div`
   width: 135px;
   font-size: 14px;
   cursor: pointer;
-  color: ${(props) => props.theme.darkGrey};
+  color: ${({ theme }) => theme.darkGrey};
   border: 1px solid ${({ theme }) => theme.lightGrey};
   border-radius: 5px;
   outline: none;

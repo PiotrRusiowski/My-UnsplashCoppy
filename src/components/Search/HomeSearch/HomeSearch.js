@@ -30,9 +30,6 @@ const Search = ({ gallery }) => {
     ({ mainReducer: { searchInputValue } }) => searchInputValue
   );
 
-  // const searchInputValue = useSelector(
-  //   (state) => state.mainReducer.searchInputValue
-  // );
   const dispatch = useDispatch();
   const { keyWordsArray, getPhotos, activeSearchType } = context;
 
@@ -60,6 +57,7 @@ const Search = ({ gallery }) => {
 
           {searchInputValue.length ? (
             <StyledSearchBtn
+              clear
               onClick={() => dispatch(handleSearchInputValueChange(""))}
             >
               <CloseIcon fontSize="inherit" />

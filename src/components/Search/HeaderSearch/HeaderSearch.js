@@ -55,6 +55,7 @@ const Search = ({ gallery }) => {
           />
           {searchInputValue.length ? (
             <StyledSearchBtn
+              clear
               onClick={() => dispatch(handleSearchInputValueChange(""))}
             >
               <CloseIcon fontSize="inherit" />

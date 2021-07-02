@@ -22,18 +22,17 @@ const responsive = {
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 4,
-
     slidesToSlide: 4,
   },
   mobile: {
     breakpoint: { max: 425, min: 375 },
-    items: 1,
+    items: 2,
     slidesToSlide: 2,
   },
   mobileS: {
     breakpoint: { max: 375, min: 200 },
     items: 1,
-    slidesToSlide: 4,
+    slidesToSlide: 1,
   },
 };
 
@@ -80,7 +79,7 @@ const SuggestionsList = ({ suggestionsArray, main }) => {
   const { getPhotos } = context;
 
   return (
-    <StyledSuggestionsList>
+    <StyledSuggestionsList main={main}>
       <Carousel
         responsive={responsive}
         ssr={true}
