@@ -9,7 +9,7 @@ export const StyledGalleryHeader = styled.div`
 `;
 export const StyledSearchValue = styled.h1`
   display: flex;
-  margin-right: auto;!important
+  margin-right: auto;
   font-size: 46px;
   padding-bottom: 15px;
 `;

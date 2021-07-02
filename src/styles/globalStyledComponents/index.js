@@ -46,3 +46,9 @@ export const StyledAuthorProfileImg = styled.img`
   border-radius: 50%;
   margin-right: 10px;
 `;
+export const StyledSearchValue = styled.h1`
+  display: flex;
+  margin-right: auto;
+  font-size: 46px;
+  padding-bottom: 15px;
+`;

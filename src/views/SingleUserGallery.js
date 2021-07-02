@@ -11,13 +11,13 @@ const SingleUserGallery = () => {
   );
 
   return (
-    <div>
+    <>
       <Container>
         <UserInfoCard />
       </Container>
       <Navigation />
       <PhotosList photosList={singleUserPhotos} />
-    </div>
+    </>
   );
 };
 

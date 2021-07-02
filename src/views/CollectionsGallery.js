@@ -1,16 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
+import { Container, StyledSearchValue } from "../styles/globalStyledComponents";
+import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
+import SuggestionsList from "../components/galleryComponets/Lists/SuggestionsList/SuggestionsList";
 import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsAndUsersList/CollectionsAndUsersList";
-import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
 const CollectionsGallery = () => {
-  const collectionsList = useSelector(
-    (state) => state.mainReducer.collectionsList
-  );
+  const mainReducer = useSelector((state) => state.mainReducer);
+  const { suggestionsTagsArray, collectionsList, showSearchValue } =
+    mainReducer;
 
   return (
     <>
-      <GalleryHeader />
+      <Navigation />
+      <Container xl>
+        <StyledSearchValue>{showSearchValue}</StyledSearchValue>
+      </Container>
+      <SuggestionsList suggestionsArray={suggestionsTagsArray} />
       <CollectionsAndUsersList list={collectionsList} />;
     </>
   );

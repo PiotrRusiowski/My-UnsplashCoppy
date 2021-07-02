@@ -8,9 +8,9 @@ import {
 } from "./GalleryHeaderStyledComponents";
 
 const GalleryHeader = () => {
-  const state = useSelector((state) => state);
-  const { showSearchValue } = state;
-  const main = false;
+  const showSearchValue = useSelector(
+    (state) => state.mainReducer.showSearchValue
+  );
   return (
     <StyledGalleryHeader>
       <Navigation />

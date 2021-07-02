@@ -1,6 +1,6 @@
 import React from "react";
+import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
 import PhotosList from "../components/galleryComponets/Lists/PhotosList/PhotosList";
-import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
 import { useSelector } from "react-redux";
 
 const LikesPhotosGallery = () => {
@@ -9,10 +9,10 @@ const LikesPhotosGallery = () => {
   );
 
   return (
-    <div>
-      <GalleryHeader />
+    <>
+      <Navigation />
       <PhotosList photosList={likesPhotosList} />;
-    </div>
+    </>
   );
 };
 

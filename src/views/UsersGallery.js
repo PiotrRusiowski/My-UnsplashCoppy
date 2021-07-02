@@ -1,15 +1,19 @@
-import React, { useContext } from "react";
-import RootContext from "../context";
+import React from "react";
+import { useSelector } from "react-redux";
 import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsAndUsersList/CollectionsAndUsersList";
-import GalleryHeader from "../components/galleryComponets/GalleryHeader/GalleryHeader";
+import { Container, StyledSearchValue } from "../styles/globalStyledComponents";
+import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
 const CollectionsGallery = () => {
-  const context = useContext(RootContext);
-  const { usersList } = context;
+  const mainReducer = useSelector((state) => state.mainReducer);
+  const { usersList, showSearchValue } = mainReducer;
   const isUserList = true;
 
   return (
     <>
-      <GalleryHeader />
+      <Navigation />
+      <Container xl>
+        <StyledSearchValue>{showSearchValue}</StyledSearchValue>
+      </Container>
       <CollectionsAndUsersList list={usersList} isUserList={isUserList} />
     </>
   );
