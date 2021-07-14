@@ -163,3 +163,33 @@ export const getMorePhotosAction = (queryValue, pageCounter) => {
       });
   };
 };
+export const getMoreCollectionsAction = (queryValue, pageCounter) => {
+  return (dispatch) => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/collections?page=${pageCounter}&query=${queryValue}&client_id=${apiKey}`
+      )
+
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_MORE_COLLECTIONS,
+          payload: res.data.results,
+        });
+      });
+  };
+};
+export const getMoreUsersAction = (queryValue, pageCounter) => {
+  return (dispatch) => {
+    axios
+      .get(
+        `https://api.unsplash.com/search/users?page=${pageCounter}&query=${queryValue}&client_id=${apiKey}`
+      )
+
+      .then((res) => {
+        dispatch({
+          type: actionsTypes.GET_MORE_USERS,
+          payload: res.data.results,
+        });
+      });
+  };
+};

@@ -1,12 +1,31 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import CollectionsAndUsersList from "../components/galleryComponets/Lists/CollectionsAndUsersList/CollectionsAndUsersList";
 import { Container, StyledSearchValue } from "../styles/globalStyledComponents";
 import Navigation from "../components/galleryComponets/Navigation.js/Navigation";
+import { getMoreUsersAction } from "../actions";
 const CollectionsGallery = () => {
   const mainReducer = useSelector((state) => state.mainReducer);
   const { usersList, showSearchValue } = mainReducer;
   const isUserList = true;
+  const dispatch = useDispatch();
+  let pageNumber = 1;
+  const handleWindowScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      pageNumber += 1;
+      dispatch(getMoreUsersAction(showSearchValue, pageNumber));
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleWindowScroll);
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+    };
+  }, []);
 
   return (
     <>

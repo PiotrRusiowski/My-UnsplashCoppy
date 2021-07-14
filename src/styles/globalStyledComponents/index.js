@@ -27,10 +27,10 @@ export const StledAuthorInfoWrapper = styled(Link)`
   align-items: center;
   justify-content: center;
   line-height: 1.4;
-  ${({ photoCard }) =>
-    photoCard &&
+  ${({ photocard }) =>
+    photocard &&
     css`
-      display: ${({ isHover }) => (isHover ? "flex" : "none")};
+      display: ${({ isHover }) => (isHover === "true" ? "flex" : "none")};
       bottom: 10px;
       left: 10px;
     `}
@@ -46,8 +46,9 @@ export const StyledAuthorProfileImg = styled.img`
   border-radius: 50%;
   margin-right: 10px;
 `;
-export const StyledSearchValue = styled.h1`
+export const StyledSearchValue = styled.h2`
   display: flex;
+  text-transform: capitalize;
   margin-right: auto;
   font-size: 46px;
   padding-bottom: 15px;

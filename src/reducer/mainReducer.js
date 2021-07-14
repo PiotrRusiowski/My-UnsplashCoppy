@@ -74,6 +74,16 @@ const mainReducer = (state = inicialState, actions) => {
         ...state,
         photosList: [...state.photosList, ...payload],
       };
+    case actionsTypes.GET_MORE_COLLECTIONS:
+      return {
+        ...state,
+        collectionsList: [...state.collectionsList, ...payload],
+      };
+    case actionsTypes.GET_MORE_USERS:
+      return {
+        ...state,
+        usersList: [...state.usersList, ...payload],
+      };
 
     default:
       return state;

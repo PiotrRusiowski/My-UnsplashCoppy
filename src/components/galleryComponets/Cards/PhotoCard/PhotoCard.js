@@ -82,8 +82,8 @@ const PhotoCard = ({ photosList, photo, isHover, toggleIsHover }) => {
         //   dispatch(findUserDetails(singleUser));
         //   dispatch(getSingleUserPhotos(username));
         // }}
-        isHover={isHover}
-        photoCard
+        ishover={isHover.toString()}
+        photocard
       >
         <StyledAuthorProfileImg
           src={photo.user.profile_image.small}
