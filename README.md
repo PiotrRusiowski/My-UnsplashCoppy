@@ -2,7 +2,7 @@
 
 ## Overview
 
-A Unsplash copy with React.js and React Redux. This project uses React-Router-Dom for navigation, unspalsh API for dynamically updating the data and Styled Component for layout styles, layout styles was copped from Unsplasch.com. In application you can share pictures, users, collections and add pictures to favorite.
+A Unsplash copy with React.js and React Redux. This project uses React-Router-Dom for navigation, unspalsh API for dynamically updating the data and Styled Component for layout styles, layout styles was copped from Unsplasch.com. In application you can browse pictures, users, collections and add pictures to favorite.
 
 ### Live demo: https://reactunspalash.netlify.app/
 
