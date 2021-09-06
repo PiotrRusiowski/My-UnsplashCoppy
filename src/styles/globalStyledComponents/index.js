@@ -21,7 +21,7 @@ export const StyledList = styled.ul`
   max-width: 1320px;
   margin-left: 0px;
 `;
-export const StledAuthorInfoWrapper = styled(Link)`
+export const StledAuthorInfoWrapper = styled.div`
   position: absolute;
   color: black;
   align-items: center;
@@ -30,7 +30,8 @@ export const StledAuthorInfoWrapper = styled(Link)`
   ${({ photocard }) =>
     photocard &&
     css`
-      display: ${({ isHover }) => (isHover === "true" ? "flex" : "none")};
+      display: ${({ isHover }) => (isHover ? "flex" : "none")};
+      /* display: flex; */
       bottom: 10px;
       left: 10px;
     `}

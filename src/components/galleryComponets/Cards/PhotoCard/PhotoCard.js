@@ -82,7 +82,7 @@ const PhotoCard = ({ photosList, photo, isHover, toggleIsHover }) => {
         //   dispatch(findUserDetails(singleUser));
         //   dispatch(getSingleUserPhotos(username));
         // }}
-        ishover={isHover.toString()}
+        isHover={isHover}
         photocard
       >
         <StyledAuthorProfileImg
